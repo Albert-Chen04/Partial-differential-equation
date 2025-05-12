@@ -1,0 +1,502 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools,bm}
+\usepackage{empheq}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{chngcntr}
+
+% ========== 页面布局 ==========
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\setlength{\parskip}{0.5em}
+\renewcommand{\baselinestretch}{1.2}
+
+% ========== 数学命令 ==========
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\supp}{supp}
+
+% ========== 编号系统 ==========
+\numberwithin{subsection}{section}   % 子小节按章节编号
+\numberwithin{subsubsection}{subsection}
+\counterwithin{equation}{subsection} % 公式按子小节编号
+
+% ========== 定理环境 ==========
+\theoremstyle{plain}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{solution}{解}[subsection]  % 解按子小节编号
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{example}{示例}[subsection]  % 示例按子小节编号
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+
+\theoremstyle{verification}
+\newtheorem{verification}[theorem]{检验}
+
+\title{偏微分方程笔记}
+\author{陈柏均}
+\date{2025年5月12日}
+
+\begin{document}
+	
+	\maketitle
+	
+	\tableofcontents  % 添加目录
+	
+	\section{一阶拟传输方程} 
+	\subsection{变量替换求解常系数传输方程} 
+	
+	
+	
+	假设 $a_1 \neq 0$ 且 $a_2 \neq 0$，我们求解常系数传输方程：
+	\begin{equation} \label{eq:pde_original}
+		a_1 \frac{\partial u}{\partial t} + a_2 \frac{\partial u}{\partial x} = 0
+	\end{equation}
+	
+	\subsubsection{通解} 
+	核心思想：通过变量替换，把二元偏微分转化成一元的常微分求解。
+	
+	其中 $u = u(t,x)$。引入坐标变换 $(\alpha, \beta)$，使得 $u = u(\alpha, \beta)$，且：
+	\begin{equation} \label{eq:coordinate_transform}
+		\begin{cases}
+			\alpha = ax + bt, \\
+			\beta = cx + dt.
+		\end{cases}
+	\end{equation}
+	利用链式法则计算偏导数：
+	\begin{align}
+		\frac{\partial u}{\partial t} 
+		&= \frac{\partial u}{\partial \alpha} \frac{\partial \alpha}{\partial t} + \frac{\partial u}{\partial \beta} \frac{\partial \beta}{\partial t} 
+		= b\frac{\partial u}{\partial \alpha} + d\frac{\partial u}{\partial \beta}, \label{eq:u_t_chain_rule} \\
+		\frac{\partial u}{\partial x} 
+		&= \frac{\partial u}{\partial \alpha} \frac{\partial \alpha}{\partial x} + \frac{\partial u}{\partial \beta} \frac{\partial \beta}{\partial x} 
+		= a\frac{\partial u}{\partial \alpha} + c\frac{\partial u}{\partial \beta}. \label{eq:u_x_chain_rule}
+	\end{align}
+	
+	将 \eqref{eq:u_t_chain_rule} 和 \eqref{eq:u_x_chain_rule} 代入原方程 \eqref{eq:pde_original}：
+	\begin{equation} \label{eq:pde_transformed}
+		a_1 \left( b \frac{\partial u}{\partial \alpha} + d \frac{\partial u}{\partial \beta} \right) + a_2 \left( a \frac{\partial u}{\partial \alpha} + c \frac{\partial u}{\partial \beta} \right) = 0.
+	\end{equation}
+	整理后得到：
+	\begin{equation} \label{eq:pde_collected}
+		(a_1 b + a_2 a) \frac{\partial u}{\partial \alpha} + (a_1 d + a_2 c) \frac{\partial u}{\partial \beta} = 0.
+	\end{equation}
+	为消去一个变量，pde转ode，选择让第二项系数为0，把方程 \eqref{eq:pde_collected} 简化为：
+	\begin{equation} \label{eq:pde_final}
+		\frac{\partial u}{\partial \alpha} = 0.
+	\end{equation}
+	选择系数
+	\begin{equation} \label{eq:constant_choice}
+		\begin{cases}
+			a = 0, & b = 1, \\
+			c = a_1, & d = -a_2.
+		\end{cases}
+	\end{equation}
+	此时坐标变换为：
+	\begin{equation} \label{eq:coordinates_specific}
+		\begin{cases}
+			\alpha = t, \\
+			\beta = a_1 x - a_2 t.
+		\end{cases}
+	\end{equation}
+	由\eqref{eq:pde_final} 表明 $u$ 仅依赖于 $\beta$，即通解为：
+	\begin{equation} \label{eq:solution}
+		u(t,x) = L(a_1 x - a_2 t),
+	\end{equation}
+	其中
+	$L(\cdot)$ 是任意可微函数。
+	\subsubsection{特解（初始条件或边界条件）} 
+	已知初始条件$	u(x, 0) = e^{-x^2}$，求下面常系数运输方程：
+	\begin{equation} 
+		\frac{\partial u}{\partial t} +  \frac{\partial u}{\partial x} = 0
+	\end{equation}
+	
+	由\eqref{eq:solution}可知
+	\begin{equation}
+		u(x, t) = f(x - t)= e^{-(x-t)^2}
+	\end{equation}
+	
+	
+	\subsection{特征线法求解变系数传输方程} 
+	\subsubsection{通解} 
+	一阶线性变系数偏微分方程如下：
+	\begin{equation}\label{eq:pde_original2}
+		\frac{\partial u}{\partial x} + p(x,y) \frac{\partial u}{\partial y}=(1, p(x, y)) \cdot \left( \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y} \right) = 0 
+	\end{equation}
+	其中 $p(x, y)$ 是 $x$ 和 $y$ 的函数。
+	$\left( \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y} \right)$为梯度，$(1, p(x, y))$为方向，一整个乘积为方向导数，方向导数为0意味着，$u(x, y)=C$在切向量为$(1, p(x, y))$这条曲线上，即
+	\begin{equation}
+		u(x,y)|_{\Gamma} = C
+	\end{equation}
+	\begin{equation}
+		u(x,y) =  f(C)
+	\end{equation}
+	$\Gamma$曲线上，任意点$(x, y)$求导($\Gamma$曲线为$XOY$平面上的曲线，故$y$可表示成$x$的函数)，可得切向量$(1,\frac{dy}{dx})$
+	
+	所以我们找到$\Gamma$曲线，把二元偏微分转化成一元的常微分，令
+	
+	\begin{equation}
+		\frac{dy}{dx} = p(x, y)
+	\end{equation}
+	可解得
+	\begin{equation}
+		C=\phi(x,y)
+	\end{equation}
+	得方程解
+	\begin{equation}
+		u(x, y)=f(C)=f(\phi(x,y))
+	\end{equation}
+	$(1, \frac{dy}{dx})$
+	为该曲线的切向量。我们称这条曲线叫特征线。只需要取遍所有的特征曲线就可以取遍$XOY$平面上所有的点，若有初始条件或者边界条件可以确定每条特征线在$u(x, y)$对应的取值，就可以完整确定$u(x, y)$这个函数。
+	
+	\begin{example}求解方程
+		\begin{equation}
+			\frac{\partial u}{\partial x} + x \frac{\partial u}{\partial y} = 0.
+		\end{equation}
+		
+		此时我们有 $p(x, y) = x$，解 $\frac{dy}{dx} = x$，我们得到特征线 $y = \frac{1}{2}x^2 + C$，或 $y - \frac{1}{2}x^2 = C$。从而 $\phi(x, y) = y - \frac{1}{2}x^2$，偏微分方程的通解为 $u(x, y) = f(\phi(x, y))$，其中 $f$ 是任意函数。把它们代回方程，直接验证，便知是解。
+	\end{example}
+	
+	
+	
+	\section{一维波动方程之分离变量法}
+	\subsection{问题描述}
+	\begin{equation} \label{eq:wave_equation}
+		\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} \qquad 0 < x < l, \quad t > 0
+	\end{equation}
+	
+	边界条件:
+	\begin{equation} \label{eq:boundary_conditions}
+		u(0, t) = 0 \quad u(l, t) = 0 \qquad \forall t > 0
+	\end{equation}
+	
+	初始条件:
+	\begin{equation} \label{eq:initial_conditions}
+		\begin{aligned}
+			u(x, 0) &= f(x) \\
+			\frac{\partial u}{\partial t}(x, 0) &= g(x) \qquad 0 < x < l
+		\end{aligned}
+	\end{equation}
+	
+	\subsection{分离变量法}
+	核心思想：分离变量法把偏微分转成为两个常微分。
+	
+	设 \(u(x, t) = X(x) \cdot T(t)\)，假设解为乘积解。
+	
+	代入方程:
+	\begin{equation} \label{eq:substitution}
+		\frac{\partial^2 u}{\partial t^2} = X \cdot T'' \qquad \frac{\partial^2 u}{\partial x^2} = X'' \cdot T
+	\end{equation}
+	
+	代入原方程:
+	\begin{equation} \label{eq:original_substitution}
+		X \cdot T'' = c^2 \cdot X'' \cdot T
+	\end{equation}
+	
+	转化为可分离变量方程:
+	\begin{equation} \label{eq:separation}
+		\frac{T''}{c^2 T} = \frac{X''}{X}
+	\end{equation}
+	
+	两个线性无关的变量相等，只能同为常数:
+	\begin{equation} \label{eq:constant}
+		\frac{T''}{c^2 T} = \frac{X''}{X} = k
+	\end{equation}
+	
+	转化为两个常微分方程:
+	\begin{equation} \label{eq:ode}
+		\begin{cases}
+			X'' = kX \\
+			T'' = k c^2 T
+		\end{cases}
+	\end{equation}
+	
+	\subsection{空间常微分方程的求解}
+	\begin{equation}
+		X'' - kX = 0 \quad X(0) = 0 \quad (X(l) = 0
+	\end{equation}
+	
+	\subsubsection{情况 1}
+	若 \(k > 0\)，通解为 \(X(x) = C_1 \cdot \cosh \mu x + C_2 \cdot \sinh \mu x\)，其中 \(k = \mu^2\)
+	
+	代入初始条件 
+	\begin{equation}
+		X(0) = C_1 = 0 \quad X(l) = C_2 \cdot \sinh \mu l = 0 \quad \therefore C_2 = 0
+	\end{equation}
+	
+	
+	\begin{verification}	
+		\begin{equation}
+			\cosh x = \frac{e^x + e^{-x}}{2} \quad \text{双曲余弦} \quad \sinh x = \frac{e^x - e^{-x}}{2} \quad \text{双曲正弦}
+		\end{equation}
+		
+		\begin{equation}
+			e^{ix} = \cos x + i \sin x \quad e^{-ix} = \cos x - i \sin x
+		\end{equation}
+		
+		\begin{equation}
+			\therefore \cos x = \frac{e^{ix} + e^{-ix}}{2} \quad \sin x = \frac{e^{ix} - e^{-ix}}{2i}
+		\end{equation}
+		
+		\begin{equation}
+			(\cosh x)' = \left( \frac{e^x + e^{-x}}{2} \right)' = \frac{e^x - e^{-x}}{2} = \sinh x
+		\end{equation}
+		
+		\begin{equation}
+			(\sinh x)' = \left( \frac{e^x - e^{-x}}{2} \right)' = \frac{e^x + e^{-x}}{2} = \cosh x
+		\end{equation}
+		
+		\begin{equation}
+			\therefore X = C_1 \cdot u \cdot \sinh \mu x + C_2 \cdot u \cdot \cosh \mu x
+		\end{equation}
+		
+		\begin{equation}
+			X'' = C_1 \cdot \mu^2 \cdot \cosh \mu x + C_2 \cdot \mu^2 \cdot \sinh \mu x
+		\end{equation}
+		
+		\begin{equation}
+			X'' - kX = 0 \quad \therefore k = \mu^2
+		\end{equation}
+		
+	\end{verification}	
+	
+	
+	\subsubsection{情况 2}
+	若 \(k = 0\)，则 \(X'' = 0\)
+	\begin{equation}
+		X(x) = C_1 x + C_2 \quad \text{且} \quad X(0) = 0 \quad X(l) = 0
+	\end{equation}
+	\begin{equation}
+		\therefore C_1 = C_2 = 0
+	\end{equation}
+	
+	\subsubsection{情况 3} 
+	若 \(k < 0\)，即 \(X'' + \mu^2 X = 0\) \quad \(X(0) = 0\) \quad \(X(l) = 0\) \quad \(k = -\mu^2\)
+	
+	通解:
+	\begin{equation}
+		X = C_1 \cos \mu x + C_2 \sin \mu x
+	\end{equation}
+	
+	
+	
+	边界条件:
+	\begin{equation}
+		X(0) = C_1 = 0 \quad X(l) = C_2 \sin \mu l = 0
+	\end{equation}
+	
+	非平凡解要求:
+	\begin{equation}
+		\sin \mu l = 0 \quad \therefore \mu l = n\pi \quad n \text{ 为任意正整数}
+	\end{equation}
+	
+	特征值:
+	\begin{equation}
+		\mu_n = \frac{n\pi}{l}
+	\end{equation}
+	
+	特征函数:
+	\begin{equation}
+		X_n = C_2 \sin \frac{n\pi}{l} x \quad n = 1, 2, 3, \ldots \quad \text{（C₂吸收正负号）}
+	\end{equation}
+	
+	特征值:
+	\begin{equation}
+		k = -\mu^2 = -\left(\frac{n\pi}{l}\right)^2
+	\end{equation}
+	
+	\begin{verification}	
+		一阶导数:
+		\begin{equation}
+			X' = -C_1 \mu \sin \mu x + C_2 \mu \cos \mu x
+		\end{equation}
+		
+		二阶导数:
+		\begin{equation}
+			X'' = -C_1 \mu^2 \cos \mu x - C_2 \mu^2 \sin \mu x
+		\end{equation}
+		
+		满足方程:
+		\begin{equation}
+			X'' + \mu^2 X = 0
+		\end{equation}
+	\end{verification}	
+	
+	
+	\subsection{时间常微分方程的求解}
+	\(T'' + \left(c \cdot \frac{n\pi}{l}\right)^2 \cdot T = 0 \implies T'' + (c \mu_n)^2 T = 0\)，其中 \(\lambda_n = c \mu_n = \frac{c n \pi}{l}\)
+	
+	同理可得通解：
+	\begin{equation}
+		T = C_3 \cos \lambda_n t + C_4 \sin \lambda_n t
+	\end{equation}
+	
+	\subsection{得偏微分方程通解}
+	因此：
+	\begin{equation}
+		u_n(x, t) = X \cdot T = \sin \frac{n\pi}{l} x \cdot (a_n \cos \lambda_n t + b_n \sin \lambda_n t)
+	\end{equation}
+	
+	由于方程为线性齐次，故可用叠加原理：
+	\begin{equation}
+		u(x, t) = \sum_{n=1}^{\infty} \sin \frac{n\pi}{l} x \cdot (a_n \cos \lambda_n t + b_n \sin \lambda_n t)
+	\end{equation}
+	
+\subsection{初始条件求系数}
+	\subsubsection{原函数初始条件求$a_n$}
+	
+	\begin{equation}
+		u(x, 0) = f(x) \quad \frac{\partial u}{\partial t}(x, 0) = g(x)
+	\end{equation}
+	
+	由初始条件：
+	\begin{equation}
+		u(x, 0) = \sum_{n=1}^{\infty} \sin \frac{n\pi}{l} x \cdot a_n = f(x)
+	\end{equation}
+	
+	利用内积公式(需要$f \in L^2$):
+	\begin{equation}
+		a_n = \frac{\langle f(x), \sin \frac{n\pi}{l} x \rangle}{\langle \sin \frac{n\pi}{l} x, \sin \frac{n\pi}{l} x \rangle} = \frac{\int_0^l f(x) \cdot \sin \frac{n\pi}{l} x \, dx}{\int_0^l \sin^2 \frac{n\pi}{l} x \, dx}
+	\end{equation}
+	
+	化简得：
+	\begin{equation}
+		a_n = \frac{2}{l} \cdot \int_0^l f(x) \cdot \sin \frac{n\pi}{l} x \, dx
+	\end{equation}
+	
+	\subsubsection{偏导初始条件求$b_n$}
+	
+	对 \(u_n\) 求偏导:
+	\begin{equation}
+		\frac{\partial u_n}{\partial t}(x, t) = \sin \frac{n\pi}{l} x \cdot \left( -a_n \lambda_n \sin \lambda_n t + b_n \lambda_n \cos \lambda_n t \right)
+	\end{equation}
+	
+	在 \(t = 0\) 时:
+	\begin{equation}
+		\frac{\partial u_n}{\partial t}(x, 0) = \sin \frac{n\pi}{l} x \cdot b_n \lambda_n
+	\end{equation}
+	
+	对总解求偏导:
+	\begin{equation}
+		\frac{\partial u}{\partial t}(x, 0) = \sum_{n=1}^{\infty} \frac{\partial u_n}{\partial t}(x, 0) = \sum_{n=1}^{\infty} b_n \lambda_n \sin \frac{n\pi}{l} x = g(x)
+	\end{equation}
+	
+	利用内积公式(需要$f \in L^2$):
+	\begin{equation}
+		b_n \lambda_n = \frac{\langle g(x), \sin \frac{n\pi}{l} x \rangle}{\langle \sin \frac{n\pi}{l} x, \sin \frac{n\pi}{l} x \rangle} = \frac{2}{l} \int_0^l g(x) \cdot \sin \frac{n\pi}{l} x \, dx
+	\end{equation}
+	
+	化简得:
+	\begin{equation}
+		b_n = \frac{2}{l \lambda_n} \cdot \int_0^l g(x) \cdot \sin \frac{n\pi}{l} x \, dx = \frac{2}{c n \pi} \int_0^l g(x) \cdot \sin \frac{n\pi}{l} x \, dx
+	\end{equation}
+	
+	\subsubsection{用数分知识求系数，条件和前面泛函内积不一样}
+	
+	考虑函数 \( f(t) \) 的傅里叶级数展开:
+	\begin{equation}
+		f = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos nt + b_n \sin nt \right)
+	\end{equation}
+	
+	计算 \( a_0 \):
+	\begin{equation}
+		\frac{a_0}{2} = f - \sum_{n=1}^{\infty} \left( a_n \cos nt + b_n \sin nt \right)
+	\end{equation}
+	
+	\begin{equation}
+		a_0 = 2f - 2 \sum_{n=1}^{\infty} \left( a_n \cos nt + b_n \sin nt \right)
+	\end{equation}
+	
+	对 \( a_0 \) 积分,若积分和求和可换序：
+	\begin{equation}
+		\frac{1}{2\pi} \int_{-\pi}^{\pi} a_0 \, dt = \frac{1}{\pi} \int_{-\pi}^{\pi} f \, dt - \sum_{n=1}^{\infty} \frac{1}{\pi} a_n \int_{-\pi}^{\pi} \cos nt \, dt - \sum_{n=1}^{\infty} \frac{1}{\pi} b_n \int_{-\pi}^{\pi} \sin nt \, dt
+	\end{equation}
+	
+	化简得:
+	\begin{equation}
+		a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f \, dt
+	\end{equation}
+	
+	计算 \( a_n \):
+	\begin{equation}
+		f \cos nt = \frac{a_0}{2} \cos nt + \sum_{k=1}^{\infty} \left( a_k \cos kt + b_k \sin kt \right) \cos nt
+	\end{equation}
+	
+	积分得，若积分和求和可换序：
+	\begin{equation}
+		\int_{-\pi}^{\pi} f \cos nt \, dt = \int_{-\pi}^{\pi} \frac{a_0}{2} \cos nt \, dt + \sum_{k=1}^{\infty} \left( a_k \int_{-\pi}^{\pi} \cos kt \cos nt \, dt + b_k \int_{-\pi}^{\pi} \sin kt \cos nt \, dt \right)
+	\end{equation}
+	
+	化简得:
+	\begin{equation}
+		\int_{-\pi}^{\pi} f \cos nt \, dt = a_n \pi
+	\end{equation}
+	
+	因此:
+	\begin{equation}
+		a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f \cos nt \, dt
+	\end{equation}
+	
+	同理可得:
+	\begin{equation}
+		b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f \sin nt \, dt
+	\end{equation}
+	
+	级数收敛性:
+	\begin{equation}
+		\sum_{n=1}^{\infty} a_n \cos nx < \infty \qquad \sum_{n=1}^{\infty} b_n \sin nx < \infty
+	\end{equation}
+	详细条件可以去看我的傅里叶分析笔记。
+	
+	\subsection{总结}
+	
+	一维波动方程:
+	\begin{equation}
+		\frac{\partial^2 u}{\partial t^2} = c^2 \cdot \frac{\partial^2 u}{\partial x^2} \qquad 0 < x < l, \quad t > 0
+	\end{equation}
+	
+	边界条件:
+	\begin{equation}
+		u(0, t) = 0 \quad u(l, t) = 0 \qquad \forall t > 0
+	\end{equation}
+	
+	初始条件:
+	\begin{equation}
+		u(x, 0) = f(x) \quad \frac{\partial u}{\partial t}(x, 0) = g(x) \qquad 0 < x < l
+	\end{equation}
+	
+	解为:
+	\begin{equation}
+		u(x, t) = \sum_{n=1}^{\infty} \sin \frac{n\pi}{l} x \cdot \left( a_n \cos \lambda_n t + b_n \sin \lambda_n t \right)
+	\end{equation}
+	
+	其中:
+	\begin{equation}
+		a_n = \frac{2}{l} \int_0^l f(x) \cdot \sin \frac{n\pi}{l} x \, dx
+	\end{equation}
+	
+	\begin{equation}
+		b_n = \frac{2}{c n \pi} \int_0^l g(x) \cdot \sin \frac{n\pi}{l} x \, dx
+	\end{equation}
+	
+	\begin{equation}
+		\lambda_n = c \mu_n = \frac{c n \pi}{l}
+	\end{equation}
+	
+	
+	
+\end{document}
