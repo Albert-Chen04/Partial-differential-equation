@@ -44,8 +44,8 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{注记}
 
-\theoremstyle{verification}
-\newtheorem{verification}[theorem]{检验}
+\theoremstyle{remark}
+\newtheorem{verification}[theorem]{验证}
 
 % 加载hyperref包以实现超链接功能
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
@@ -57,12 +57,18 @@
 \begin{document}
 	
 	\maketitle
+
+
+\newpage
 	
 	\tableofcontents  % 添加目录
 	
+	
+	\newpage
+	
 	\section{一阶拟线性方程之齐次传输方程} 
 	\subsection{变量替换求解常系数齐次传输方程} 
-	
+	\subsubsection{问题描述}
 	
 	
 	假设 $a_1 \neq 0$ 且 $a_2 \neq 0$，我们求解常系数传输方程：
@@ -122,7 +128,8 @@
 	\end{equation}
 	其中
 	$L(\cdot)$ 是任意可微函数。
-	\subsubsection{特解（初始条件或边界条件）} 
+	
+		\subsubsection{特解（初始条件或边界条件）} 
 	已知初始条件$	u(x, 0) = e^{-x^2}$，求下面常系数运输方程：
 	\begin{equation} 
 		\frac{\partial u}{\partial t} +  \frac{\partial u}{\partial x} = 0
@@ -132,6 +139,85 @@
 	\begin{equation}
 		u(x, t) = f(x - t)= e^{-(x-t)^2}
 	\end{equation}
+	
+	
+	\subsection{波的传播求解常系数齐次传输方程} 
+	\subsubsection{问题描述}
+	在一阶线性方程中，有一种最简单的形如
+	
+	\begin{equation}
+		u_t + b \cdot \mathrm{D}u = 0, \quad x \in \mathbb{R}^n, \ t \in (0, \infty)
+	\end{equation}
+	
+	的方程，称为传输方程，其中，\(b = (b_1, b_2, \cdots, b_n)\) 是已知 \(n\) 维常向量，\(u = u(x, t)\)，\(\mathrm{D}u = (u_{x_1}, u_{x_2}, \cdots, u_{x_n})\)。
+	
+		\subsubsection{通解} 
+	
+	由方程的形式可以看出，\(u(x, t)\) 沿一个具体的方向的方向微商等于零。事实上，固定一点 \((x, t) \in \mathbb{R}^{n+1}\)，记过该直线的参数方程为 \((x + bs, t + s), s \in \mathbb{R}\)，考查函数 \(u\) 在该直线上的值。令
+\begin{equation}
+	z(s) = u(x + bs, t + s), \quad s \in \mathbb{R}.
+	\end{equation}
+	
+	于是
+	\begin{equation}
+	\frac{\mathrm{d}z}{\mathrm{d}s} = \mathrm{D}u(x + sb, t + s) \cdot b + u_t(x + sb, t + s) = 0,
+	\end{equation}
+	
+	因此，函数 \(z(s)\) 在过点 \((x, t)\) 且具有方向 \((b, 1) \in \mathbb{R}^{n+1}\) 的直线上取常数值）（和下文中特征线法求解传输方程的$(1, p(x, y))$含义相同）。所以，如果我们知道解 \(u\) 在这条直线上一点的值，则就得到它沿此直线上的值。这就引出下面求解初值问题的方法。
+	
+	\subsubsection{初值问题之特解} 
+	设 $a \in \mathbb{R}^n$ 是已知常向量，$f: \mathbb{R}^n \rightarrow \mathbb{R}$ 是给定函数。考察传输方程的初值问题
+	\begin{equation}
+		\begin{cases}
+			u_t + a \cdot \mathrm{D}u = 0, & (x, t) \in \mathbb{R}^n \times (0, \infty), \\
+			u(x, 0) = f(x), & x \in \mathbb{R}^n.
+		\end{cases}
+	\end{equation}
+	
+	如上取定 $(x, t)$，过点 $(x, t)$ 且具有方向 $(a, 1)$ 的直线的参数式为 $(x + a s, t + s)$，$s \in \mathbb{R}$。当 $s = -t$ 时，此直线与平面 $\Gamma: \mathbb{R}^n \times \{t = 0\}$ 相交于点 $(x - a t, 0)$。由上文分析知 $u$ 沿此直线取常数值，而由初值条件，$u(x - a t, 0) = f(x - a t)$，便得
+	\begin{equation}\label{eq:齐次解}
+		u(x, t) = f(x - a t), \quad x \in \mathbb{R}^n, \ t \geq 0.
+	\end{equation}
+	
+	\begin{remark}
+	这表示对于每一个特点的点都有一条特征线，他的函数为特定的$f$。取遍每个特征线就能取遍域内所有点，对于任意的点都有任意的函数表达式
+	\end{remark}
+		
+	所以，如果 有解，必由上式子 表示，因此解是唯一的；反之，若 $f$ 一阶连续可微，则可直接验证由 上式子表示的函数 $u(x, t)$ 是问题的解。这就是齐次传输方程初值问题解的存在唯一性。
+	
+\subsection{波的传播求解常系数非齐次传输方程} 
+\subsubsection{问题描述}
+	考察非齐次传输方程的初值问题
+	\begin{equation}
+		\begin{cases}
+			u_t + a \cdot \mathrm{D}u = f, & x \in \mathbb{R}^n, t > 0, \\
+			u(x,0) = g(x)
+		\end{cases}
+	\end{equation}
+	
+\subsubsection{求解}
+	受齐次问题解法的启示，我们仍然先取定 \((x, t) \in \mathbb{R}^{n+1}\)，对 \(s \in \mathbb{R}\)，令 \(z(s) = u(x + a s, t + s)\)，则
+		\begin{equation}
+	\frac{\mathrm{d}z}{\mathrm{d}s} = \mathrm{D}u(x + a s, t + s) \cdot a + u_t(x + a s, t + s) = f(x + a s, t + s).
+		\end{equation}
+	
+	因此，
+	\begin{equation}
+	\begin{aligned}
+		u(x, t) -	u(x-at,0)&= u(x, t)-g(x - a t) \\
+		&= z(0) - z(-t) = \int_{-t}^0 \frac{\mathrm{d}z}{\mathrm{d}s} \, \mathrm{d}s \\
+		&= \int_{-t}^0 f(x + a s, t + s) \, \mathrm{d}s \\
+		&= \int_0^t f(x + a (s - t), s) \, \mathrm{d}s.
+	\end{aligned}
+\end{equation}
+	
+	于是，得到问题 的在 \(x \in \mathbb{R}^n\)，\(t \geq 0\) 上的解
+	\begin{equation}\label{eq:非齐次解}
+		u(x, t) = g(x - a t) + \int_0^t f(x + a (s - t), s) \, \mathrm{d}s.
+	\end{equation}
+	
+	在下一章，这个公式将被用来求解一维波动方程。
+	
 	
 	
 	\subsection{特征线法求解变系数齐次传输方程} 
@@ -174,10 +260,124 @@
 		此时我们有 $p(x, y) = x$，解 $\frac{dy}{dx} = x$，我们得到特征线 $y = \frac{1}{2}x^2 + C$，或 $y - \frac{1}{2}x^2 = C$。从而 $\phi(x, y) = y - \frac{1}{2}x^2$，偏微分方程的通解为 $u(x, y) = f(\phi(x, y))$，其中 $f$ 是任意函数。把它们代回方程，直接验证，便知是解。
 	\end{example}
 	
+	\newpage
+	
+	\section{一维齐次波动方程的初值问题}
+	
+	\subsection{d’Alembert 公式}
+	
+	\subsubsection{问题描述}
+	先考察初值问题
+	
+	\begin{equation}
+		\begin{cases}
+			u_{tt} - a^2 u_{xx} = 0, & x \in \mathbb{R}, t > 0, \\
+			u(x, 0) = \varphi(x), \quad u_t(x, 0) = \psi(x), & x \in \mathbb{R}.
+		\end{cases}
+	\end{equation}
+	
+\subsubsection{求解}
+	由算子复合作用的概念，易验证下述算子因式分解
+	
+	\begin{equation}
+		\left( \frac{\partial}{\partial t} + a \frac{\partial}{\partial x} \right) \left( \frac{\partial}{\partial t} - a \frac{\partial}{\partial x} \right) u = u_{tt} - a^2 u_{xx} = 0.
+	\end{equation}
+	
+	令
+	
+	\begin{equation}
+		v(x, t) = \left( \frac{\partial}{\partial t} - a \frac{\partial}{\partial x} \right) u.
+	\end{equation}
+	
+	由 (2.1.2), 得
+	\begin{equation}
+	v_t(x, t) + a v_x(x, t) = 0, \quad x \in \mathbb{R}, t > 0.
+\end{equation}
+	
+	这是一维传输方程，且由 (2.1.3) 知 \(v\) 满足初值条件
+	
+	\begin{equation}
+	v(x, 0) = \psi(x) - a \varphi'(x).
+\end{equation}
+	
+	由 \eqref{eq:齐次解}, 得
+	\begin{equation}
+		v(x, t) = \psi(x - a t) - a \varphi'(x - a t).
+	\end{equation}
+	
+	将 \(v\) 代入 (2.1.3)，得
+	\begin{equation}
+		u_t(x, t) - a u_x(x, t) = \psi(x - a t) - a \varphi'(x - a t),
+	\end{equation}
+	其中 \((x, t) \in \mathbb{R} \times (0, \infty)\)。
+	
+	对此非齐次传输方程，已知 \(u(x, 0) = \varphi(x)\)，用公式\eqref{eq:非齐次解}得到
+	\begin{equation}\label{eq:达朗贝尔公式}
+		\begin{aligned}
+			u(x, t) &= \varphi(x + a t) + \int_0^t \left[ \psi(x - 2 a s + a t) - a \varphi'(x - 2 a s + a t) \right] \mathrm{d}s \\
+			&= \varphi(x + a t) + \frac{1}{2 a} \int_{x - a t}^{x + a t} \left[ \psi(y) - a \varphi'(y) \right] \mathrm{d}y \\
+			&= \frac{1}{2} \left[ \varphi(x + a t) + \varphi(x - a t) \right] + \frac{1}{2 a} \int_{x - a t}^{x + a t} \psi(y) \mathrm{d}y.
+		\end{aligned}
+	\end{equation}
+	称此式为 d'Alembert (达朗贝尔) 公式.
+	
+	\section{一维波动方程的初边值问题}
+	\subsection{反射法}
+	反射法的核心思想：利用达朗贝尔公式把解延拓
+	
+	\subsubsection{问题描述}
+	求解半直线 \(\mathbb{R}_+ = \{x > 0\}\) 上的初边值问题：
+	
+	\begin{equation}
+		\begin{cases}
+			u_{tt} - u_{xx} = 0, & x \in \mathbb{R}_+, t > 0, \\
+			u(x, 0) = g(x), \quad u_t(x, 0) = h(x), & x \in \mathbb{R}_+, \\
+			u(0, t) = 0, & t \geq 0,
+		\end{cases}
+	\end{equation}
+	
+	其中，\(g, h\) 是已知函数，满足 \(g(0) = h(0) = 0\)。
+	
+	\subsubsection{求解}
+先把问题转换到全空间 \(\mathbb{R}\) 上去。为此，对函数 \(u, g, h\) 作奇延拓（或称奇反射）如下：
+	
+	\begin{equation}
+		\bar{u}(x, t) = \begin{cases}
+			u(x, t), & x \geq 0, t \geq 0, \\
+			-u(-x, t), & x \leq 0, t \geq 0,
+		\end{cases}
+	\end{equation}
+	
+	\begin{equation}
+		\bar{g}(x) = \begin{cases}
+			g(x), & x \geq 0, \\
+			-g(-x), & x \leq 0,
+		\end{cases}
+	\end{equation}
+	
+	\begin{equation}
+		\bar{h}(x) = \begin{cases}
+			h(x), & x \geq 0, \\
+			-h(-x), & x \leq 0.
+		\end{cases}
+	\end{equation}
+	
+	则 \(\bar{u}(x, t)\) 满足问题：
+	
+	\begin{equation}
+		\begin{cases}
+			\bar{u}_{tt} - \bar{u}_{xx} = 0, & (x, t) \in \mathbb{R} \times (0, \infty), \\
+			\bar{u}(x, 0) = \bar{g}(x), \quad \bar{u}_t(x, 0) = \bar{h}(x), & x \in \mathbb{R}.
+		\end{cases}
+	\end{equation}
+	
+	\begin{remark}
+		还可以用特征线法对问题 (3.1.1) 求解，即用初值问题中方程的特征线作自变量的变换，把方程化为双曲型的第二标准型 \(u_{\xi\eta} = 0\) 的形式，对它积分两次求出通解 \(u = F(\xi) + G(\eta)\)，其中，\(F\) 和 \(G\) 是任意二次光滑函数。然后利用初值条件确定通解中的两个任意函数，便得 d'Alembert 公式。
+	\end{remark}
 	
 	
-	\section{一维齐次波动方程之分离变量法}
-	\subsection{问题描述}
+	\subsection{分离变量法}
+	\subsubsection{问题描述}
 	\begin{equation} \label{eq:wave_equation}
 		\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} \qquad 0 < x < l, \quad t > 0
 	\end{equation}
@@ -195,7 +395,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	\subsection{分离变量法}
+	\subsubsection{核心思想}
 	核心思想：分离变量法把偏微分转成为两个常微分。
 	
 	设 \(u(x, t) = X(x) \cdot T(t)\)，假设解为乘积解。
@@ -228,13 +428,14 @@
 		\end{cases}
 	\end{equation}
 	
-	\subsection{空间常微分方程的求解}
+	\subsubsection{空间常微分方程的求解}
 	\begin{equation}
 		X'' - kX = 0 \quad X(0) = 0 \quad (X(l) = 0
 	\end{equation}
 	
-	\subsubsection{情况 1}
-	若 \(k > 0\)，通解为 \(X(x) = C_1 \cdot \cosh \mu x + C_2 \cdot \sinh \mu x\)，其中 \(k = \mu^2\)
+情况 1 \quad 若 \(k > 0\)
+
+通解为 \(X(x) = C_1 \cdot \cosh \mu x + C_2 \cdot \sinh \mu x\)，其中 \(k = \mu^2\)
 	
 	代入初始条件 
 	\begin{equation}
@@ -278,8 +479,9 @@
 	\end{verification}	
 	
 	
-	\subsubsection{情况 2}
-	若 \(k = 0\)，则 \(X'' = 0\)
+情况 2 \quad 若 \(k = 0\)
+
+则 \(X'' = 0\)
 	\begin{equation}
 		X(x) = C_1 x + C_2 \quad \text{且} \quad X(0) = 0 \quad X(l) = 0
 	\end{equation}
@@ -287,8 +489,9 @@
 		\therefore C_1 = C_2 = 0
 	\end{equation}
 	
-	\subsubsection{情况 3} 
-	若 \(k < 0\)，即 \(X'' + \mu^2 X = 0\) \quad \(X(0) = 0\) \quad \(X(l) = 0\) \quad \(k = -\mu^2\)
+情况 3 \quad 若 \(k < 0\)
+
+即 \(X'' + \mu^2 X = 0\) \quad \(X(0) = 0\) \quad \(X(l) = 0\) \quad \(k = -\mu^2\)
 	
 	通解:
 	\begin{equation}
@@ -340,7 +543,7 @@
 	\end{verification}	
 	
 	
-	\subsection{时间常微分方程的求解}
+	\subsubsection{时间常微分方程的求解}
 	\(T'' + \left(c \cdot \frac{n\pi}{l}\right)^2 \cdot T = 0 \implies T'' + (c \mu_n)^2 T = 0\)，其中 \(\lambda_n = c \mu_n = \frac{c n \pi}{l}\)
 	
 	同理可得通解：
@@ -348,7 +551,7 @@
 		T = C_3 \cos \lambda_n t + C_4 \sin \lambda_n t
 	\end{equation}
 	
-	\subsection{得偏微分方程通解}
+	\subsubsection{得偏微分方程通解}
 	因此：
 	\begin{equation}
 		u_n(x, t) = X \cdot T = \sin \frac{n\pi}{l} x \cdot (a_n \cos \lambda_n t + b_n \sin \lambda_n t)
@@ -359,8 +562,8 @@
 		u(x, t) = \sum_{n=1}^{\infty} \sin \frac{n\pi}{l} x \cdot (a_n \cos \lambda_n t + b_n \sin \lambda_n t)
 	\end{equation}
 	
-\subsection{初始条件求系数}
-	\subsubsection{原函数初始条件求$a_n$}
+\subsubsection{初始条件求系数}
+原函数初始条件求$a_n$
 	
 	\begin{equation}
 		u(x, 0) = f(x) \quad \frac{\partial u}{\partial t}(x, 0) = g(x)
@@ -381,7 +584,7 @@
 		a_n = \frac{2}{l} \cdot \int_0^l f(x) \cdot \sin \frac{n\pi}{l} x \, dx
 	\end{equation}
 	
-	\subsubsection{偏导初始条件求$b_n$}
+	偏导初始条件求$b_n$
 	
 	对 \(u_n\) 求偏导:
 	\begin{equation}
@@ -465,7 +668,7 @@
 	\end{equation}
 	详细条件可以去看我的傅里叶分析笔记。
 	
-	\subsection{总结}
+	\subsubsection{总结}
 	
 	一维波动方程:
 	\begin{equation}
