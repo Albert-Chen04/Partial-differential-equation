@@ -152,8 +152,16 @@
 	的方程，称为传输方程，其中，\(b = (b_1, b_2, \cdots, b_n)\) 是已知 \(n\) 维常向量，\(u = u(x, t)\)，\(\mathrm{D}u = (u_{x_1}, u_{x_2}, \cdots, u_{x_n})\)。
 	
 		\subsubsection{通解} 
+			\begin{equation}
+			\frac{\partial u}{\partial t} + b \frac{\partial u}{\partial x}=(1, b) \cdot \left( \frac{\partial u}{\partial t}, \frac{\partial u}{\partial x} \right) = 0 
+		\end{equation}
+		$\left( \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y} \right)$为梯度，$(1, b)$为方向，一整个乘积为方向导数，方向导数为0意味着，$u(t, x)=C$在切向量为$(1, b)$这条曲线上，即
+		\begin{equation}
+			u(t,x)|_{\Gamma} = C
+		\end{equation}
+		
 	
-	由方程的形式可以看出，\(u(x, t)\) 沿一个具体的方向的方向微商等于零。事实上，固定一点 \((x, t) \in \mathbb{R}^{n+1}\)，记过该直线的参数方程为 \((x + bs, t + s), s \in \mathbb{R}\)，考查函数 \(u\) 在该直线上的值。令
+	由方程的形式可以看出，\(u(x, t)\) 沿$(1, b)$微商等于零。事实上，固定一点 \((x, t) \in \mathbb{R}^{n+1}\)，记过该直线$\Gamma$的参数方程为 \((x + bs, t + s), s \in \mathbb{R}\)，考查函数 \(u\) 在该直线上的值。令
 \begin{equation}
 	z(s) = u(x + bs, t + s), \quad s \in \mathbb{R}.
 	\end{equation}
@@ -163,7 +171,7 @@
 	\frac{\mathrm{d}z}{\mathrm{d}s} = \mathrm{D}u(x + sb, t + s) \cdot b + u_t(x + sb, t + s) = 0,
 	\end{equation}
 	
-	因此，函数 \(z(s)\) 在过点 \((x, t)\) 且具有方向 \((b, 1) \in \mathbb{R}^{n+1}\) 的直线上取常数值）（和下文中特征线法求解传输方程的$(1, p(x, y))$含义相同）。所以，如果我们知道解 \(u\) 在这条直线上一点的值，则就得到它沿此直线上的值。这就引出下面求解初值问题的方法。
+	因此，函数 \(z(s)\) 在过点 \((x, t)\) 且具有方向 \((b, 1) \in \mathbb{R}^{n+1}\) 的直线上取常数值,特征线上的取值和$s$没有关系（和下文中特征线法求解传输方程的$(1, p(x, y))$含义相同）。所以，如果我们知道解 \(u\) 在这条直线上一点的值，则就得到它沿此直线上的值。这就引出下面求解初值问题的方法。
 	
 	\subsubsection{初值问题之特解} 
 	设 $a \in \mathbb{R}^n$ 是已知常向量，$f: \mathbb{R}^n \rightarrow \mathbb{R}$ 是给定函数。考察传输方程的初值问题
@@ -174,13 +182,13 @@
 		\end{cases}
 	\end{equation}
 	
-	如上取定 $(x, t)$，过点 $(x, t)$ 且具有方向 $(a, 1)$ 的直线的参数式为 $(x + a s, t + s)$，$s \in \mathbb{R}$。当 $s = -t$ 时，此直线与平面 $\Gamma: \mathbb{R}^n \times \{t = 0\}$ 相交于点 $(x - a t, 0)$。由上文分析知 $u$ 沿此直线取常数值，而由初值条件，$u(x - a t, 0) = f(x - a t)$，便得
+	如上取定 $(x, t)$，过点 $(x, t)$ 且具有方向 $(a, 1)$ 的直线的参数式为 $(x + a s, t + s)$，$s \in \mathbb{R}$。当 $s = -t$ 时，此直线与平面 $\Gamma: \mathbb{R}^n \times \{t = 0\}$ 相交于点 $(x - a t, 0)$。由上文分析知 $u$ 沿此直线取常数值，而由初值条件便得
 	\begin{equation}\label{eq:齐次解}
-		u(x, t) = f(x - a t), \quad x \in \mathbb{R}^n, \ t \geq 0.
+	u(x,t)=	z(0)=z(-t) =u(x - a t, 0) = f(x - a t), \quad x \in \mathbb{R}^n, \ t \geq 0.
 	\end{equation}
 	
 	\begin{remark}
-	这表示对于每一个特点的点都有一条特征线，他的函数为特定的$f$。取遍每个特征线就能取遍域内所有点，对于任意的点都有任意的函数表达式
+	这表示对于每一个特定的点都有一条特征线，他的函数为特定的$f$。取遍每个特征线就能取遍域内所有点，对于任意的点都有任意的函数表达式。因为上面的式子，at是任意的，所以x-at是任意的，可以取遍整个
 	\end{remark}
 		
 	所以，如果 有解，必由上式子 表示，因此解是唯一的；反之，若 $f$ 一阶连续可微，则可直接验证由 上式子表示的函数 $u(x, t)$ 是问题的解。这就是齐次传输方程初值问题解的存在唯一性。
@@ -212,7 +220,7 @@
 \end{equation}
 	
 	于是，得到问题 的在 \(x \in \mathbb{R}^n\)，\(t \geq 0\) 上的解
-	\begin{equation}\label{eq:非齐次解}
+	\begin{equation}\label{eq:非齐次解1}
 		u(x, t) = g(x - a t) + \int_0^t f(x + a (s - t), s) \, \mathrm{d}s.
 	\end{equation}
 	
@@ -311,7 +319,7 @@
 	\end{equation}
 	其中 \((x, t) \in \mathbb{R} \times (0, \infty)\)。
 	
-	对此非齐次传输方程，已知 \(u(x, 0) = \varphi(x)\)，用公式\eqref{eq:非齐次解}得到
+	对此非齐次传输方程，已知 \(u(x, 0) = \varphi(x)\)，用公式\eqref{eq:非齐次解1}得到
 	\begin{equation}\label{eq:达朗贝尔公式}
 		\begin{aligned}
 			u(x, t) &= \varphi(x + a t) + \int_0^t \left[ \psi(x - 2 a s + a t) - a \varphi'(x - 2 a s + a t) \right] \mathrm{d}s \\
