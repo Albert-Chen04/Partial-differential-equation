@@ -39,7 +39,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{定义}
-\newtheorem{example}{示例}[subsection]  % 示例按子小节编号
+\newtheorem{example}{命题}[subsection]  % 示例按子小节编号
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{注记}
@@ -66,7 +66,149 @@
 	
 	\newpage
 	
-	\section{一阶拟线性方程之齐次传输方程} 
+		\section{齐次化}
+	\subsection{边界条件齐次化}
+	要想利用Duhamamel原理，我们首先将第一边界条件齐次化，即要找到一个恰当的变换将第一边界值变为零。
+	对于	(A) 方程问题：
+	\begin{equation}
+		\begin{cases}
+			u_{tt} - a^2 u_{xx} = f(x, t), & 0 < x < l, \ t > 0, \\
+			u(x, 0) = \varphi(x), \ u_t(x, 0) = \psi(x), & 0 \leq x \leq l, \\
+			u(0, t) = \mu_1(t), \ u(l, t) = \mu_2(t), & t \geq 0.
+		\end{cases}
+	\end{equation}
+	
+	由边界条件
+	\begin{equation}
+		u(0,t) = \mu_1(t), \quad u(l,t) = \mu_2(t), \quad t \geq 0.
+	\end{equation}
+	
+	对方程 (A) 构造关于变量 \(x\) 的线性辅助函数（直线方程）：
+	\begin{equation}
+		U(x, t) = \mu_1(t) + \frac{x}{l}(\mu_2(t) - \mu_1(t)),
+	\end{equation}
+	
+	作变换：
+	\begin{equation}
+		v(x, t) = u(x, t) - U(x, t),
+	\end{equation}
+	
+	将 \(u(x, t) = v(x, t) + U(x, t)\) 代入方程 (A)：
+	\begin{equation}
+		\begin{cases}
+			u_{tt} - a^2 u_{xx} = f(x, t), & 0 < x < l, \ t > 0, \\
+			u(x, 0) = \varphi(x), \ u_t(x, 0) = \psi(x), & 0 \leq x \leq l, \\
+			u(0, t) = \mu_1(t), \ u(l, t) = \mu_2(t), & t \geq 0.
+		\end{cases}
+	\end{equation}
+	
+	得到方程 (B)：
+	\begin{equation}\label{B}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
+			v|_{t=0} = \varphi_1(x), \quad v_t|_{t=0} = \psi_1(x), & 0 \leq x \leq l, \\
+			v|_{x=0} = 0, \quad v|_{x=l} = 0, & t \geq 0,
+		\end{cases}
+	\end{equation}
+	其中：
+	\begin{equation}
+		\begin{cases}
+			f_1(x, t) = f(x, t) - \mu_1''(t) - \frac{x}{l}(\mu_2''(t) - \mu_1''(t)), \\
+			\varphi_1(x) = \varphi(x) - \mu_1(0) - \frac{x}{l}(\mu_2(0) - \mu_1(0)), \\
+			\psi_1(x) = \psi(x) - \mu_1'(0) - \frac{x}{l}(\mu_2'(0) - \mu_1'(0)).
+		\end{cases}
+	\end{equation}
+	
+	这样我们就完成了边界条件的齐次化。
+	
+	\subsection{叠加原理}
+	对于问题\eqref{B},我们可以使用叠加原理将其分解为两个子问题.
+	\begin{equation}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
+			v|_{t=0} = 0, \quad v_t|_{t=0} = 0, & 0 \leq x \leq l, \\
+			v|_{x=0} = 0, \quad v|_{x=l} = 0, & t \geq 0.
+		\end{cases}
+	\end{equation}
+	
+	\begin{equation}\label{f}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = 0, & 0 < x < l, \ t > 0, \\
+			v|_{t=0} = \varphi_1(x), \quad v_t|_{t=0} = \psi_1(x), & 0 \leq x \leq l, \\
+			v|_{x=0} = 0, \quad v|_{x=l} = 0, & t \geq 0.
+		\end{cases}
+	\end{equation}
+	
+	
+	根据叠加原理，原问题\eqref{B}  的解 \(v(x, t)\) 可以表示为子问题1和子问题2的解的和：
+	\begin{equation}
+		v(x, t) = v^{(1)}(x, t) + v^{(2)}(x, t)
+	\end{equation}
+	其中 \(v^{(1)}(x, t)\) 是子问题1的解，\(v^{(2)}(x, t)\) 是子问题2的解。
+	
+	
+	
+	
+	\subsection{Duhamamel原理之方程齐次化}
+	对于有界方程非齐次问题：
+	\begin{equation}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
+			v|_{t=0} = 0, \quad v_t|_{t=0} = 0, & 0 \leq x \leq l, \\
+			v|_{x=0} = 0, \quad v|_{x=l} = 0, & t \geq 0,
+		\end{cases}
+	\end{equation}
+	
+	若 \( w(x, t, \tau) \) 是以下定解问题的解：
+	\begin{equation}
+		\begin{cases}
+			W_{tt} - a^2 W_{xx} = 0, & t > \tau, \\
+			W|_{t=\tau} = 0, \quad \left. \frac{\partial W}{\partial t} \right|_{t=\tau} = f_1(x, \tau), & 0 \leq x \leq l,
+		\end{cases}
+	\end{equation}
+	
+	则函数 \( v(x, t) = \int_0^t w(x, t, \tau) \, d\tau \) 就是问题的解。
+	然后还有偏导数，那方程的函数转移到最高偏导函数上，其余依旧为0.
+	
+	
+	
+	
+	
+	所以我们最终要解决的就是初始条件非齐次，方程和边界条件齐次\eqref{B}这样的方程.
+	
+	对于无界区域中的非齐次波动方程：
+	
+\begin{equation}
+	\begin{cases}
+		v_{tt} - a^2 v_{xx} = f_1(x, t), & -\infty < x < \infty, \ t > 0 \\
+		v|_{t=0} = 0, \quad v_t|_{t=0} = 0, & -\infty < x < \infty
+	\end{cases}
+\end{equation}
+	
+	假设 \(w(x, t, \tau)\) 是以下齐次波动方程的解：
+	
+\begin{equation}
+	\begin{cases}
+		w_{tt} - a^2 w_{xx} = 0, & t > \tau \\
+		w(x, \tau, \tau) = 0, & -\infty < x < \infty \\
+		\frac{\partial w}{\partial t}(x, \tau, \tau) = f_1(x, \tau)
+	\end{cases}
+\end{equation}
+	
+	那么，原非齐次波动方程的解可以表示为：
+	
+\begin{equation}
+	v(x, t) = \int_0^t w(x, t, \tau) \, d\tau
+\end{equation}
+	
+	有界无界两者齐次化方程形式上是一样的，后面热传导方程也是一样的。
+	
+	
+	
+	
+	
+	
+	\section{一阶拟线性方程之传输方程} 
 	\subsection{变量替换求解常系数齐次传输方程} 
 	\subsubsection{问题描述}
 	
@@ -270,7 +412,7 @@
 	
 	\newpage
 	
-	\section{一维齐次波动方程的初值问题}
+	\section{一维无界齐次波动方程}
 	
 	\subsection{d’Alembert 公式}
 	
@@ -329,8 +471,8 @@
 	\end{equation}
 	称此式为 d'Alembert (达朗贝尔) 公式.
 	
-	\section{一维波动方程的初边值问题}
-	\subsection{反射法}
+	\section{一维齐次波动方程的初边值问题}
+	\subsection{第一边值条件半直线问题}
 	反射法的核心思想：利用达朗贝尔公式把解延拓
 	
 	\subsubsection{问题描述}
@@ -346,7 +488,7 @@
 	
 	其中，\(g, h\) 是已知函数，满足 \(g(0) = h(0) = 0\)。
 	
-	\subsubsection{求解}
+	\subsubsection{做奇延拓}
 先把问题转换到全空间 \(\mathbb{R}\) 上去。为此，对函数 \(u, g, h\) 作奇延拓（或称奇反射）如下：
 	
 	\begin{equation}
@@ -370,22 +512,265 @@
 		\end{cases}
 	\end{equation}
 	
+\subsubsection{边界条件与方程验证}
+设波动方程参数为$a$，考虑有限区间$x \in [0, L]$的延拓问题。已知$f,g$为以$2L$为周期的奇函数，即满足：
+\begin{equation}
+	\forall y \in \mathbb{R},\quad 
+	\begin{cases}
+		f(y + 2L) = f(y) \\
+		f(-y) = -f(y) \\
+		g(y + 2L) = g(y) \\
+		g(-y) = -g(y)
+	\end{cases}
+\end{equation}
+
+\paragraph{达朗贝尔解表达式}
+延拓后的解可表示为：
+\begin{equation}
+	u(x,t) = \frac{1}{2}[f(x + at) + f(x - at)] + \frac{1}{2a}\int_{x-at}^{x+at} g(y) dy
+\end{equation}
+
+\paragraph{边界点验证}
+\begin{itemize}
+	\item \textbf{左端点$x=0$:}
+	\begin{align*}
+		u(0,t) &= \frac{1}{2}[f(at) + f(-at)] + \frac{1}{2a}\int_{-at}^{at} g(y) dy \\
+		&= \frac{1}{2}[f(at) - f(at)] + 0 \quad (\text{奇函数性质}) \\
+		&= 0
+	\end{align*}
+	
+	\item \textbf{右端点$x=L$:} 利用周期性与奇性
+	\begin{align*}
+		u(L,t) &= \frac{1}{2}[f(L+at) + f(L-at)] + \frac{1}{2a}\int_{L-at}^{L+at} g(y) dy \\
+		&= \frac{1}{2}[f(L+at) + f(-(at-L))] + \frac{1}{2a}\int_{-at}^{at} g(y+L) dy \quad (y \mapsto y-L) \\
+		&= \frac{1}{2}[f(L+at) - f(at-L)] + \frac{1}{2a}\int_{-at}^{at} -g(-y+L) dy \quad (\text{周期奇性}) \\
+		&= \frac{1}{2}[f(L+at) - f(L+at-2L)] + 0 \quad (\text{积分对称性}) \\
+		&= 0 \quad (\because f\text{的}2L\text{周期性})
+	\end{align*}
+\end{itemize}
+
+\paragraph{方程验证}
+\begin{itemize}
+	\item \textbf{正半轴$x \geq 0$:} 直接满足原波动方程
+	
+	\item \textbf{负半轴$x < 0$:} 令$x = -y,\ y > 0$，则延拓解为
+	\[
+	\bar{u}(x,t) = -u(y,t) = -u(-x,t)
+	\]
+	计算二阶导数：
+	\begin{align}
+		\bar{u}_{xx}(x,t) &= \frac{\partial^2}{\partial x^2}[-u(-x,t)] = -u_{xx}(-x,t) \\
+		\bar{u}_{tt}(x,t) &= \frac{\partial^2}{\partial t^2}[-u(-x,t)] = -u_{tt}(-x,t)
+	\end{align}
+	验证波动方程：
+	\[
+	\bar{u}_{tt} - a^2\bar{u}_{xx} = -u_{tt}(-x,t) + a^2u_{xx}(-x,t) = 0 
+	\]
+\end{itemize}
+
+
+
+
+
+
 	则 \(\bar{u}(x, t)\) 满足问题：
 	
 	\begin{equation}
 		\begin{cases}
-			\bar{u}_{tt} - \bar{u}_{xx} = 0, & (x, t) \in \mathbb{R} \times (0, \infty), \\
+			\bar{u}_{tt} - \bar{u}_{xx} = 0, & (x, t) \in \mathbb{R} \times (0, \infty), \\[8pt]
 			\bar{u}(x, 0) = \bar{g}(x), \quad \bar{u}_t(x, 0) = \bar{h}(x), & x \in \mathbb{R}.
 		\end{cases}
 	\end{equation}
+
+
+
+
+\paragraph{区域分析}
+	\begin{equation}
+		u(x,t) = 
+		\begin{cases}
+			\displaystyle
+			\frac{1}{2}\left[g(x+at) + g(x-at)\right] + \frac{1}{2a}\int_{x-at}^{x+at} h(s) ds, & x > at \geq 0 \\
+			\displaystyle
+			\frac{1}{2}\left[g(x+at) - g(at-x)\right] + \frac{1}{2a}\int_{at-x}^{x+at} h(s) ds, & 0 \leq x < at
+		\end{cases}
+	\end{equation}
+	
 	
 	\begin{remark}
 		还可以用特征线法对问题 (3.1.1) 求解，即用初值问题中方程的特征线作自变量的变换，把方程化为双曲型的第二标准型 \(u_{\xi\eta} = 0\) 的形式，对它积分两次求出通解 \(u = F(\xi) + G(\eta)\)，其中，\(F\) 和 \(G\) 是任意二次光滑函数。然后利用初值条件确定通解中的两个任意函数，便得 d'Alembert 公式。
 	\end{remark}
 	
 	
-	\subsection{分离变量法}
-	\subsubsection{问题描述}
+	
+		\subsection{第二边值条件半直线问题}
+		反射法的核心思想：利用达朗贝尔公式把解延拓
+		
+		\subsubsection{问题描述}
+		求解半直线 \(\mathbb{R}_+ = \{x > 0\}\) 上的初边值问题：
+		
+		\begin{equation}
+			\begin{cases}
+				u_{tt} - u_{xx} = 0, & x \in \mathbb{R}_+, t > 0, \\
+				u(x, 0) = g(x), \quad u_t(x, 0) = h(x), & x \in \mathbb{R}_+, \\
+				u_x(0, t) = 0, & t \geq 0,
+			\end{cases}
+		\end{equation}
+		
+		其中，\(g, h\) 是已知函数，满足 \(g'(0) = h'(0) = 0\)（自然相容性条件）。
+		
+		\subsubsection{做偶延拓}
+		先把问题转换到全空间 \(\mathbb{R}\) 上去。为此，对函数 \(u, g, h\) 作偶延拓（或称偶反射）如下：
+		
+		\begin{equation}
+			\bar{u}(x, t) = \begin{cases}
+				u(x, t), & x \geq 0, t \geq 0, \\
+				u(-x, t), & x \leq 0, t \geq 0,
+			\end{cases}
+		\end{equation}
+		
+		\begin{equation}
+			\bar{g}(x) = \begin{cases}
+				g(x), & x \geq 0, \\
+				g(-x), & x \leq 0,
+			\end{cases}
+		\end{equation}
+		
+		\begin{equation}
+			\bar{h}(x) = \begin{cases}
+				h(x), & x \geq 0, \\
+				h(-x), & x \leq 0.
+			\end{cases}
+		\end{equation}
+		
+		（验证过程省略）则 \(\bar{u}(x, t)\) 满足问题：
+		
+		\begin{equation}
+			\begin{cases}
+				\bar{u}_{tt} - \bar{u}_{xx} = 0, & (x, t) \in \mathbb{R} \times (0, \infty), \\
+				\bar{u}(x, 0) = \bar{g}(x), \quad \bar{u}_t(x, 0) = \bar{h}(x), & x \in \mathbb{R}.
+			\end{cases}
+		\end{equation}
+		
+		\begin{remark}
+			对于第二边值条件问题，需保证延拓后的函数 \(\bar{g}(x)\) 和 \(\bar{h}(x)\) 在 \(x=0\) 处满足导数连续的条件。通过偶延拓可自然满足 \(u_x(0,t) = 0\) 的边界条件。
+		\end{remark}
+	
+	
+\subsection{有界之反射法}
+
+\subsubsection{有界之第一边值条件}
+考虑初边值问题：
+\begin{equation}
+	\begin{cases}
+		u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
+		u(x, 0) = f(x), \ u_t(x, 0) = g(x), & 0 \leq x \leq L, \\
+		u(0, t) = \alpha(t), \ u(L, t) = \beta(t), & t \geq 0.
+	\end{cases}
+\end{equation}
+
+其中，弦的两端固定，即 \(\alpha(t) \equiv \beta(t) \equiv 0\)。
+
+\subsubsection{核心思想}
+当两端固定时，若 \(f, g \in C^2\) 满足相容条件：
+\begin{equation}
+	\begin{aligned}
+		f(0) &= f'(0) = f''(0) = 0, & f(L) &= f'(L) = f''(L) = 0, \\
+		g(0) &= g'(0) = g''(0) = 0, & g(L) &= g'(L) = g''(L) = 0,
+	\end{aligned}
+\end{equation}
+则可将 \(f, g\) 延拓为实轴上以 \(2L\) 为周期的奇函数：
+\begin{equation}
+	\begin{aligned}
+		f(x) &= -f(-x), & f(x + 2L) &= f(x), \\
+		g(x) &= -g(-x), & g(x + 2L) &= g(x).
+	\end{aligned}
+\end{equation}
+
+延拓后，\(f, g \in C^2(\mathbb{R})\)，代入达朗贝尔公式得到延拓问题的解，其在区间 \([0, L]\) 上的限制即为原问题的解。
+
+\subsubsection{达朗贝尔公式的应用}
+因为$f$,$g$是以$2L$为周期函数，而且是奇函数。
+故
+\begin{equation}
+g(y + L) = g(y - L) = -g(-y + L)
+\end{equation}
+
+$f(y + L)$、$g(y + L)$ 是奇函数。
+
+
+
+达朗贝尔公式为：
+\begin{equation}
+	u(x,t) = \frac{1}{2} \left[ f(x + at) + f(x - at) \right] + \frac{1}{2a} \int_{x - at}^{x + at} g(y) \, dy
+\end{equation}
+
+由于 \(f, g\) 为 \(\mathbb{R}\) 上以 \(2L\) 为周期的奇函数，代入边界点 \(x = 0\) 和 \(x = L\) 验证：
+
+对于 \(x = 0\)：
+\begin{equation}
+	u(0, t) = \frac{1}{2} \left[ f(at) + f(-at) \right] + \frac{1}{2a} \int_{-at}^{at} g(y) \, dy = 0
+\end{equation}
+
+对于 \(x = L\)：
+\begin{equation}
+	\begin{aligned}
+		u(L, t) &= \frac{1}{2}[f(L + at) + f(L - at)] + \frac{1}{2a} \int_{L - at}^{L + at} g(y) \, dy \\
+		&= \frac{1}{2}[f(L + at) + f(L - at)] + \frac{1}{2a} \int_{-at}^{at} g(y + L) \, dy \\
+		&= 0
+	\end{aligned}
+\end{equation}
+
+	当 \(x \geq 0\) 时，一定满足波动方程。
+
+当 \(x \leq 0\) 时,令 \(x = -y\)，\(y > 0\)，
+\[
+\bar{u}(x, t) = \bar{u}(-y, t) = -u(y, t),
+\]
+
+对于 \(\bar{u}_{xx}(x, t)\)：
+\[
+\begin{aligned}
+	\bar{u}_{xx}(x, t) &= \bar{u}_{xx}(-y, t) = \frac{d^2}{dx^2} [-u(y, t)] = \frac{d^2}{dx^2} [-u(-x, t)] \\
+	&= -u_{xx}(-x, t) = -u_{xx}(y, t).
+\end{aligned}
+\]
+
+对于 \(\bar{u}_{tt}(x, t)\)：
+\[
+\begin{aligned}
+	\bar{u}_{tt}(x, t) &= \bar{u}_{tt}(-y, t) = \bar{u}_{tt}(y, t) = -u_{tt}(y, t).
+\end{aligned}
+\]
+
+验证波动方程：
+\[
+\bar{u}_{tt} - \bar{u}_{xx} = -u_{tt}(y, t) + u_{xx}(y, t) = 0
+\]
+
+故问题延拓到全平面上就可以用达朗贝尔公式，
+\begin{equation*}
+	\begin{cases}
+		\bar{u}_{tt} - a^2 \bar{u}_{xx} = 0, & x \geq  0 , \ t > 0, \\
+		\bar{u}(x, 0) = \bar{f}(x), \ \bar{u}_t(x, 0) = \bar{g}(x), & x \geq  0 \\
+		\bar{u}(0, t) = 0, \ u(L, t) = 0
+	\end{cases}
+\end{equation*}
+
+\subsubsection{有界之第二边值条件}
+	\begin{equation}
+		\begin{cases}
+			u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
+			u(x, 0) = f(x), \ u_t(x, 0) = g(x), & 0 \leq x \leq L, \\
+			u_x(0, t) = 0, \ u_x(L, t) = 0, & t \geq 0.
+		\end{cases}
+	\end{equation}
+	对于第二边值条件，我们先做偶延拓，再做周期延拓。
+	
+	
+	
+	\subsection{有界之分离变量法}
+	\subsubsection{第一边值条件}
 	\begin{equation} \label{eq:wave_equation}
 		\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} \qquad 0 < x < l, \quad t > 0
 	\end{equation}
@@ -452,37 +837,37 @@
 	
 	
 	\begin{verification}	
-		\begin{equation}
+		\begin{equation*}
 			\cosh x = \frac{e^x + e^{-x}}{2} \quad \text{双曲余弦} \quad \sinh x = \frac{e^x - e^{-x}}{2} \quad \text{双曲正弦}
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			e^{ix} = \cos x + i \sin x \quad e^{-ix} = \cos x - i \sin x
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			\therefore \cos x = \frac{e^{ix} + e^{-ix}}{2} \quad \sin x = \frac{e^{ix} - e^{-ix}}{2i}
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			(\cosh x)' = \left( \frac{e^x + e^{-x}}{2} \right)' = \frac{e^x - e^{-x}}{2} = \sinh x
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			(\sinh x)' = \left( \frac{e^x - e^{-x}}{2} \right)' = \frac{e^x + e^{-x}}{2} = \cosh x
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			\therefore X = C_1 \cdot u \cdot \sinh \mu x + C_2 \cdot u \cdot \cosh \mu x
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			X'' = C_1 \cdot \mu^2 \cdot \cosh \mu x + C_2 \cdot \mu^2 \cdot \sinh \mu x
-		\end{equation}
+		\end{equation*}
 		
-		\begin{equation}
+		\begin{equation*}
 			X'' - kX = 0 \quad \therefore k = \mu^2
-		\end{equation}
+		\end{equation*}
 		
 	\end{verification}	
 	
@@ -710,6 +1095,519 @@
 	\begin{equation}
 		\lambda_n = c \mu_n = \frac{c n \pi}{l}
 	\end{equation}
+	
+		\subsubsection{第二边值条件}
+求解过程一样，就是解不同。
+	
+	\section{热传导方程}
+	\subsection{无界齐次热传导方程}
+	对于无界的热传导方程：
+	\begin{equation}
+		\begin{cases}\label{wujierechuandao}
+			u_t - \Delta u = 0, \\
+			u(x, 0) = \varphi(x),
+		\end{cases}
+	\end{equation}
+	其中，
+	\begin{equation}
+		\Delta u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
+	\end{equation}
+	
+	热传导方程的基本解：
+	\begin{equation}
+		E(x - y, t) = \frac{1}{t^{\frac{n}{2}}} e^{-\frac{|x - y|^2}{4t}}.
+	\end{equation}
+	
+	\subsection{傅里叶变换}
+	傅里叶变换定义为：
+	\begin{equation}
+		\mathcal{F}(f) = \hat{f}(\xi) = \int_{\mathbb{R}^n} f(x) e^{-i x \cdot \xi} \, dx.
+	\end{equation}
+	
+	\subsubsection{微分性质}
+	若 \( f \in C \cap L^p \)，则：
+	\begin{equation}
+		\mathcal{F}(f') = (i \xi_j) \mathcal{F}(f).
+	\end{equation}
+	这里求导是对于$x_j$
+	
+	\begin{proof}
+		\[
+			\mathcal{F}(f') = \hat{f'}(\xi) = \int_{\mathbb{R}^n} f'(x) e^{-i x \cdot \xi} \, dx
+		\]
+		
+		对$x_j$做分部积分
+		
+	\[
+			= \left[ f(x) e^{-i x \cdot \xi} \right]_{-\infty}^{+\infty} - \int_{\mathbb{R}^n} f(x) \cdot \frac{\partial}{\partial x_j} \left( e^{-i x \cdot \xi} \right) dx
+		\]	
+		
+		因为\( f \in C \cap L^p \)，则$\lim_{|x| \to \infty} f(x) = 0$(衰减性，紧支撑也有)，故可化简为：
+		
+	\[	
+			= (i \xi_j) \mathcal{F}(f)
+	\]	
+	\end{proof}
+	
+	若 \( f \in C^\alpha \cap L^p \)，用多次分布积分,则傅里叶变换的高阶导数性质为：
+	\begin{equation}\label{weifen}
+		\mathcal{F}(\partial^\alpha f) = (i \xi)^\alpha \mathcal{F}(f)
+	\end{equation}
+	其中，\(\alpha\) 为多指标，表示高阶导数。
+	
+	
+		\subsubsection{幂乘性质}
+	若 \( f \in L^1 \)，则傅里叶变换的幂乘性质为：
+	\begin{equation}
+		\mathcal{F}[-i x_j f(x)] = \frac{\partial}{\partial \xi_j} \mathcal{F}[f](\xi)
+	\end{equation}
+	
+	\begin{proof}
+		\[	
+		\frac{\partial}{\partial \xi_j} \int_{\mathbb{R}^n} f(x) e^{-i x \cdot \xi} dx = \int_{\mathbb{R}^n} f(x) \cdot \frac{\partial}{\partial \xi_j} e^{-i x \cdot \xi} dx= (-i x_j) \cdot \int_{\mathbb{R}^n} f(x) e^{-i x \cdot \xi} dx
+	\]	
+	
+\end{proof}
+	
+	
+	\subsubsection{傅里叶变换的卷积性质}
+		卷积定义：
+	\begin{equation}
+		(f * g)(x) = \int_{\mathbb{R}^n} f(y) \cdot g(x - y) \, dy
+	\end{equation}
+	
+	若\( f,g \in L^1 \)，卷积性质：
+	\begin{equation}
+		\mathcal{F}[f * g] = \mathcal{F}[f] \cdot \mathcal{F}[g]
+	\end{equation}
+
+
+		\begin{proof}
+	\[	
+		\mathcal{F}[f * g] = \int_{\mathbb{R}^n} e^{-i x \cdot \xi} \left( \int_{\mathbb{R}^n} f(y) \cdot g(x - y) \, dy \right) dx
+	\]	
+	
+	
+	根据 Fubini 定理，若\( f,g \in L^1 \)，我们交换外层关于 \(x\) 的积分和内层关于 \(y\) 的积分：
+	
+	\[
+	\mathcal{F}[f * g] = \int_{\mathbb{R}^n} f(y) \cdot \left( \int_{\mathbb{R}^n} e^{-i x \cdot \xi} g(x - y) dx \right) dy
+	\]
+	
+	变量替换 \( z = x - y \)，即 \( x = z + y \)，则 \( dz = dx \)，代入后：
+	\[	
+		= \int_{\mathbb{R}^n} f(y) \cdot \left( \int_{\mathbb{R}^n} e^{-i (z + y) \cdot \xi} g(z) \, dz \right) dy
+	\]	
+	
+	化简指数项：
+		\[	
+		= \int_{\mathbb{R}^n} e^{-i y \cdot \xi} \cdot \left( \int_{\mathbb{R}^n} e^{-i z \cdot \xi} g(z) \, dz \right) f(y) \, dy	= \mathcal{F}[g] \cdot \int_{\mathbb{R}^n} e^{-i y \cdot \xi} f(y) \, dy = \mathcal{F}[g] \cdot \mathcal{F}[f]
+	\]	
+	
+	
+\end{proof}
+	
+		\subsubsection{傅里叶逆变换的卷积性质}
+	若\( f,g \in L^1 \)
+	\begin{equation}\label{nibianhuanjuanji}
+		\mathcal{F}^{-1}[f \cdot g] = \mathcal{F}^{-1}[f] * \mathcal{F}^{-1}[g]
+	\end{equation}
+	
+	\begin{proof}
+		首先，根据傅里叶逆变换的定义：
+		\[
+		\mathcal{F}^{-1}[f \cdot g](x) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i x \cdot \xi} (f(\xi) \cdot g(\xi)) d\xi
+		\]
+		
+		卷积的定义：
+		\[
+		(\mathcal{F}^{-1}[f] * \mathcal{F}^{-1}[g])(x) = \int_{\mathbb{R}^n} \mathcal{F}^{-1}[f](y) \cdot \mathcal{F}^{-1}[g](x - y) dy
+		\]
+		
+		根据傅里叶逆变换的定义，将其展开：
+		\[
+		\mathcal{F}^{-1}[f](y) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i y \cdot \xi} f(\xi) d\xi
+		\]
+		\[
+		\mathcal{F}^{-1}[g](x - y) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i (x - y) \cdot \eta} g(\eta) d\eta
+		\]
+		
+		代入卷积表达式：
+		\[
+		(\mathcal{F}^{-1}[f] * \mathcal{F}^{-1}[g])(x) = \int_{\mathbb{R}^n} \left( \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i y \cdot \xi} f(\xi) d\xi \right) \cdot \left( \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i (x - y) \cdot \eta} g(\eta) d\eta \right) dy
+		\]
+		
+			根据 Fubini 定理，若\( f,g \in L^1 \)，交换积分顺序：
+		\[
+		(\mathcal{F}^{-1}[f] * \mathcal{F}^{-1}[g])(x) = \frac{1}{(2\pi)^{2n}} \int_{\mathbb{R}^n} \int_{\mathbb{R}^n} \left( \int_{\mathbb{R}^n} e^{i y \cdot \xi} e^{i (x - y) \cdot \eta} dy \right) f(\xi) g(\eta) d\xi d\eta
+		\]
+		
+		合并指数项：
+		\[
+		= \frac{1}{(2\pi)^{2n}} \int_{\mathbb{R}^n} \int_{\mathbb{R}^n} e^{i x \cdot \eta} \left( \int_{\mathbb{R}^n} e^{i y \cdot (\xi - \eta)} dy \right) f(\xi) g(\eta) d\xi d\eta
+		\]
+		
+		结果：
+		\[
+		= \frac{1}{(2\pi)^{2n}} \int_{\mathbb{R}^n} e^{i x \cdot \xi} (2\pi)^n f(\xi) g(\xi) d\xi= \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i x \cdot \xi} f(\xi) g(\xi) d\xi = \mathcal{F}^{-1}[f \cdot g](x)
+		\]
+
+		
+
+	\end{proof}
+	
+	
+		\subsection{高斯型函数的一些积分}
+		
+		下面是高斯型函数一些积分的计算
+	
+	
+	
+	\begin{example}
+		\label{ex:1}
+		$	\int_{-\infty}^{+\infty} e^{-a(x-b)^2} dx = \sqrt{\frac{\pi}{a}}$
+	\end{example}
+	
+	
+	\begin{proof}
+		\begin{equation*}
+			A^2 = \left( \int_{-\infty}^{+\infty} e^{-a(x-b)^2} dx \right) \left( \int_{-\infty}^{+\infty} e^{-a(y-b)^2} dy \right)
+		\end{equation*}
+		
+		\begin{equation*}
+			= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} e^{-a((x-b)^2 + (y-b)^2)} dx dy
+		\end{equation*}
+		
+		由极坐标变量替换可得
+		
+		\begin{equation*}
+			(x - b)^2 + (y - b)^2 = r^2
+		\end{equation*}
+		
+		\begin{equation*}
+			\begin{cases}
+				x - b = r \cos\theta \\
+				y - b = r \sin\theta
+			\end{cases}
+		\end{equation*}
+		
+		\begin{equation*}
+			\begin{cases}
+				dx = \cos\theta \, dr - r \sin\theta \, d\theta \\
+				dy = \sin\theta \, dr + r \cos\theta \, d\theta
+			\end{cases}
+		\end{equation*}
+		
+		\begin{equation*}
+			J = \begin{vmatrix}
+				\cos\theta & -r \sin\theta \\
+				\sin\theta & r \cos\theta
+			\end{vmatrix} = r
+		\end{equation*}
+		
+		\begin{equation*}
+			dx dy = r \, d\theta \, dr
+		\end{equation*}
+		
+		\begin{equation*}
+			A^2 = \int_{-\pi}^{\pi} \int_{0}^{\infty} e^{-ar^2} r \, dr \, d\theta	= \frac{1}{2} \int_{-\pi}^{\pi} \int_{0}^{\infty} e^{-ar^2} d(r^2) \, d\theta
+		\end{equation*}
+		
+		
+		\begin{equation*}
+			= \frac{1}{2} \int_{-\pi}^{\pi} \left[ -\frac{1}{a} e^{-ar^2} \Big|_{0}^{+\infty} \right] d\theta= \frac{1}{2} \int_{-\pi}^{\pi} \frac{1}{a} \, d\theta	= \frac{\pi}{a}
+		\end{equation*}
+		
+		
+		\begin{equation*}
+			\therefore	\int_{-\infty}^{+\infty} e^{-a(x-b)^2} dx = \sqrt{\frac{\pi}{a}}
+		\end{equation*}
+		
+	\end{proof}
+	
+	\begin{example}
+		\label{ex:2}
+		$	\int_{c}^{+\infty} e^{-a(x-b)^2} dx$
+		积分没有原函数
+	\end{example}
+	
+	\begin{proof}
+		
+		
+		方法1.不成熟的证明方法望指正
+		
+		
+		
+		
+		
+		\begin{equation*}
+			A^2 = \left( \int_{0}^{+\infty} e^{-a(x-b)^2} dx \right) \left( \int_{0}^{+\infty} e^{-a(y-b)^2} dy \right)
+		\end{equation*}
+		
+		\begin{equation*}
+			\neq \int_{0}^{\frac{\pi}{2}} \int_{0}^{+\infty} e^{-ar^2} \cdot r \, dr \, d\theta
+		\end{equation*}
+		在这里不能像上面那样做极坐标变量代换，因为圆心为$(b,b)$，而坐标点不是全平面，当$r$大到一定程度，角度再也不能转一圈，角度会随着$r$的增大而变小，无法用二重积分的定义表示。
+		
+		
+	\end{proof}
+	
+	
+	\begin{example}\label{ex:3}
+		$\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx=\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}$
+	\end{example}
+	
+	\begin{proof}
+		
+		\begin{equation*}
+			\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx+i\int_{-\infty}^{+\infty} \sin kx \cdot e^{-a x^2} dx
+		\end{equation*}
+		第二项为奇函数，积分为0，所以，
+		\begin{equation*}
+			\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx
+		\end{equation*}
+		
+		\begin{equation*}
+			\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx
+		\end{equation*}
+		
+		配方
+		\begin{equation*}
+			\begin{split}
+				-a x^2 + ikx &= -a \left( x^2 - \frac{ik}{a} x \right) \\
+				&= -a \left[ x^2 - \frac{ik}{a} x + \left( \frac{ik}{2a} \right)^2 - \left( \frac{ik}{2a} \right)^2 \right] \\
+				&= -a \left( x - \frac{ik}{2a} \right)^2 - \frac{k^2}{4a}
+			\end{split}
+		\end{equation*}
+		所以，
+		\begin{equation*}
+			\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx	= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}
+		\end{equation*}
+	\end{proof}
+	
+	
+	\begin{example}\label{ex:4}
+		$\int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}$
+	\end{example}
+	
+	\begin{proof}
+		
+		
+		\begin{equation*}
+			\text{设} \quad \Phi(a) = \int_{-\infty}^{+\infty} e^{-a z^2} dz = \sqrt{\frac{\pi}{a}}
+		\end{equation*}
+		
+		\begin{equation*}
+			\frac{d\Phi}{da} = -\int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{d}{da} \left( \pi^{\frac{1}{2}} a^{-\frac{1}{2}} \right) = \pi^{\frac{1}{2}} a^{-\frac{3}{2}} \cdot \left( -\frac{1}{2} \right)
+		\end{equation*}
+		
+		\begin{equation*}
+			\therefore \int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}
+		\end{equation*}
+	\end{proof}
+	
+	
+	
+	\begin{example}\label{ex:5}
+		$	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}$
+	\end{example}
+	
+	\begin{proof}
+		展开得
+		\begin{equation*}
+			= \int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz + \int_{-\infty}^{+\infty} 2 z b x e^{-a z^2} dz + b^2 x^2 \int_{-\infty}^{+\infty} e^{-a z^2} dz
+		\end{equation*}
+		
+		\begin{equation*}
+			= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}
+		\end{equation*}
+		
+	\end{proof}
+	
+	
+	
+	
+	
+	
+	
+	
+	\subsection{解的导出}
+	对于无界的热传导方程\eqref{wujierechuandao}：
+	\begin{equation}
+		\begin{cases}
+			u_t - \Delta u = 0, \\
+			u(x, 0) = \varphi(x),
+		\end{cases}
+	\end{equation}
+	
+	设初值问题的解 \( u(x, t) \) 和初始数据 \( \varphi(x) \) 都可关于变量 \( x \) 进行 Fourier 变换，并记：
+	\begin{equation}
+		\hat{u}(\xi, t) = \int_{\mathbb{R}^n} u(x, t) e^{-i x \cdot \xi} dx,
+	\end{equation}
+	\begin{equation}
+		\hat{\varphi}(\xi) = \int_{\mathbb{R}^n} \varphi(x) e^{-i x \cdot \xi} dx.
+	\end{equation}
+	
+	对热传导方程和初始条件进行 Fourier 变换，根据傅里叶的微分性质\eqref{weifen}：
+		\begin{equation}
+	\hat{u_t}=\int_{\mathbb{R}^n} u_t(x, t) e^{-i x \cdot \xi} dx=\frac{d}{dt} \int_{\mathbb{R}^n} u(x, t) e^{-i x \cdot \xi} dx= \frac{d\hat{u}(\xi, t)}{dt}
+		\end{equation}
+	
+	\[
+	\Delta u = \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2}
+	\]
+		\[
+	\mathcal{F}\left[\frac{\partial^2 u}{\partial x_j^2}\right](\xi) = -\xi_j^2 \hat{u}(\xi)
+		\]
+		\begin{equation}
+		\mathcal{F}[\Delta u](\xi) = \sum_{j=1}^n (-\xi_j^2) \hat{u}(\xi) = -|\xi|^2 \hat{u}(\xi)
+			\end{equation}
+		
+		
+	把$\xi$看作常量,得到关于 \(\hat{u}(\xi, t)\) 的常微分方程初值问题：
+	\begin{equation}
+		\begin{cases}
+			\displaystyle \frac{d\hat{u}(\xi, t)}{dt} + |\xi|^2 \hat{u}(\xi, t) = 0, \\
+			\hat{u}(\xi, 0) = \hat{\varphi}(\xi).
+		\end{cases}
+	\end{equation}
+		该方程的解为：
+	\begin{equation}
+		\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-|\xi|^2 t}.
+	\end{equation}
+	
+	
+	
+		\begin{proof}
+	这是一个一阶线性常微分方程，可以通过分离变量法求解。
+	将方程改写为：
+	\[
+	\frac{d\hat{u}}{\hat{u}} = -a^2 |\xi|^2 dt
+	\]
+	
+	对两边积分：
+	\[
+	\int \frac{d\hat{u}}{\hat{u}} = \int -a^2 |\xi|^2 dt
+	\]
+	
+	得到：
+	\[
+	\ln|\hat{u}| = -a^2 |\xi|^2 t + C(\xi)
+	\]
+	其中，\(C(\xi)\) 是积分常数，可能依赖于 \(\xi\)。
+	
+	
+	利用初始条件 \(\hat{u}(\xi, 0) = \hat{\varphi}(\xi)\)，代入上式得：
+	\[
+	C(\xi) = \ln|\hat{\varphi}(\xi)|
+	\]
+	
+	将 \(C(\xi)\) 代入积分结果：
+	\[
+	\ln|\hat{u}| = -a^2 |\xi|^2 t + \ln|\hat{\varphi}(\xi)|
+	\]
+	
+	对两边取指数：
+	\[
+	\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-a^2 |\xi|^2 t}
+	\]
+
+	
+		\end{proof}
+	
+	
+对 \(\hat{u}(\xi, t)\) 进行 Fourier 逆变换
+	\begin{equation}
+		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi) e^{-|\xi|^2 t}]
+	\end{equation}
+	
+	利用Fourier 逆变换卷积的性质\eqref{nibianhuanjuanji}：
+	\begin{equation}
+		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi)] * \mathcal{F}^{-1}[e^{-|\xi|^2 t}]
+	\end{equation}
+	
+	\begin{example}
+		我们需要证明：
+		\[
+		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = (4\pi t)^{-n/2} e^{-\frac{|x|^2}{4t}}
+		\]
+	\end{example}
+	
+
+	
+	\begin{proof}
+		
+		根据傅里叶逆变换的定义：
+		\[
+		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i x \cdot \xi} e^{-|\xi|^2 t} d\xi
+		\]
+		
+		我们可以将这个积分分解为每个坐标的积分：
+		\[
+		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \prod_{j=1}^n \int_{-\infty}^\infty e^{i x_j \xi_j} e^{-\xi_j^2 t} d\xi_j
+		\]
+		
+	\begin{remark}
+	\[
+	\mathcal{F}^{-1}\left[e^{-|\xi|^{2} t}\right](x)=\frac{1}{(2\pi)^{3}}\left(\int_{-\infty}^{\infty} e^{i x_1 \xi_1} e^{-\xi_1^{2} t} d\xi_1\right)\left(\int_{-\infty}^{\infty} e^{i x_2 \xi_2} e^{-\xi_2^{2} t} d\xi_2\right)\left(\int_{-\infty}^{\infty} e^{i x_3 \xi_3} e^{-\xi_3^{2} t} d\xi_3\right)
+	\]
+	\end{remark}
+		
+		
+		对于每个一维积分，我们有：
+		\[
+		\int_{-\infty}^\infty e^{i x_j \xi_j} e^{-\xi_j^2 t} d\xi_j
+		\]
+		
+		对指数部分进行配方：
+		\[
+		-t \xi_j^2 + i x_j \xi_j = -t \left( \xi_j^2 - \frac{i x_j}{t} \xi_j \right)
+		\]
+		\[
+		= -t \left( \xi_j^2 - \frac{i x_j}{t} \xi_j + \left( \frac{x_j}{2t} \right)^2 - \left( \frac{x_j}{2t} \right)^2 \right)
+		\]
+		\[
+		= -t \left( \left( \xi_j - \frac{i x_j}{2t} \right)^2 - \frac{x_j^2}{4t^2} \right)
+		\]
+		\[
+		= -t \left( \xi_j - \frac{i x_j}{2t} \right)^2 + \frac{x_j^2}{4t}
+		\]
+		
+		代入积分中,由命题\eqref{ex:1}：
+		\[
+		\int_{-\infty}^\infty e^{-t \left( \xi_j - \frac{i x_j}{2t} \right)^2 + \frac{x_j^2}{4t}} d\xi_j = e^{\frac{x_j^2}{4t}} \int_{-\infty}^\infty e^{-t \left( \xi_j - \frac{i x_j}{2t} \right)^2} d\xi_j= \sqrt{\frac{\pi}{t}} e^{\frac{x_j^2}{4t}}
+		\]
+	
+		
+		将所有坐标的结果相乘，并乘以系数 \( \frac{1}{(2\pi)^n} \)，得到：
+		\[
+		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \left( \sqrt{\frac{\pi}{t}} \right)^n e^{-\frac{|x|^2}{4t}}
+		\]
+		\[
+		= \frac{1}{(2\pi)^n} \cdot \frac{\pi^{n/2}}{t^{n/2}} e^{-\frac{|x|^2}{4t}}= \frac{1}{(2)^n t^{n/2}} e^{-\frac{|x|^2}{4t}}= (4 \pi t)^{-n/2} e^{-\frac{|x|^2}{4t}}
+		\]
+
+	\end{proof}
+	
+
+	
+	
+	
+	因此，解可以表示为：
+	\begin{equation}
+		u(x, t) = (4\pi t)^{-n/2} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4t}} dy
+	\end{equation}
+	
+	其中，\( E(x - y, t) = (4\pi t)^{-n/2} e^{-\frac{|x - y|^2}{4t}} \) 称为热传导方程的基本解。
+	
+	\subsection{热传导方程齐次化}
+	和之前波动方程齐次化一样，把边界条件齐次化，用Duhamamel原理把方程齐次化。有界无界的情况，把基本解看作达朗贝尔公式，延拓和上面一模样；分离变量的方法也一样，就是时间常微分函数变成一阶，其他全部的求解过程，验证过程全部一样。
+	
+	
+	
+	
+	%弱解
+%	\href{https://en.wikipedia.org/wiki/Weak_solution}{（Weak Solution）}
 	
 	
 	
