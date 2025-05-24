@@ -67,7 +67,7 @@
 	\newpage
 	
 		\section{齐次化}
-	\subsection{边界条件齐次化}
+	\subsection{第一边界条件齐次化}
 	要想利用Duhamamel原理，我们首先将第一边界条件齐次化，即要找到一个恰当的变换将第一边界值变为零。
 	对于	(A) 方程问题：
 	\begin{equation}
@@ -121,6 +121,69 @@
 	
 	这样我们就完成了边界条件的齐次化。
 	
+	\subsection{第二边界条件齐次化}
+	为利用Duhamel原理，需将非齐次Neumann边界条件齐次化，即构造变换使边界导数归零。
+
+		
+		以下我们仅考虑如下第二边值问题：
+		
+		\begin{equation}
+			\begin{cases}
+				u_{tt} - a^2 u_{xx} = 0, & 0 < x < l, \ t > 0, \\
+				u(x, 0) = \varphi(x), \quad u_t(x, 0) = \psi(x), & 0 \leq x \leq l, \\
+				u_x(0, t) = \mu_1(t), \quad u_x(l, t) = \mu_2(t), & t \geq 0.
+			\end{cases}
+		\end{equation}
+		
+		构造辅助函数：
+		\begin{equation}
+			U(x, t) = x\mu_1(t) + \frac{x^2}{2l}\big( \mu_2(t) - \mu_1(t) \big),
+		\end{equation}
+		
+		作变换：
+		\begin{equation}
+			v(x, t) = u(x, t) - U(x, t),
+		\end{equation}
+		
+		将 \(u(x, t) = v(x, t) + U(x, t)\) 代入原方程：
+		
+		\begin{equation}
+			\begin{cases}
+				u_{tt} - a^2 u_{xx} = 0, & 0 < x < l, \ t > 0, \\
+				u(x, 0) = \varphi(x), \quad u_t(x, 0) = \psi(x), & 0 \leq x \leq l, \\
+				u_x(0, t) = \mu_1(t), \quad u_x(l, t) = \mu_2(t), & t \geq 0.
+			\end{cases}
+		\end{equation}
+		
+		得到：
+		
+		\begin{equation}
+			\begin{cases}
+				v_{tt} - a^2 v_{xx} = -x\mu_1''(t) - \frac{x^2}{2l}\big( \mu_2''(t) - \mu_1''(t) \big) + \frac{a^2}{l}\big( \mu_2(t) - \mu_1(t) \big), \\
+				v(x, 0) = \varphi(x) - x\mu_1(0) - \frac{x^2}{2l}\big( \mu_2(0) - \mu_1(0) \big), \\
+				v_t(x, 0) = \psi(x) - x\mu_1'(0) - \frac{x^2}{2l}\big( \mu_2'(0) - \mu_1'(0) \big), \\
+				v_x(0, t) = 0, \quad v_x(l, t) = 0.
+			\end{cases}
+		\end{equation}
+		
+		此时的方程被转化为如下形式的混合问题：
+		
+		\begin{equation}
+			\begin{cases}
+				u_{tt} - a^2 u_{xx} = 0, & 0 < x < l, \ t > 0, \\
+				u(x, 0) = \varphi_1(x), \quad u_t(x, 0) = \psi_1(x), & 0 \leq x \leq l, \\
+				u_x(0, t) = 0, \quad u_x(l, t) = 0. &
+			\end{cases}
+		\end{equation}
+		
+
+	
+	
+	
+	
+	
+	
+	
 	\subsection{叠加原理}
 	对于问题\eqref{B},我们可以使用叠加原理将其分解为两个子问题.
 	\begin{equation}
@@ -150,7 +213,8 @@
 	
 	
 	\subsection{Duhamamel原理之方程齐次化}
-	对于有界方程非齐次问题：
+		\subsubsection{第一边界非齐次方程}
+	对于第一边界非齐次方程问题：
 	\begin{equation}
 		\begin{cases}
 			v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
@@ -169,13 +233,32 @@
 	
 	则函数 \( v(x, t) = \int_0^t w(x, t, \tau) \, d\tau \) 就是问题的解。
 	然后还有偏导数，那方程的函数转移到最高偏导函数上，其余依旧为0.
+
+所以我们最终要解决的就是初始条件非齐次，方程和边界条件齐次\eqref{B}这样的方程.
 	
 	
 	
+	\subsubsection{第二边界非齐次方程}
+	对于有界方程非齐次问题（第二边界条件）：
+	\begin{equation}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
+			v|_{t=0} = 0, \quad v_t|_{t=0} = 0, & 0 \leq x \leq l, \\
+			v_x|_{x=0} = 0, \quad v_x|_{x=l} = 0, & t \geq 0,
+		\end{cases}
+	\end{equation}
+	若 \( w(x, t, \tau) \) 是以下定解问题的解：
+	\begin{equation}
+		\begin{cases}
+			W_{tt} - a^2 W_{xx} = 0, & t > \tau, \\
+			W|_{t=\tau} = 0, \quad \left. \frac{\partial W}{\partial t} \right|_{t=\tau} = f_1(x, \tau), & 0 \leq x \leq l,
+		\end{cases}
+	\end{equation}
+	则函数 \( v(x, t) = \int_0^t w(x, t, \tau) \, d\tau \) 就是问题的解。
+	同样地，方程的函数转移到最高偏导函数上，其余依旧为0.
 	
 	
-	所以我们最终要解决的就是初始条件非齐次，方程和边界条件齐次\eqref{B}这样的方程.
-	
+	\subsubsection{无界非齐次方程}
 	对于无界区域中的非齐次波动方程：
 	
 \begin{equation}
@@ -769,8 +852,8 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 	
 	
 	
-	\subsection{有界之分离变量法}
-	\subsubsection{第一边值条件}
+	\subsection{第一边值条件之分离变量法}
+	\subsubsection{问题描述}
 	\begin{equation} \label{eq:wave_equation}
 		\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} \qquad 0 < x < l, \quad t > 0
 	\end{equation}
@@ -1096,8 +1179,8 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 		\lambda_n = c \mu_n = \frac{c n \pi}{l}
 	\end{equation}
 	
-		\subsubsection{第二边值条件}
-求解过程一样，就是解不同。
+		\subsection{第二边值条件之分离变量}
+求解过程一样，就是解不同，第一边界条件是把通解求出来，代入得系数，第二边界条件就还要求个导再代入。这样就不展开详细说明。
 	
 	\section{热传导方程}
 	\subsection{无界齐次热传导方程}
@@ -1601,7 +1684,9 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 	其中，\( E(x - y, t) = (4\pi t)^{-n/2} e^{-\frac{|x - y|^2}{4t}} \) 称为热传导方程的基本解。
 	
 	\subsection{热传导方程齐次化}
-	和之前波动方程齐次化一样，把边界条件齐次化，用Duhamamel原理把方程齐次化。有界无界的情况，把基本解看作达朗贝尔公式，延拓和上面一模样；分离变量的方法也一样，就是时间常微分函数变成一阶，其他全部的求解过程，验证过程全部一样。
+	和之前波动方程齐次化一样，把边界条件齐次化，用Duhamamel原理把方程齐次化。有界无界的情况，把基本解看作达朗贝尔公式，延拓和上面一模样。
+	
+	分离变量的方法也一样，就是时间常微分函数变成一阶通解为指数函数，而不再是三角函数。其他全部的求解过程，验证过程全部一样。
 	
 	
 	
