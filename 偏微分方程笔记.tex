@@ -840,18 +840,17 @@
 	\begin{cases}
 		u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
 		u(x, 0) = f(x), \ u_t(x, 0) = g(x), & 0 \leq x \leq L, \\
-		u(0, t) = \alpha(t), \ u(L, t) = \beta(t), & t \geq 0.
+		u(0, t) = 0, \ u(L, t) = 0, & t \geq 0.
 	\end{cases}
 \end{equation}
 
-其中，弦的两端固定，即 \(\alpha(t) \equiv \beta(t) \equiv 0\)。
 
 \subsubsection{核心思想}
-当两端固定时，若 \(f, g \in C^2\) 满足相容条件：
+为了满足奇偶延拓的条件，在边界处，初值条件要为0.
 \begin{equation}
 	\begin{aligned}
-		f(0) &= f'(0) = f''(0) = 0, & f(L) &= f'(L) = f''(L) = 0, \\
-		g(0) &= g'(0) = g''(0) = 0, & g(L) &= g'(L) = g''(L) = 0,
+		f(0) & = 0, & f(L)  = 0, \\
+		g(0) & =0, & g(L)  = 0,
 	\end{aligned}
 \end{equation}
 则可将 \(f, g\) 延拓为实轴上以 \(2L\) 为周期的奇函数：
@@ -863,6 +862,17 @@
 \end{equation}
 
 延拓后，\(f, g \in C^2(\mathbb{R})\)，代入达朗贝尔公式得到延拓问题的解，其在区间 \([0, L]\) 上的限制即为原问题的解。
+
+\begin{remark}
+因为方程本身属于$C^2$,所以我们的·延拓点也需要满足一些可导的条件。
+\begin{equation}
+	\begin{aligned}
+		 f'(0) = f''(0) = 0, &  f'(L) = f''(L) = 0, \\
+		 g'(0) = g''(0) = 0, &  g'(L) = g''(L) = 0,
+	\end{aligned}
+\end{equation}
+\end{remark}
+
 
 \subsubsection{达朗贝尔公式的应用}
 因为$f$,$g$是以$2L$为周期函数，而且是奇函数。
@@ -932,7 +942,7 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 	\end{cases}
 \end{equation*}
 
-\subsection{有界第二边值条件之反射法,不确定待更正}
+\subsection{有界第二边值条件之反射法}
 	\begin{equation}
 		\begin{cases}
 			u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
@@ -940,11 +950,49 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 			u_x(0, t) = 0, \ u_x(L, t) = 0, & t \geq 0.
 		\end{cases}
 	\end{equation}
-	对于第二边值条件，我们先做偶延拓，再做周期延拓。（相容性条件是什么）
+	对于第二边值条件，我们先做偶延拓，再做周期延拓。
 	
-	\subsection{有界混合边界问题之反射法,不确定待更正}
+	为了满足奇偶延拓的条件，在边界处，初值条件要为0.
+	\begin{equation}
+		\begin{aligned}
+			f'(0) & = 0, & f'(L)  = 0, \\
+			g'(0) & =0, & g'(L)  = 0,
+		\end{aligned}
+	\end{equation}
+	
+	
+	\subsection{第一种有界混合边界问题之反射法}
+$x=0$处是原函数，$ l=0$是一阶偏导函数。
+	\begin{equation}
+	\begin{cases}
+		u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
+		u(x, 0) = f(x), \ u_t(x, 0) = g(x), & 0 \leq x \leq L, \\
+		u(0, t) = 0, \ u_x(L, t) = 0, & t \geq 0.
+	\end{cases}
+\end{equation}
+奇延拓 ($x=0$) + 偶延拓 ($x=L$)，周期4L.
 
+为了满足奇偶延拓的条件，在边界处，初值条件要为0.
+\begin{equation}
+	\begin{aligned}
+		f'(0) = f''(0) = 0, & \quad f'(L) = f''(L) = 0, \\
+		g'(0) = g''(0) = 0, &  \quad g'(L) = g''(L) = 0,
+	\end{aligned}
+\end{equation}
+
+\subsection{第二种有界混合边界问题之反射法}
+	$x=0$处是一阶偏导函数，$ l=0$是原函数。
+		\begin{equation}
+		\begin{cases}
+			u_{tt} - a^2 u_{xx} = 0, & 0 < x < L, \ t > 0, \\
+			u(x, 0) = f(x), \ u_t(x, 0) = g(x), & 0 \leq x \leq L, \\
+			u_x(0, t) = 0, \ u(L, t) = 0, & t \geq 0.
+		\end{cases}
+	\end{equation}
+	偶延拓 ($x=0$) + 奇延拓 ($x=L$)，周期4L.
 	
+	为了满足奇偶延拓的条件，在边界处，初值条件要为0.
+
 	
 	
 	\section{有界波动方程之分离变量法}
@@ -1003,7 +1051,7 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 	
 	\subsubsection{空间常微分方程的求解}
 	\begin{equation}
-		X'' - kX = 0 \quad X(0) = 0 \quad (X(l) = 0
+		X'' - kX = 0 \quad X(0) = 0 \quad X(l) = 0
 	\end{equation}
 	
 情况 1 \quad 若 \(k > 0\)
