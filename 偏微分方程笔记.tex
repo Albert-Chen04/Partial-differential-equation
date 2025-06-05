@@ -777,7 +777,6 @@
 	\end{remark}
 	
 	
-	
 		\subsection{第二边值条件半直线问题}
 		反射法的核心思想：利用达朗贝尔公式把解延拓
 		
@@ -853,7 +852,7 @@
 		g(0) & =0, & g(L)  = 0,
 	\end{aligned}
 \end{equation}
-则可将 \(f, g\) 延拓为实轴上以 \(2L\) 为周期的奇函数：
+则可将 \(f, g\) 延拓为实轴上以 \(2L\) 为周期的奇函数（先做奇延拓再做周期延拓）：
 \begin{equation}
 	\begin{aligned}
 		f(x) &= -f(-x), & f(x + 2L) &= f(x), \\
@@ -864,13 +863,7 @@
 延拓后，\(f, g \in C^2(\mathbb{R})\)，代入达朗贝尔公式得到延拓问题的解，其在区间 \([0, L]\) 上的限制即为原问题的解。
 
 \begin{remark}
-因为方程本身属于$C^2$,所以我们的·延拓点也需要满足一些可导的条件。
-\begin{equation}
-	\begin{aligned}
-		 f'(0) = f''(0) = 0, &  f'(L) = f''(L) = 0, \\
-		 g'(0) = g''(0) = 0, &  g'(L) = g''(L) = 0,
-	\end{aligned}
-\end{equation}
+因为方程本身属于$C^2$,所以我们的延拓点也需要满足一些可导的条件。(待补充)
 \end{remark}
 
 
@@ -952,7 +945,7 @@ $f(y + L)$、$g(y + L)$ 是奇函数。
 	\end{equation}
 	对于第二边值条件，我们先做偶延拓，再做周期延拓。
 	
-	为了满足奇偶延拓的条件，在边界处，初值条件要为0.
+相容性条件： 
 	\begin{equation}
 		\begin{aligned}
 			f'(0) & = 0, & f'(L)  = 0, \\
@@ -970,15 +963,19 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 		u(0, t) = 0, \ u_x(L, t) = 0, & t \geq 0.
 	\end{cases}
 \end{equation}
+相容性条件：
+\begin{equation}
+\begin{aligned}
+	f(0) & = 0, & f'(L)  = 0, \\
+	g(0) & =0, & g'(L)  = 0,
+\end{aligned}
+\end{equation}
+\begin{remark}
+	为了满足连续性的条件，且是$C^2$解，在边界处，可能还要满足其他相容性条件。
+\end{remark}
+
 奇延拓 ($x=0$) + 偶延拓 ($x=L$)，周期4L.
 
-为了满足奇偶延拓的条件，在边界处，初值条件要为0.
-\begin{equation}
-	\begin{aligned}
-		f'(0) = f''(0) = 0, & \quad f'(L) = f''(L) = 0, \\
-		g'(0) = g''(0) = 0, &  \quad g'(L) = g''(L) = 0,
-	\end{aligned}
-\end{equation}
 
 \subsection{第二种有界混合边界问题之反射法}
 	$x=0$处是一阶偏导函数，$ l=0$是原函数。
@@ -989,9 +986,20 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 			u_x(0, t) = 0, \ u(L, t) = 0, & t \geq 0.
 		\end{cases}
 	\end{equation}
+	相容性条件：
+	\begin{equation}
+		\begin{aligned}
+			f'(0) & = 0, & f(L)  = 0, \\
+			g'(0) & =0, & g(L)  = 0,
+		\end{aligned}
+	\end{equation}
+	\begin{remark}
+		为了满足连续性的条件，且是$C^2$解，在边界处，可能还要满足其他相容性条件。
+	\end{remark}
+	
 	偶延拓 ($x=0$) + 奇延拓 ($x=L$)，周期4L.
 	
-	为了满足奇偶延拓的条件，在边界处，初值条件要为0.
+
 
 	
 	
