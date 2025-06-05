@@ -1342,7 +1342,7 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	对于无界的热传导方程：
 	\begin{equation}
 		\begin{cases}\label{wujierechuandao}
-			u_t - \Delta u = 0, \\
+			u_t -a\Delta u = 0, \\
 			u(x, 0) = \varphi(x),
 		\end{cases}
 	\end{equation}
@@ -1350,11 +1350,10 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	\begin{equation}
 		\Delta u = \sum_{i=1}^n \frac{\partial^2 u}{\partial x_i^2}.
 	\end{equation}
-	
-	热传导方程的基本解：
+	解为
 	\begin{equation}
-		E(x - y, t) = \frac{1}{t^{\frac{n}{2}}} e^{-\frac{|x - y|^2}{4t}}.
-	\end{equation}
+	u(x, t) = (4\pi a t)^{-n/2} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4a t}} dy
+\end{equation}
 	
 	\subsection{傅里叶变换}
 	傅里叶变换定义为：
@@ -1673,7 +1672,7 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	对于无界的热传导方程\eqref{wujierechuandao}：
 	\begin{equation}
 		\begin{cases}
-			u_t - \Delta u = 0, \\
+			u_t - a\Delta u = 0, \\
 			u(x, 0) = \varphi(x),
 		\end{cases}
 	\end{equation}
@@ -1687,157 +1686,156 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	\end{equation}
 	
 	对热传导方程和初始条件进行 Fourier 变换，根据傅里叶的微分性质\eqref{weifen}：
-		\begin{equation}
-	\hat{u_t}=\int_{\mathbb{R}^n} u_t(x, t) e^{-i x \cdot \xi} dx=\frac{d}{dt} \int_{\mathbb{R}^n} u(x, t) e^{-i x \cdot \xi} dx= \frac{d\hat{u}(\xi, t)}{dt}
-		\end{equation}
+	\begin{equation}
+		\hat{u_t}=\int_{\mathbb{R}^n} u_t(x, t) e^{-i x \cdot \xi} dx=\frac{d}{dt} \int_{\mathbb{R}^n} u(x, t) e^{-i x \cdot \xi} dx= \frac{d\hat{u}(\xi, t)}{dt}
+	\end{equation}
 	
 	\[
 	\Delta u = \sum_{j=1}^n \frac{\partial^2 u}{\partial x_j^2}
 	\]
-		\[
+	\[
 	\mathcal{F}\left[\frac{\partial^2 u}{\partial x_j^2}\right](\xi) = -\xi_j^2 \hat{u}(\xi)
-		\]
-		\begin{equation}
+	\]
+	\begin{equation}
 		\mathcal{F}[\Delta u](\xi) = \sum_{j=1}^n (-\xi_j^2) \hat{u}(\xi) = -|\xi|^2 \hat{u}(\xi)
-			\end{equation}
-		
-		
+	\end{equation}
+	
+	
 	把$\xi$看作常量,得到关于 \(\hat{u}(\xi, t)\) 的常微分方程初值问题：
 	\begin{equation}
 		\begin{cases}
-			\displaystyle \frac{d\hat{u}(\xi, t)}{dt} + |\xi|^2 \hat{u}(\xi, t) = 0, \\
+			\displaystyle \frac{d\hat{u}(\xi, t)}{dt} + a|\xi|^2 \hat{u}(\xi, t) = 0, \\
 			\hat{u}(\xi, 0) = \hat{\varphi}(\xi).
 		\end{cases}
 	\end{equation}
-		该方程的解为：
+	该方程的解为：
 	\begin{equation}
-		\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-|\xi|^2 t}.
+		\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-a|\xi|^2 t}.
 	\end{equation}
 	
 	
 	
-		\begin{proof}
-	这是一个一阶线性常微分方程，可以通过分离变量法求解。
-	将方程改写为：
-	\[
-	\frac{d\hat{u}}{\hat{u}} = -a^2 |\xi|^2 dt
-	\]
+	\begin{proof}
+		这是一个一阶线性常微分方程，可以通过分离变量法求解。
+		将方程改写为：
+		\[
+		\frac{d\hat{u}}{\hat{u}} = -a |\xi|^2 dt
+		\]
+		
+		对两边积分：
+		\[
+		\int \frac{d\hat{u}}{\hat{u}} = \int -a |\xi|^2 dt
+		\]
+		
+		得到：
+		\[
+		\ln|\hat{u}| = -a |\xi|^2 t + C(\xi)
+		\]
+		其中，\(C(\xi)\) 是积分常数，可能依赖于 \(\xi\)。
+		
+		
+		利用初始条件 \(\hat{u}(\xi, 0) = \hat{\varphi}(\xi)\)，代入上式得：
+		\[
+		C(\xi) = \ln|\hat{\varphi}(\xi)|
+		\]
+		
+		将 \(C(\xi)\) 代入积分结果：
+		\[
+		\ln|\hat{u}| = -a |\xi|^2 t + \ln|\hat{\varphi}(\xi)|
+		\]
+		
+		对两边取指数：
+		\[
+		\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-a |\xi|^2 t}
+		\]
+		
+		
+	\end{proof}
 	
-	对两边积分：
-	\[
-	\int \frac{d\hat{u}}{\hat{u}} = \int -a^2 |\xi|^2 dt
-	\]
 	
-	得到：
-	\[
-	\ln|\hat{u}| = -a^2 |\xi|^2 t + C(\xi)
-	\]
-	其中，\(C(\xi)\) 是积分常数，可能依赖于 \(\xi\)。
-	
-	
-	利用初始条件 \(\hat{u}(\xi, 0) = \hat{\varphi}(\xi)\)，代入上式得：
-	\[
-	C(\xi) = \ln|\hat{\varphi}(\xi)|
-	\]
-	
-	将 \(C(\xi)\) 代入积分结果：
-	\[
-	\ln|\hat{u}| = -a^2 |\xi|^2 t + \ln|\hat{\varphi}(\xi)|
-	\]
-	
-	对两边取指数：
-	\[
-	\hat{u}(\xi, t) = \hat{\varphi}(\xi) e^{-a^2 |\xi|^2 t}
-	\]
-
-	
-		\end{proof}
-	
-	
-对 \(\hat{u}(\xi, t)\) 进行 Fourier 逆变换
+	对 \(\hat{u}(\xi, t)\) 进行 Fourier 逆变换
 	\begin{equation}
-		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi) e^{-|\xi|^2 t}]
+		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi) e^{-a|\xi|^2 t}]
 	\end{equation}
 	
 	利用Fourier 逆变换卷积的性质\eqref{nibianhuanjuanji}：
 	\begin{equation}
-		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi)] * \mathcal{F}^{-1}[e^{-|\xi|^2 t}]
+		u(x, t) = \mathcal{F}^{-1}[\hat{\varphi}(\xi)] * \mathcal{F}^{-1}[e^{-a|\xi|^2 t}]
 	\end{equation}
 	
 	\begin{example}
 		我们需要证明：
 		\[
-		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = (4\pi t)^{-n/2} e^{-\frac{|x|^2}{4t}}
+		\mathcal{F}^{-1}\left[e^{-a|\xi|^2 t}\right](x) = (4\pi a t)^{-n/2} e^{-\frac{|x|^2}{4a t}}
 		\]
 	\end{example}
 	
-
+	
 	
 	\begin{proof}
 		
 		根据傅里叶逆变换的定义：
 		\[
-		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i x \cdot \xi} e^{-|\xi|^2 t} d\xi
+		\mathcal{F}^{-1}\left[e^{-a|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \int_{\mathbb{R}^n} e^{i x \cdot \xi} e^{-a|\xi|^2 t} d\xi
 		\]
 		
 		我们可以将这个积分分解为每个坐标的积分：
 		\[
-		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \prod_{j=1}^n \int_{-\infty}^\infty e^{i x_j \xi_j} e^{-\xi_j^2 t} d\xi_j
+		\mathcal{F}^{-1}\left[e^{-a|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \prod_{j=1}^n \int_{-\infty}^\infty e^{i x_j \xi_j} e^{-a\xi_j^2 t} d\xi_j
 		\]
 		
-	\begin{remark}
-	\[
-	\mathcal{F}^{-1}\left[e^{-|\xi|^{2} t}\right](x)=\frac{1}{(2\pi)^{3}}\left(\int_{-\infty}^{\infty} e^{i x_1 \xi_1} e^{-\xi_1^{2} t} d\xi_1\right)\left(\int_{-\infty}^{\infty} e^{i x_2 \xi_2} e^{-\xi_2^{2} t} d\xi_2\right)\left(\int_{-\infty}^{\infty} e^{i x_3 \xi_3} e^{-\xi_3^{2} t} d\xi_3\right)
-	\]
-	\end{remark}
+		\begin{remark}
+			\[
+			\mathcal{F}^{-1}\left[e^{-a|\xi|^{2} t}\right](x)=\frac{1}{(2\pi)^{n}}\prod_{j=1}^{n}\left(\int_{-\infty}^{\infty} e^{i x_j \xi_j} e^{-a\xi_j^{2} t} d\xi_j\right)
+			\]
+		\end{remark}
 		
 		
 		对于每个一维积分，我们有：
 		\[
-		\int_{-\infty}^\infty e^{i x_j \xi_j} e^{-\xi_j^2 t} d\xi_j
+		\int_{-\infty}^\infty e^{i x_j \xi_j} e^{-a\xi_j^2 t} d\xi_j
 		\]
 		
 		对指数部分进行配方：
 		\[
-		-t \xi_j^2 + i x_j \xi_j = -t \left( \xi_j^2 - \frac{i x_j}{t} \xi_j \right)
+		-a t \xi_j^2 + i x_j \xi_j = -a t \left( \xi_j^2 - \frac{i x_j}{a t} \xi_j \right)
 		\]
 		\[
-		= -t \left( \xi_j^2 - \frac{i x_j}{t} \xi_j + \left( \frac{x_j}{2t} \right)^2 - \left( \frac{x_j}{2t} \right)^2 \right)
+		= -a t \left( \xi_j^2 - \frac{i x_j}{a t} \xi_j + \left( \frac{x_j}{2a t} \right)^2 - \left( \frac{x_j}{2a t} \right)^2 \right)
 		\]
 		\[
-		= -t \left( \left( \xi_j - \frac{i x_j}{2t} \right)^2 - \frac{x_j^2}{4t^2} \right)
+		= -a t \left( \left( \xi_j - \frac{i x_j}{2a t} \right)^2 - \frac{x_j^2}{4a^2 t^2} \right)
 		\]
 		\[
-		= -t \left( \xi_j - \frac{i x_j}{2t} \right)^2 + \frac{x_j^2}{4t}
+		= -a t \left( \xi_j - \frac{i x_j}{2a t} \right)^2 + \frac{x_j^2}{4a t}
 		\]
 		
 		代入积分中,由命题\eqref{ex:1}：
 		\[
-		\int_{-\infty}^\infty e^{-t \left( \xi_j - \frac{i x_j}{2t} \right)^2 + \frac{x_j^2}{4t}} d\xi_j = e^{\frac{x_j^2}{4t}} \int_{-\infty}^\infty e^{-t \left( \xi_j - \frac{i x_j}{2t} \right)^2} d\xi_j= \sqrt{\frac{\pi}{t}} e^{\frac{x_j^2}{4t}}
+		\int_{-\infty}^\infty e^{-a t \left( \xi_j - \frac{i x_j}{2a t} \right)^2 + \frac{x_j^2}{4a t}} d\xi_j = e^{\frac{x_j^2}{4a t}} \int_{-\infty}^\infty e^{-a t \left( \xi_j - \frac{i x_j}{2a t} \right)^2} d\xi_j= \sqrt{\frac{\pi}{a t}} e^{\frac{x_j^2}{4a t}}
 		\]
-	
+		
 		
 		将所有坐标的结果相乘，并乘以系数 \( \frac{1}{(2\pi)^n} \)，得到：
 		\[
-		\mathcal{F}^{-1}\left[e^{-|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \left( \sqrt{\frac{\pi}{t}} \right)^n e^{-\frac{|x|^2}{4t}}
+		\mathcal{F}^{-1}\left[e^{-a|\xi|^2 t}\right](x) = \frac{1}{(2\pi)^n} \left( \sqrt{\frac{\pi}{a t}} \right)^n e^{-\frac{|x|^2}{4a t}}
 		\]
 		\[
-		= \frac{1}{(2\pi)^n} \cdot \frac{\pi^{n/2}}{t^{n/2}} e^{-\frac{|x|^2}{4t}}= \frac{1}{(2)^n t^{n/2}} e^{-\frac{|x|^2}{4t}}= (4 \pi t)^{-n/2} e^{-\frac{|x|^2}{4t}}
+		= \frac{1}{(2\pi)^n} \cdot \frac{\pi^{n/2}}{(a t)^{n/2}} e^{-\frac{|x|^2}{4a t}} = (4\pi a t)^{-n/2} e^{-\frac{|x|^2}{4a t}}
 		\]
-
+		
 	\end{proof}
 	
-
+	
 	
 	
 	
 	因此，解可以表示为：
 	\begin{equation}
-		u(x, t) = (4\pi t)^{-n/2} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4t}} dy
+		u(x, t) = (4\pi a t)^{-n/2} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4a t}} dy
 	\end{equation}
 	
-	其中，\( E(x - y, t) = (4\pi t)^{-n/2} e^{-\frac{|x - y|^2}{4t}} \) 称为热传导方程的基本解。
-	
+
 	
 		\newpage
 	\section{无界非齐次热传导方程}
