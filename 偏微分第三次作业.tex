@@ -5,6 +5,7 @@
 \usepackage{mathtools,bm}                  % 高级数学工具
 \usepackage{graphicx}                      % 图片插入
 \usepackage{hyperref}                      % 超链接
+\usepackage{tikz}
 \hypersetup{
 	pdfborder = {0 0 0}  % 关闭链接边框
 }
@@ -32,7 +33,13 @@
 % 定义解题环境
 \newtheorem*{solution}{解}
 
-\newtheorem{example}{命题}
+\newtheorem{example}{例题}
+
+\newtheorem{corollary}{推论}
+
+\newtheorem{proposition}{命题}
+
+\newtheorem{lemma}{引理}
 
 % ========== 文档信息 ==========
 
@@ -567,11 +574,13 @@
 	
 	
 	
-	\begin{example}
-		\label{ex:1}
-	$	\int_{-\infty}^{+\infty} e^{-a(x-b)^2} dx = \sqrt{\frac{\pi}{a}}$
-	\end{example}
-	
+\begin{proposition}
+	\label{ex:1}
+	实数形式的高斯积分：
+	\begin{equation}
+		\int_{-\infty}^{+\infty} e^{-a(x-b)^2} dx = \sqrt{\frac{\pi}{a}} \quad (a>0, b \in \mathbb{R})
+	\end{equation}
+\end{proposition}
 	
 	\begin{proof}
 		\begin{equation*}
@@ -629,21 +638,227 @@
 	
 	\end{proof}
 
-	\begin{example}
-		\label{ex:2}
+\begin{corollary}\label{ex:5}
+	$\int_{-\infty}^{+\infty} x^2 e^{-a x^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}$
+\end{corollary}
+
+
+
+\begin{proof}
+	
+	
+	\begin{equation*}
+		\text{设} \quad \Phi(a) = \int_{-\infty}^{+\infty} e^{-a x^2} dx = \sqrt{\frac{\pi}{a}}
+	\end{equation*}
+	
+	\begin{equation*}
+		\frac{d\Phi}{da} = -\int_{-\infty}^{+\infty} x^2 e^{-a x^2} dx = \frac{d}{da} \left( \pi^{\frac{1}{2}} a^{-\frac{1}{2}} \right) = \pi^{\frac{1}{2}} a^{-\frac{3}{2}} \cdot \left( -\frac{1}{2} \right)
+	\end{equation*}
+	
+	\begin{equation*}
+		\therefore \int_{-\infty}^{+\infty} x^2 e^{-a x^2} dx = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}
+	\end{equation*}
+\end{proof}	
+
+
+\begin{corollary}\label{ex:6}
+	$	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}$
+\end{corollary}
+
+\begin{proof}
+	展开得
+	\begin{equation*}
+		= \int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz + \int_{-\infty}^{+\infty} 2 z b x e^{-a z^2} dz + b^2 x^2 \int_{-\infty}^{+\infty} e^{-a z^2} dz
+	\end{equation*}
+	
+	\begin{equation*}
+		= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}
+	\end{equation*}
+	
+\end{proof}
+
+
+
+\begin{proposition}
+	\label{ex:2}
+	推广复数形式的高斯积分：
+	\begin{equation}
+		\int_{-\infty}^{+\infty} e^{-a(x-bi)^2} dx = \sqrt{\frac{\pi}{a}} \quad (a>0, b \in \mathbb{R})
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	该积分等价于证明 $\int_{-\infty+bi}^{+\infty+bi} e^{-az^2} dz = \sqrt{\frac{\pi}{a}}$。即$\int_{AB} e^{-az^2} dz$， 我们通过围道积分来证明。
+	
+	考虑复变函数 $f(z) = e^{-az^2}$，它在整个复平面上解析（为整函数）。我们选取如下所示的矩形闭合围道 $C$ 进行积分，该围道由四条路径组成：$AB$, $BC$, $CD$ 和 $DA$。
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.8, font=\small]
+			% Define coordinates
+			\def\R{2.5}
+			\def\b{1.2}
+			
+			% Draw axes
+			\draw[->, thick] (-\R-0.5, 0) -- (\R+0.5, 0) node[below] {$\mathrm{Re}(z)$};
+			% Adjusted y-axis to not overlap with labels
+			\draw[->, thick] (0, -\b-0.5) -- (0, \b+0.5) node[left] {$\mathrm{Im}(z)$};
+			
+			% Define the vertex coordinates
+			\coordinate (D) at (-\R, 0);
+			\coordinate (C) at (\R, 0);
+			\coordinate (B) at (\R, \b);
+			\coordinate (A) at (-\R, \b);
+			
+			% --- MODIFICATION: Path labels C1, C2 etc. are removed ---
+			% Draw paths with arrows only
+			\draw[blue, ultra thick, ->] (C) -- (D);
+			\draw[blue, ultra thick, ->] (B) -- (C);
+			\draw[blue, ultra thick, ->] (A) -- (B);
+			\draw[blue, ultra thick, ->] (D) -- (A);
+			
+			% Add vertex coordinate labels (black)
+			\node[below left=2pt] at (D) {$-R$};
+			\node[below right=2pt] at (C) {$R$};
+			\node[above right=2pt] at (B) {$R+bi$};
+			\node[above left=2pt] at (A) {$-R+bi$};
+			
+			% Add vertex letter labels (red), positioned to avoid overlap
+			\node[red, above=2pt, font=\large] at (A) {A};
+			\node[red, above=2pt, font=\large] at (B) {B};
+			\node[red, below=2pt, font=\large] at (C) {C};
+			\node[red, below=2pt, font=\large] at (D) {D};
+			
+		\end{tikzpicture}
+	\end{center}
+	
+	根据柯西积分定理，函数在闭合围道上的积分为零：
+	\begin{equation}\label{kexi}
+		\oint_C e^{-az^2} dz = \int_{AB} e^{-az^2} dz + \int_{BC} e^{-az^2} dz + \int_{CD} e^{-az^2} dz + \int_{DA} e^{-az^2} dz = 0
+	\end{equation}
+	
+	我们分别计算 $R \to \infty$ 时各段路径的积分。
+	
+	
+	
+	\textbf{1. 路径 $BC$ 与 $DA$:}
+	在路径 $BC$ 上，参数化为 $z = R+iy$, $z(b) = R+ib$，$z(0) = R$,$dz=idy$, 其中 $y$ 从 $0$ 到 $b$。
+	\begin{equation*}
+		\left| \int_{BC} e^{-az^2} dz \right|= \left| \int_{R+bi}^{R} e^{-a(R+iy)^2} i dy \right|= \left| \int_{b}^{0} e^{-a(R+iy)^2} i dy \right| \le \int_{b}^{0} |e^{-a(R^2 - y^2 + 2iRy)}| dy 
+	\end{equation*}
+	\begin{equation*}
+		= \int_{b}^{0} e^{-aR^2} e^{ay^2} dy = e^{-aR^2} \int_{b}^{0} e^{ay^2} dy
+	\end{equation*}
+	由于 $\int_{b}^{0} e^{ay^2} dy$ 是一个关于 $b$ 的常数，而 $\lim_{R \to \infty} e^{-aR^2} = 0$，所以：
+	\begin{equation*}
+		\lim_{R \to \infty} \left| \int_{BC} e^{-az^2} dz \right| = 0
+	\end{equation*}
+	同理可证，路径 $AD$ 的积分也为零。
+	
+	\textbf{2. 路径 $AB$:}
+	在路径 $AB$ 上，参数化为 $z=x+bi$, $dz=dx$, 其中 $x$ 从 $R$ 变化到 $-R$。,由柯西积分公式\eqref{kexi}可知
+	\begin{equation*}
+		\int_{BA} e^{-az^2} dz = -	\int_{CD} e^{-az^2} dz = \int_{DC}e^{-az^2} dz= 	\lim_{R \to \infty}\int_{-R}^{R}e^{-ax^2} dx=\sqrt{\frac{\pi}{a}}
+	\end{equation*}
+	
+
+	这证明了高斯积分的结果可以从实变量推广到复变量。
+	
+\end{proof}
+
+
+
+
+\begin{corollary}
+	我们计算高斯函数 $f(x) = e^{-ax^2}$ 的傅里叶变换。
+	\begin{align*}
+		\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-ax^2} e^{-iwx} dx \\
+		&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-(ax^2 + iwx)} dx
+	\end{align*}
+\end{corollary}
+
+
+为了计算这个积分，我们对指数部分进行配方:
+\begin{align*}
+	ax^2 + iwx &= a\left(x^2 + \frac{iw}{a}x\right) \\
+	&= a\left[ x^2 + 2 \cdot x \cdot \frac{iw}{2a} + \left(\frac{iw}{2a}\right)^2 - \left(\frac{iw}{2a}\right)^2 \right] \\
+	&= a\left[ \left(x + \frac{iw}{2a}\right)^2 - \frac{i^2w^2}{4a^2} \right] \\
+	&= a\left(x + \frac{iw}{2a}\right)^2 + a\left(\frac{w^2}{4a^2}\right) \\
+	&= a\left(x + \frac{iw}{2a}\right)^2 + \frac{w^2}{4a}
+\end{align*}
+
+将配方后的结果代回积分中：
+\begin{align*}
+	\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{ - \left[ a\left(x + \frac{iw}{2a}\right)^2 + \frac{w^2}{4a} \right] } dx \\
+	&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} e^{-\frac{w^2}{4a}} dx \\
+	&= \frac{1}{\sqrt{2\pi}} e^{-\frac{w^2}{4a}} \int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} dx
+\end{align*}
+
+根据命题\eqref{ex:2}：
+\begin{equation*}
+	\int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} dx  = \sqrt{\frac{\pi}{a}}
+\end{equation*}
+
+因此，最终结果为：
+\begin{align*}
+	\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} e^{-\frac{w^2}{4a}} \cdot \sqrt{\frac{\pi}{a}} \\
+	&= \frac{1}{\sqrt{2a}} e^{-\frac{w^2}{4a}}
+\end{align*}
+
+
+
+
+
+
+\begin{corollary}\label{ex:4}
+	$\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx=\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}$
+\end{corollary}
+
+\begin{proof}
+	
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx+i\int_{-\infty}^{+\infty} \sin kx \cdot e^{-a x^2} dx
+	\end{equation*}
+	第二项为奇函数，积分为0，所以，
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx
+	\end{equation*}
+	
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx
+	\end{equation*}
+	
+	配方
+	\begin{equation*}
+		\begin{split}
+			-a x^2 + ikx &= -a \left( x^2 - \frac{ik}{a} x \right) \\
+			&= -a \left[ x^2 - \frac{ik}{a} x + \left( \frac{ik}{2a} \right)^2 - \left( \frac{ik}{2a} \right)^2 \right] \\
+			&= -a \left( x - \frac{ik}{2a} \right)^2 - \frac{k^2}{4a}
+		\end{split}
+	\end{equation*}
+	所以，
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx	= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}
+	\end{equation*}
+\end{proof}
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		\begin{proposition}
+			\label{ex:3}
 			$	\int_{c}^{+\infty} e^{-a(x-b)^2} dx$
-		积分没有原函数
-	\end{example}
-	
+			积分没有原函数
+		\end{proposition}
+
+方法1.不成熟的证明方法望指正
 	\begin{proof}
-		
-		
-		方法1.不成熟的证明方法望指正
-		
-		
-
-
-	
 	\begin{equation*}
 		A^2 = \left( \int_{0}^{+\infty} e^{-a(x-b)^2} dx \right) \left( \int_{0}^{+\infty} e^{-a(y-b)^2} dy \right)
 	\end{equation*}
@@ -657,76 +872,12 @@
 	\end{proof}
 
 	
-	\begin{example}\label{ex:3}
-			$\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx=\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}$
-	\end{example}
-	
-		\begin{proof}
-	
-\begin{equation*}
-		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx+i\int_{-\infty}^{+\infty} \sin kx \cdot e^{-a x^2} dx
-\end{equation*}
-第二项为奇函数，积分为0，所以，
-\begin{equation*}
-\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx =\int_{-\infty}^{+\infty} \cos kx \cdot e^{-a x^2} dx
-\end{equation*}
-
-\begin{equation*}
-	\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx
-\end{equation*}
-
-配方
-\begin{equation*}
-	\begin{split}
-		-a x^2 + ikx &= -a \left( x^2 - \frac{ik}{a} x \right) \\
-		&= -a \left[ x^2 - \frac{ik}{a} x + \left( \frac{ik}{2a} \right)^2 - \left( \frac{ik}{2a} \right)^2 \right] \\
-		&= -a \left( x - \frac{ik}{2a} \right)^2 - \frac{k^2}{4a}
-	\end{split}
-\end{equation*}
-所以，
-	\begin{equation*}
-		\int_{-\infty}^{+\infty} e^{ikx} \cdot e^{-a x^2} dx = \int_{-\infty}^{+\infty} e^{-a x^2 + ikx} dx	= e^{-\frac{k^2}{4a}} \cdot \sqrt{\frac{\pi}{a}}
-	\end{equation*}
-		\end{proof}
 	
 	
-		\begin{example}\label{ex:4}
-$\int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}$
-	\end{example}
-	
-	\begin{proof}
-		
-	
-	\begin{equation*}
-		\text{设} \quad \Phi(a) = \int_{-\infty}^{+\infty} e^{-a z^2} dz = \sqrt{\frac{\pi}{a}}
-	\end{equation*}
-	
-	\begin{equation*}
-		\frac{d\Phi}{da} = -\int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{d}{da} \left( \pi^{\frac{1}{2}} a^{-\frac{1}{2}} \right) = \pi^{\frac{1}{2}} a^{-\frac{3}{2}} \cdot \left( -\frac{1}{2} \right)
-	\end{equation*}
-	
-	\begin{equation*}
-		\therefore \int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}
-	\end{equation*}
-		\end{proof}
 		
 		
 
-		\begin{example}\label{ex:5}
-$	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}$
-\end{example}
-
-\begin{proof}
-	展开得
-	\begin{equation*}
-		= \int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz + \int_{-\infty}^{+\infty} 2 z b x e^{-a z^2} dz + b^2 x^2 \int_{-\infty}^{+\infty} e^{-a z^2} dz
-	\end{equation*}
-	
-	\begin{equation*}
-		= \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}} + b^2 x^2 \sqrt{\frac{\pi}{a}}
-	\end{equation*}
-	
-		\end{proof}
+		
 	
 	
 	\newpage
@@ -759,7 +910,7 @@ $	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}
 			=  \sin x \cdot \int_{-\infty}^{+\infty} \cos z \cdot e^{-\frac{z^2}{4t}} dz
 		\end{equation*}
 		
-		由命题\eqref{ex:3}可得，
+		由推论\eqref{ex:4}可得，
 \begin{equation*}
 	\therefore u(x,t) = \sin x \cdot e^{-t} \cdot \sqrt{4\pi t} \cdot \frac{1}{\sqrt{4\pi t}} = e^{-t} \cdot \sin x
 \end{equation*}
@@ -779,7 +930,7 @@ $	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}
 		= \int_{0}^{+\infty} e^{-y} \cdot e^{-\frac{(x-y)^2}{4t}} dy + \int_{-\infty}^{0} e^{y} \cdot e^{-\frac{(x-y)^2}{4t}} dy
 	\end{equation*}
 	
-	由命题\eqref{ex:2}可知，该方程没有原函数。
+	由命题\eqref{ex:3}可知，该方程没有原函数。
 	
 		\end{solution}
 	
@@ -805,7 +956,7 @@ $	\int_{-\infty}^{+\infty} (z + bx)^2 e^{-a z^2} dz=	= \frac{1}{2} \pi^{\frac{1}
 \end{equation*}
 
 
-由命题\eqref{ex:5}可得：
+由推论\eqref{ex:6}可得：
 \begin{equation*}
 	\int_{-\infty}^{+\infty} y^2 \cdot e^{-\frac{(x-y)^2}{4t}} dy	=\int_{-\infty}^{+\infty}(z+x)^2 \cdot e^{-\frac{z^2}{4t}} dz=\frac{1}{2}\pi^{\frac{1}{2}}\cdot\left(\frac{1}{4t}\right)^{-\frac{3}{2}} +x^2 \cdot \sqrt{4\pi t}
 \end{equation*}
