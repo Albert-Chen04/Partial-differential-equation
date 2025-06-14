@@ -1712,6 +1712,44 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 		\end{equation*}
 	\end{proof}
 	
+	\begin{corollary}
+		我们计算高斯函数 $f(x) = e^{-ax^2}$ 的傅里叶变换。
+		\begin{align*}
+			\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-ax^2} e^{-iwx} dx \\
+			&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-(ax^2 + iwx)} dx
+		\end{align*}
+	\end{corollary}
+	
+	
+	为了计算这个积分，我们对指数部分进行配方:
+	\begin{align*}
+		ax^2 + iwx &= a\left(x^2 + \frac{iw}{a}x\right) \\
+		&= a\left[ x^2 + 2 \cdot x \cdot \frac{iw}{2a} + \left(\frac{iw}{2a}\right)^2 - \left(\frac{iw}{2a}\right)^2 \right] \\
+		&= a\left[ \left(x + \frac{iw}{2a}\right)^2 - \frac{i^2w^2}{4a^2} \right] \\
+		&= a\left(x + \frac{iw}{2a}\right)^2 + a\left(\frac{w^2}{4a^2}\right) \\
+		&= a\left(x + \frac{iw}{2a}\right)^2 + \frac{w^2}{4a}
+	\end{align*}
+	
+	将配方后的结果代回积分中：
+	\begin{align*}
+		\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{ - \left[ a\left(x + \frac{iw}{2a}\right)^2 + \frac{w^2}{4a} \right] } dx \\
+		&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} e^{-\frac{w^2}{4a}} dx \\
+		&= \frac{1}{\sqrt{2\pi}} e^{-\frac{w^2}{4a}} \int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} dx
+	\end{align*}
+	
+	根据命题\eqref{ex:2}：
+	\begin{equation*}
+		\int_{-\infty}^{+\infty} e^{-a\left(x + \frac{iw}{2a}\right)^2} dx  = \sqrt{\frac{\pi}{a}}
+	\end{equation*}
+	
+	因此，最终结果为：
+	\begin{align*}
+		\mathcal{F}\{f\}(w) &= \frac{1}{\sqrt{2\pi}} e^{-\frac{w^2}{4a}} \cdot \sqrt{\frac{\pi}{a}} \\
+		&= \frac{1}{\sqrt{2a}} e^{-\frac{w^2}{4a}}
+	\end{align*}
+	
+	
+	
 	
 	\begin{example}\label{ex:4}
 		$\int_{-\infty}^{+\infty} z^2 e^{-a z^2} dz = \frac{1}{2} \pi^{\frac{1}{2}} a^{-\frac{3}{2}}$
