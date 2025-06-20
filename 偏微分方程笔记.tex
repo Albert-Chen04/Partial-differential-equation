@@ -62,9 +62,9 @@
  \begin{abstract}
 	 首先，对于一般的有界偏微分方程，如果三个条件都是线性的就可以用叠加原理分解为三个子问题；同理无界的时候，如果也是线性的，就可以分解成两个子问题。
 	 
-	 对于边界条件非齐次，我们运用数值分析中，插值拟合函数的思想来齐次化，有很多插值的方法，这里我们选择直线方程是因为好求解后面的。对于混合问题没有给出插值公式，读者可自行探讨。
+	 对于边界条件非齐次，我们运用数值分析中，插值拟合函数的思想来齐次化，有很多插值的方法，这里我们选择直线方程是因为好求解后面的。构造辅助函数只需要看右端$x=l$处是原函数还是导函数，是原函数就是线性，是导函数就是二次型.
 	 
-	 对于方程非齐次，就用duhamel原理齐次化方程。我理解的是不管是有界，什么类型的边界条件，还是无界，都可以用他，把函数转移到初始条件最高阶偏导函数上，再积分就是方程的解。
+	 对于方程非齐次，就用duhamel原理齐次化方程。不管是有界，什么类型的边界条件，还是无界，都可以用他，把函数转移到初始条件最高阶偏导函数上，再积分就是方程的解。
 	 
 	 对于无界齐次的波动方程，用达朗贝尔公式。要解达朗贝尔公式要先解传输方程。5.1，5.2用不同的思路求解齐次的传输方程。
 	 
@@ -228,7 +228,7 @@
 	\newpage
 	
 		\section{边界条件齐次化}
-		本质上就是数值分析上的插值。知道两个端点的信息或者一个点的信息，用函数拟合插值。我这里不需要拟合，原则上可以选取任意满足边界条件的函数，为了方便后面的方程计算，我们一般选取牛顿插值法，即多项式插值。下面只举例第一类边界条件和第二类边界条件的有界波动方程。
+		本质上就是数值分析上的插值。知道两个端点的信息或者一个点的信息，用函数拟合插值。我这里不需要拟合，原则上可以选取任意满足边界条件的函数，为了方便后面的方程计算，我们一般选取牛顿插值法，即多项式插值。	构造辅助函数只需要看右端$x=l$处是原函数还是导函数，是原函数就是线性，$AX+B$；是导函数就是二次型，$AX^2+BX+C$.
 	\subsection{第一边界条件齐次化}
 	要想利用Duhamamel原理，我们首先将第一边界条件齐次化，即要找到一个恰当的变换将第一边界值变为零。
 	对于第一类边界条件的有界波动方程\eqref{The bounded wave equation with Dirichlet boundary conditions}：
@@ -238,6 +238,19 @@
 		u(0,t) = \mu_1(t), \quad u(l,t) = \mu_2(t), \quad t \geq 0.
 	\end{equation}
 	
+	右端为原函数，设$u(x, t)=U(x, t)=ax+b$
+	\[
+	\begin{cases}
+		u(0, t) = \mu_1(t) = U(0, t) = b, \\
+		u(l, t) = \mu_2(t) = U(l, t) = al + \mu_1(t),
+	\end{cases}
+	\]
+	\[
+	\begin{cases}
+		a = \frac{1}{l}(\mu_2(t) - \mu_1(t)), \\
+		b = \mu_1(t).
+	\end{cases}
+	\]
 	对方程 \eqref{The bounded wave equation with Dirichlet boundary conditions}构造关于变量 \(x\) 的线性辅助函数（直线方程）：
 	\begin{equation}
 		U(x, t) = \mu_1(t) + \frac{x}{l}(\mu_2(t) - \mu_1(t)),
@@ -248,13 +261,13 @@
 		v(x, t) = u(x, t) - U(x, t),
 	\end{equation}
 	
-	将 \(u(x, t) = v(x, t) + U(x, t)\) 代入方程\eqref{The bounded wave equation with Dirichlet boundary conditions}，
+	 代入方程\eqref{The bounded wave equation with Dirichlet boundary conditions}，
 	得到方程\eqref{A}：
 	\begin{equation}\label{A}
 	\begin{cases}
-		u_{tt} - a^2 u_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
-		u(x, 0) = \varphi_1(x), \quad u_t(x, 0) = \psi_1(x), & 0 \leq x \leq l, \\
-		u_x(0, t) = 0, \quad u_x(l, t) = 0. &
+		v_{tt} - a^2 v_{xx} = f_1(x, t), & 0 < x < l, \ t > 0, \\
+		v(x, 0) = \varphi_1(x), \quad v_t(x, 0) = \psi_1(x), & 0 \leq x \leq l, \\
+		v(0, t) = 0, \quad v(l, t) = 0. &
 	\end{cases}
 \end{equation}
 	其中：
@@ -274,6 +287,21 @@
 		
 		以下我们仅考虑如下第二边界条件的有界波动方程\eqref{The bounded wave equation with Neumann boundary conditions}：
 		
+		右端为导函数，设$u(x, t)=U(x, t)=ax^2+bx+c$
+		\[
+		\begin{cases}
+			u_x(0, t) = \mu_1(t) = U_x(0, t) = b, \\
+			u_x(l, t) = \mu_2(t) = U_x(l, t) = 2al + b,
+		\end{cases}
+		\]
+		\[
+		\begin{cases}
+			a = \frac{1}{2l}(\mu_2(t) - \mu_1(t)) \\
+			b = \mu_1(t) \\
+			c = 0 
+		\end{cases}
+		\]
+		
 		构造辅助函数：
 		\begin{equation}
 			U(x, t) = x\mu_1(t) + \frac{x^2}{2l}\big( \mu_2(t) - \mu_1(t) \big),
@@ -284,13 +312,13 @@
 			v(x, t) = u(x, t) - U(x, t),
 		\end{equation}
 		
-		将 \(u(x, t) = v(x, t) + U(x, t)\) 代入原方程\eqref{The bounded wave equation with Neumann boundary conditions}，
+		代入原方程\eqref{The bounded wave equation with Neumann boundary conditions}，
 		得到方程\eqref{B}：
 	    \begin{equation}]\label{B}
 		\begin{cases}
-			u_{tt} - a^2 u_{xx} = f_2(x, t), & 0 < x < l, \ t > 0, \\
-			u(x, 0) = \varphi_2(x), \quad u_t(x, 0) = \psi_2(x), & 0 \leq x \leq l, \\
-			u_x(0, t) = 0, \quad u_x(l, t) = 0. &
+			v_{tt} - a^2 v_{xx} = f_2(x, t), & 0 < x < l, \ t > 0, \\
+			v(x, 0) = \varphi_2(x), \quad v_t(x, 0) = \psi_2(x), & 0 \leq x \leq l, \\
+			v_x(0, t) = 0, \quad v_x(l, t) = 0. &
 		\end{cases}
 	\end{equation}
 
@@ -305,13 +333,113 @@
 		
 	
 		
-	\subsection{混合边界条件齐次化}
+	\subsection{第一混合边界条件齐次化}
 	本质上就是数值分析上的插值，原理同上。
+	对于问题\eqref{The bounded wave equation with mixed boundary conditions_1}
+	
+		由边界条件
+	\begin{equation}
+		u(0,t) = \mu_1(t), \quad u_x(l,t) = \mu_2(t), \quad t \geq 0.
+	\end{equation}
+	
+	右端为导函数，设$u(x, t)=U(x, t)=ax^2+bx+c$
+	\[
+	\begin{cases}
+		u(0, t) = \mu_1(t) = U(0, t) = c, \\
+		u_x(l, t) = \mu_2(t) = U_x(l, t) = 2al + b,
+	\end{cases}
+	\]
+	\[
+	\begin{cases}
+		a = \frac{1}{2l}\mu_2(t) \\
+		b =0 \\
+		c = \mu_1(t)
+	\end{cases}
+	\]
+	
+	对方程 \eqref{The bounded wave equation with mixed boundary conditions_1}构造关于变量 \(x\) 的线性辅助函数（直线方程）：
+	\begin{equation}
+		U(x, t) = \mu_1(t) + \frac{x^2}{2l}\mu_2(t) ,
+	\end{equation}
+	
+	作变换：
+	\begin{equation}
+		v(x, t) = u(x, t) - U(x, t),
+	\end{equation}
+	
+	代入方程\eqref{The bounded wave equation with mixed boundary conditions_1}，
+	得到方程\eqref{C}：
+	\begin{equation}\label{C}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_3(x, t), & 0 < x < l, \ t > 0, \\
+			v(x, 0) = \varphi_3(x), \quad v_t(x, 0) = \psi_3(x), & 0 \leq x \leq l, \\
+			v(0, t) = 0, \quad v_x(l, t) = 0. &
+		\end{cases}
+	\end{equation}
+	其中：
+	\begin{equation}
+		\begin{cases}
+			f_3(x, t) = f(x, t) - \mu_1''(t) - \frac{x^2}{2l}\mu_2''(t)+\frac{a^2}{l} \mu_2(t)  , \\
+			\varphi_3(x) = \varphi(x) - \mu_1(0) - \frac{x^2}{2l}\mu_2(0), \\
+			\psi_3(x) = \psi(x) - \mu_1'(0) - \frac{x^2}{2l}\mu_2'(0).
+		\end{cases}
+	\end{equation}
 	
 	
+		\subsection{第二混合边界条件齐次化}
+	本质上就是数值分析上的插值，原理同上。
+	对于问题\eqref{The bounded wave equation with mixed boundary conditions_2}
+	
+	由边界条件
+	\begin{equation}
+		u_x(0,t) = \mu_1(t), \quad u(l,t) = \mu_2(t), \quad t \geq 0.
+	\end{equation}
+	
+	右端为原函数，设$u(x, t)=U(x, t)=ax+b$
+	\[
+	\begin{cases}
+		u_x(0, t) = \mu_1(t) = U_x(0, t) = a, \\
+		u(l, t) = \mu_2(t) = U(l, t) = al + b,
+	\end{cases}
+	\]
+	\[
+	\begin{cases}
+		a =\mu_1(t)\\
+		b =\mu_2(t)-\mu_1(t)l \\
+	\end{cases}
+	\]
+	
+	对方程 \eqref{The bounded wave equation with mixed boundary conditions_2}构造关于变量 \(x\) 的线性辅助函数（直线方程）：
+	\begin{equation}
+		U(x, t) = \mu_1(t)(x-l) + \mu_2(t) ,
+	\end{equation}
+	
+	作变换：
+	\begin{equation}
+		v(x, t) = u(x, t) - U(x, t),
+	\end{equation}
+	
+	代入方程\eqref{The bounded wave equation with mixed boundary conditions_2}，
+	得到方程\eqref{D}：
+	\begin{equation}\label{D}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_4(x, t), & 0 < x < l, \ t > 0, \\
+			v(x, 0) = \varphi_4(x), \quad v_t(x, 0) = \psi_4(x), & 0 \leq x \leq l, \\
+			v_x(0, t) = 0, \quad v_x(l, t) = 0. &
+		\end{cases}
+	\end{equation}
+	其中：
+	\begin{equation}
+		\begin{cases}
+			f_4(x, t) = f(x, t) - \mu_1''(t) (x-l)- \mu_2''(t) , \\
+			\varphi_4(x) = \varphi(x) - \mu_1(0)(x-l)- \mu_2(0), \\
+			\psi_4(x) = \psi(x) - \mu_1'(0)(x-l) - \mu_2'(0).
+		\end{cases}
+	\end{equation}
 	
 	
-	
+	\subsection{总结}
+	构造辅助函数只需要看右端$x=l$处是原函数还是导函数，是原函数就是线性，$AX+B$；是导函数就是二次型，$AX^2+BX+C$.
 	
 	
 	
@@ -476,7 +604,7 @@
 		\end{equation}
 		
 	
-	由方程的形式可以看出，\(u(x, t)\) 沿$(1, b)$微商等于零。事实上，固定一点 \((x, t) \in \mathbb{R}^{n+1}\)，记过该直线$\Gamma$的参数方程为 \((x + bs, t + s), s \in \mathbb{R}\)，考查函数 \(u\) 在该直线上的值。令
+	由方程的形式可以看出，\(u(x, t)\) 沿$(b, 1)$微商等于零。事实上，固定一点 \((x, t) \in \mathbb{R}^{n+1}\)，记过该直线$\Gamma$的参数方程为 \((x + bs, t + s), s \in \mathbb{R}\)，考查函数 \(u\) 在该直线上的值。令
 \begin{equation}
 	z(s) = u(x + bs, t + s), \quad s \in \mathbb{R}.
 	\end{equation}
@@ -592,7 +720,7 @@
 	\subsubsection{问题描述}
 	先考察初值问题
 	
-	\begin{equation}
+	\begin{equation}\label{一维无界波动方程}
 		\begin{cases}
 			u_{tt} - a^2 u_{xx} = 0, & x \in \mathbb{R}, t > 0, \\
 			u(x, 0) = \varphi(x), \quad u_t(x, 0) = \psi(x), & x \in \mathbb{R}.
@@ -612,12 +740,11 @@
 		v(x, t) = \left( \frac{\partial}{\partial t} - a \frac{\partial}{\partial x} \right) u.
 	\end{equation}
 	
-	由 (2.1.2), 得
 	\begin{equation}
 	v_t(x, t) + a v_x(x, t) = 0, \quad x \in \mathbb{R}, t > 0.
 \end{equation}
 	
-	这是一维传输方程，且由 (2.1.3) 知 \(v\) 满足初值条件
+	这是一维传输方程，且由 \eqref{一维无界波动方程} 知 \(v\) 满足初值条件
 	
 	\begin{equation}
 	v(x, 0) = \psi(x) - a \varphi'(x).
@@ -628,20 +755,25 @@
 		v(x, t) = \psi(x - a t) - a \varphi'(x - a t).
 	\end{equation}
 	
-	将 \(v\) 代入 (2.1.3)，得
 	\begin{equation}
 		u_t(x, t) - a u_x(x, t) = \psi(x - a t) - a \varphi'(x - a t),
 	\end{equation}
 	其中 \((x, t) \in \mathbb{R} \times (0, \infty)\)。
 	
 	对此非齐次传输方程，已知 \(u(x, 0) = \varphi(x)\)，用公式\eqref{eq:非齐次解1}得到
-	\begin{equation}\label{eq:达朗贝尔公式}
-		\begin{aligned}
-			u(x, t) &= \varphi(x + a t) + \int_0^t \left[ \psi(x - 2 a s + a t) - a \varphi'(x - 2 a s + a t) \right] \mathrm{d}s \\
-			&= \varphi(x + a t) + \frac{1}{2 a} \int_{x - a t}^{x + a t} \left[ \psi(y) - a \varphi'(y) \right] \mathrm{d}y \\
-			&= \frac{1}{2} \left[ \varphi(x + a t) + \varphi(x - a t) \right] + \frac{1}{2 a} \int_{x - a t}^{x + a t} \psi(y) \mathrm{d}y.
-		\end{aligned}
+	\begin{equation}
+			u(x, t) = \varphi(x + a t) + \int_0^t \left[ \psi(x - 2 a s + a t) - a \varphi'(x - 2 a s + a t) \right] \mathrm{d}s 
 	\end{equation}
+	
+	
+做变量替换，设$y=x−2as+at$	，$dy=−2ads$，$s(0)=x+at$，$s(t)=x-at$.
+	\begin{equation}\label{eq:达朗贝尔公式}
+	\begin{aligned}
+		u(x, t) &= \varphi(x + a t) + \frac{1}{2 a} \int_{x - a t}^{x + a t} \left[ \psi(y) - a \varphi'(y) \right] \mathrm{d}y \\
+		&= \frac{1}{2} \left[ \varphi(x + a t) + \varphi(x - a t) \right] + \frac{1}{2 a} \int_{x - a t}^{x + a t} \psi(y) \mathrm{d}y.
+	\end{aligned}
+\end{equation}
+	
 	称此式为 d'Alembert (达朗贝尔) 公式.
 	
 	
@@ -1121,7 +1253,7 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	
 情况 3 \quad 若 \(k < 0\)
 
-即 \(X'' + \mu^2 X = 0\) \quad \(X(0) = 0\) \quad \(X(l) = 0\) \quad \(k = -\mu^2\)
+即 \(X'' + \mu^2 X = 0\) \quad \(X(0) = 0\) \quad \(X(l) = 0\) \quad \(k = -\mu^2\)  \quad \(\mu \geq 0\)
 	
 	通解:
 	\begin{equation}
@@ -1136,9 +1268,9 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	\end{equation}
 	
 	非平凡解要求:
-	\begin{equation}
-		\sin \mu l = 0 \quad \therefore \mu l = n\pi \quad n \text{ 为任意正整数}
-	\end{equation}
+	\begin{equation*}
+		\sin \mu l = 0 \quad \therefore \mu l = n\pi \quad n \text{ 为任意正整数，因为$\mu \geq 0$}
+	\end{equation*}
 	
 	特征值:
 	\begin{equation}
@@ -1157,19 +1289,19 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	
 	\begin{verification}	
 		一阶导数:
-		\begin{equation}
+		\begin{equation*}
 			X' = -C_1 \mu \sin \mu x + C_2 \mu \cos \mu x
-		\end{equation}
+		\end{equation*}
 		
 		二阶导数:
-		\begin{equation}
+		\begin{equation*}
 			X'' = -C_1 \mu^2 \cos \mu x - C_2 \mu^2 \sin \mu x
-		\end{equation}
+		\end{equation*}
 		
 		满足方程:
-		\begin{equation}
+		\begin{equation*}
 			X'' + \mu^2 X = 0
-		\end{equation}
+		\end{equation*}
 	\end{verification}	
 	
 	
@@ -1595,7 +1727,7 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 		\label{ex:2}
 		推广复数形式的高斯积分：
 		\begin{equation}
-			\int_{-\infty}^{+\infty} e^{-a(x-bi)^2} dx = \sqrt{\frac{\pi}{a}} \quad (a>0, b \in \mathbb{R})
+			\int_{-\infty}^{+\infty} e^{-a(x+bi)^2} dx = \sqrt{\frac{\pi}{a}} \quad (a>0, b \in \mathbb{R})
 		\end{equation}
 	\end{example}
 	
@@ -1960,7 +2092,7 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	
 	因此，解可以表示为：
 	\begin{equation}
-		u(x, t) = (4\pi a t)^{-n/2} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4a t}} dy
+		u(x, t) = \frac{1}{(4\pi a t)^{n/2}} \int_{\mathbb{R}^n} \varphi(y) e^{-\frac{|x - y|^2}{4a t}} dy
 	\end{equation}
 	
 
