@@ -11,11 +11,26 @@
 \usepackage{enumitem}
 \usepackage{chngcntr}
 \usepackage{tikz}
+\usepackage{fancyhdr} % 引入 fancyhdr 宏包
 
 % ========== 页面布局 ==========
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 \setlength{\parskip}{0.5em}
 \renewcommand{\baselinestretch}{1.2}
+
+% ========== 页眉页脚设置 ==========
+% 定义一个新的页面样式，命名为 mymain
+\fancypagestyle{mymain}{%
+	\fancyhf{} % 清空当前的页眉页脚设置
+	\fancyhead[L]{\kaishu\leftmark}  % 在页眉左侧显示楷体的章节信息
+	\fancyhead[R]{\kaishu\rightmark} % 在页眉右侧显示楷体的节信息
+	\fancyfoot[C]{\thepage}          % 在页脚中间显示页码
+	\renewcommand{\headrulewidth}{0.4pt} % 页眉下方的分割线
+	\renewcommand{\footrulewidth}{0pt}   % 页脚上方不要分割线
+}
+
+% 默认页面样式设为 plain (用于标题页、目录页等)
+\pagestyle{plain}
 
 % ========== 数学命令 ==========
 \newcommand{\diff}{\mathop{}\!\mathrm{d}}
@@ -26,9 +41,9 @@
 \DeclareMathOperator{\supp}{supp}
 
 % ========== 编号系统 ==========
-\numberwithin{subsection}{section}   % 子小节按章节编号
+\numberwithin{subsection}{section}
 \numberwithin{subsubsection}{subsection}
-\counterwithin{equation}{subsection} % 公式按子小节编号
+\counterwithin{equation}{subsection}
 
 % ========== 定理环境 ==========
 \theoremstyle{plain}
@@ -36,30 +51,30 @@
 \newtheorem{lemma}[theorem]{引理}
 \newtheorem{proposition}[theorem]{命题}
 \newtheorem{corollary}[theorem]{推论}
-\newtheorem{solution}{解}[subsection]  % 解按子小节编号
+\newtheorem{solution}{解}[subsection]
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{定义}
-\newtheorem{example}{例题}[subsection]  % 示例按子小节编号
+\newtheorem{example}{例题}[subsection]
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{注记}
-
-\theoremstyle{remark}
-\newtheorem{verification}[theorem]{验证}
+\newtheorem{verification}{验证}
 
 % 加载hyperref包以实现超链接功能
 \usepackage[colorlinks=true, linkcolor=black]{hyperref}
 
+% ========== 文档信息 ==========
 \title{偏微分方程笔记}
 \author{陈柏均}
-\date{2025年5月12日}
+\date{2025年6月30日}
 
 \begin{document}
 	
 	\maketitle
 
- \begin{abstract}
+	\newpage %分页
+\centerline{\textbf{摘 \quad \quad \quad \quad 要}}
 	 首先，对于一般的有界偏微分方程，如果三个条件都是线性的就可以用叠加原理分解为三个子问题；同理无界的时候，如果也是线性的，就可以分解成两个子问题。
 	 
 	 对于边界条件非齐次，我们运用数值分析中，插值拟合函数的思想来齐次化，有很多插值的方法，这里我们选择多项式插值，而且为简化后面的计算，让多项式的次数尽量最低。
@@ -75,8 +90,8 @@
 	 对于有界的波动还是热传导，我们还可以用无界解达朗贝尔公式和泊松公式做一些特殊的延拓来求解。对于第一边界条件我们先奇延拓再周期延拓；对于第二边界条件我们先偶延拓再周期延拓。但是必须满足一定的相容性条件。所以对于有界的还是分离变量法能求解任何情况，这个更稳妥。
 	 
 	 对于半直线的波动还是热传导问题，就是用无界解达朗贝尔公式和泊松公式做延拓，第一边界条件做奇延拓，第二边界条件做偶延拓。
-\end{abstract}
 
+二阶线性偏微分方程根据其判别式 \(\Delta = b^2 - 4ac\) 的正负性分为双曲型(\(\Delta>0\))、椭圆型(\(\Delta<0\))和抛物型(\(\Delta=0\))。此分类决定了方程的性质和求解策略。通过求解特征方程，可以找到特征线，并利用它们作为新的坐标进行变量代换，从而将原方程化为更易于分析的标准型。双曲型化为含混合偏导的标准型，椭圆型化为类拉普拉斯形式，抛物型则化为类热传导形式。
 
 \newpage
 	
@@ -84,6 +99,8 @@
 	
 	
 	\newpage
+	
+	\pagestyle{mymain} % <--- 在这里启用我们自定义的页眉样式
 	\section{按边界条件分类偏微分方程}
 	一般的偏微分方程是由空间变量$x \in \R$和时间变量$t \geq 0$构成的问题，有三个条件：方程，初始条件（$t=0$），边界条件（$x=0, \quad l=0$）.
 	  
@@ -3295,10 +3312,13 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 		\]
 		这是一个只包含 \(u_{\tilde{x}\tilde{x}}\) 和 \(u_{\tilde{y}\tilde{y}}\) 作为二阶项的形式，即双曲型方程的第二标准型。
 	\end{proof}
+\begin{remark}
 	化为第二标准型就是我们的波动方程，由达朗贝尔公式可知，双曲线方程可以写成第二标准型后两条特征线变量的组合，而且特征线变量不会杂糅到一起。
-		\[
-	u(\xi, \eta) = F(\xi) + G(\eta)
-	\]
+\[
+u(\xi, \eta) = F(\xi) + G(\eta)
+\]
+\end{remark}
+
 	
 	\begin{example}
 		判断下列方程的类型，并化成标准型：
@@ -3458,6 +3478,12 @@ $x=0$处是原函数，$ l=0$是一阶偏导函数。
 	
 	综上所述，通过选取一个复特征函数的实部和虚部作为新的坐标，我们成功地使得新方程的系数满足 \(A=C\) 且混合项系数为零。这样，方程就化为了 \(A(u_{\xi\xi} + u_{\eta\eta}) + (\text{低阶项}) = 0\)，这正是椭圆型方程的标准型。
 \end{proof}
+
+\subsection{总结}
+二阶线性偏微分方程的分类是基于其主部系数构成的判别式的正负性。对于一个给定的方程，我们首先计算其判别式 \(\Delta = b^2 - 4ac\)。由于系数 \(a, b, c\) 可能是变量 \(x\) 和 \(y\) 的函数，因此判别式 \(\Delta\) 的值通常也与点的位置有关。根据判别式符号的不同，方程的类型可以分为三种情况。若在某个区域内，判别式恒大于零，则方程在该区域内是双曲型的；若判别式恒小于零，则方程是椭圆型的；若判别式恒等于零，则方程是抛物型的。如果判别式的符号在所讨论的定义域内发生改变，那么该方程则被称为混合型方程。
+
+标准化的核心思想是求解由主部系数决定的特征方程。对于双曲型方程，特征方程有两个不同的实数解，积分后得到两族实特征线，选取这两族特征线作为新的坐标变量，即可将方程化为只含混合偏导数项的第一标准型；对于椭圆型方程，特征方程的解是一对共轭复数，积分后得到复特征线，我们选取其复值函数的实部和虚部作为新的坐标变量，便可将方程化为形如拉普拉斯算子的标准型；对于抛物型方程，特征方程只有一个重根，对应一族实特征线，我们选取该特征线以及另一个与之独立的函数作为新的坐标变量，就能消去其中一个二阶导数项和混合导数项，得到其标准型。
+
 
 	\begin{example}
 		判断 Tricomi 方程 \(u_{yy} - y u_{xx} = 0\) 的类型并化为标准型。
