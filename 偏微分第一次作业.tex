@@ -1,0 +1,418 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools,bm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{
+	pdfborder = {0 0 0},
+	colorlinks = true,
+	linkcolor = blue,
+	citecolor = red,
+	urlcolor = purple,
+}
+\usepackage{booktabs}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{caption}
+\usepackage[shortlabels]{enumitem}
+
+% ========== 页面布局 ==========
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parskip}{0.5em}
+\renewcommand{\baselinestretch}{1.2}
+
+% ========== 数学命令 ==========
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% ========== 定理环境 ==========
+\newtheorem{problem}{问题}
+\newtheorem*{solution}{解}
+
+% ========== 文档信息 ==========
+\begin{document}
+	
+	\begin{center}
+		\LARGE 偏微分方程第一次作业 \\
+		\vspace{0.5cm}
+		\large 班级:22数学1 \quad 姓名:陈柏均 \quad 学号:202225110102
+	\end{center}
+	
+	\begin{problem}
+		指出下列方程的阶并判断它是线性的，还是非线性的。如果是线性的，说明它是齐次的，还是非齐次的：
+		\begin{enumerate}[(1)]
+			\item \( u_t - u_{xx} + xu = 0 \);
+			\item \( u_x^2 + u u_y = 0 \);
+			\item \( u_x + e^y u_y = 0 \);
+			\item \( u_x(1+u_y^2)^{-\frac{1}{2}} + u_y(1+u_x^2)^{-\frac{1}{2}} = 0 \);
+			\item \( \frac{\partial^3 u}{\partial x^3} + \frac{\partial^3 u}{\partial x \partial y^2} + \log u = 0 \).
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{solution}
+		\begin{enumerate}[(1)]
+			\item \textbf{二阶线性齐次方程}。方程中 \(u\) 及其各阶偏导数都是一次的，且没有常数项。
+			\item \textbf{一阶非线性方程}。出现了 \(u_x\) 的平方项 \(u_x^2\) 和 \(u\) 与其导数 \(u_y\) 的乘积项 \(u u_y\)。
+			\item \textbf{一阶线性齐次方程}。方程中 \(u\) 及其偏导数都是一次的，系数 \(e^y\) 仅依赖于自变量。
+			\item \textbf{一阶非线性方程}。方程中含有 \(u_y^2\) 和 \(u_x^2\) 的项，且它们出现在分母的根号内，显然不是线性的。
+			\item \textbf{三阶非线性方程}。出现了非线性项 \(\log u\)。
+		\end{enumerate}
+	\end{solution}
+	
+	\newpage
+	\begin{problem}
+		有一柔软的均匀细线，在阻尼介质中作微小横振动，单位长度弦受的阻力 \(F = -Ru_t\)。试推导其振动方程。
+	\end{problem}
+	
+	\begin{solution}
+		设弦的线密度为 \(\rho\)，张力为 \(T\)。考虑弦上一段微元 \([x, x+\Delta x]\)。
+		根据牛顿第二定律，微元在垂直方向上的运动方程为：
+		\[
+		\rho \Delta x \cdot u_{tt}(x, t) = \sum F_y
+		\]
+		微元受到的力有：两端的张力在y方向的分量，以及介质阻力。
+		\begin{itemize}
+			\item 在 \(x+\Delta x\) 处的张力分量为 \(T \sin\theta_2 \approx T \tan\theta_2 = T u_x(x+\Delta x, t)\)。
+			\item 在 \(x\) 处的张力分量为 \(-T \sin\theta_1 \approx -T \tan\theta_1 = -T u_x(x, t)\)。
+			\item 介质阻力为 \(F \Delta x = -Ru_t \Delta x\)。
+		\end{itemize}
+		因此，合力为：
+		\[
+		\sum F_y = T u_x(x+\Delta x, t) - T u_x(x, t) - Ru_t \Delta x
+		\]
+		代入牛顿第二定律：
+		\[
+		\rho \Delta x \cdot u_{tt} = T(u_x(x+\Delta x, t) - u_x(x, t)) - Ru_t \Delta x
+		\]
+		两边同除以 \(\Delta x\)，并令 \(\Delta x \to 0\)，得到：
+		\[
+		\rho u_{tt} = T \lim_{\Delta x \to 0} \frac{u_x(x+\Delta x, t) - u_x(x, t)}{\Delta x} - Ru_t
+		\]
+		\[
+		\rho u_{tt} = T u_{xx} - Ru_t
+		\]
+		整理后，令 \(a^2 = T/\rho\)，得到有阻尼的波动方程（电报方程）：
+		\[
+		u_{tt} - a^2 u_{xx} + \frac{R}{\rho} u_t = 0
+		\]
+	\end{solution}
+	
+	
+	\newpage
+	\begin{problem}
+		设三维热传导方程具有球对称形式 \(u(x,y,z,t) = u(r,t)\) (\(r=\sqrt{x^2+y^2+z^2}\)) 的解，试验证
+		\[ u_t = a^2 \left( u_{rr} + \frac{2u_r}{r} \right). \]
+	\end{problem}
+	
+	\begin{solution}
+
+		首先，计算 $r$ 对各变量的一阶和二阶偏导数。
+		由 $r = (x^2+y^2+z^2)^{\frac{1}{2}}$ 可得：
+		\[
+		\frac{\partial r}{\partial x} = \frac{1}{2}(x^2+y^2+z^2)^{-\frac{1}{2}} \cdot 2x = \frac{x}{r}
+		\]
+		同理，$\frac{\partial r}{\partial y} = \frac{y}{r}$，$\frac{\partial r}{\partial z} = \frac{z}{r}$。
+		\[
+		\frac{\partial^2 r}{\partial x^2} = - \frac{x^2}{r^3} + \frac{1}{r}
+		\]
+		利用链式法则，计算 $u(r)$ 的一阶和二阶偏导数：
+		\begin{align*}
+			u_x &= u_r \frac{\partial r}{\partial x} \\[6pt]
+			u_{xx} &= \frac{\partial}{\partial x}\left(u_r \frac{\partial r}{\partial x}\right) = \left(\frac{\partial u_r}{\partial r}\frac{\partial r}{\partial x}\right)\frac{\partial r}{\partial x} + u_r \frac{\partial^2 r}{\partial x^2} = u_{rr}\left(\frac{\partial r}{\partial x}\right)^2 + u_r \frac{\partial^2 r}{\partial x^2}
+		\end{align*}
+		同理可得 $u_{yy}$ 和 $u_{zz}$ 的表达式。
+		
+		将三者相加，得到拉普拉斯算子 $\Delta u = u_{xx} + u_{yy} + u_{zz}$：
+		\begin{align*}
+			\Delta u &= u_{rr} \left[ \left(\frac{\partial r}{\partial x}\right)^2 + \left(\frac{\partial r}{\partial y}\right)^2 + \left(\frac{\partial r}{\partial z}\right)^2 \right] + u_r \left( \frac{\partial^2 r}{\partial x^2} + \frac{\partial^2 r}{\partial y^2} + \frac{\partial^2 r}{\partial z^2} \right) \\[6pt]
+			% 计算两个求和项
+			% 第一个求和项
+			&= u_{rr} \left[ \frac{x^2}{r^2} + \frac{y^2}{r^2} + \frac{z^2}{r^2} \right] + u_r \left( \frac{r^2-x^2}{r^3} + \frac{r^2-y^2}{r^3} + \frac{r^2-z^2}{r^3} \right) \\[6pt]
+			% 化简
+			&= u_{rr} \left( \frac{x^2+y^2+z^2}{r^2} \right) + u_r \left( \frac{3r^2 - (x^2+y^2+z^2)}{r^3} \right) \\[6pt]
+			&= u_{rr} \left( \frac{r^2}{r^2} \right) + u_r \left( \frac{3r^2 - r^2}{r^3} \right) \\
+			&= u_{rr} + u_r \left( \frac{2r^2}{r^3} \right) \\[6pt]
+			&= u_{rr} + \frac{2}{r} u_r
+		\end{align*}
+		
+		
+		
+		球对称解意味着解 $u$ 只与到原点的距离 $r = \sqrt{x^2+y^2+z^2}$ 有关，即 $u=u(r)$。
+		在球坐标系下，拉普拉斯算子 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}$ 作用于球对称函数 $u(r)$ 的形式为：
+		\[
+		\Delta u = u_{rr} + \frac{2}{r} u_r
+		\]
+		
+		\[
+		u_{tt} = a^2 \left(u_{rr} + \frac{2}{r} u_r \right)
+		\]
+		
+		证毕。
+	\end{solution}
+	
+	\newpage
+	
+	\begin{problem}
+		考虑Poisson方程的Neumann边值问题
+		\[
+		\begin{cases}
+			\Delta u = f(x,y,z), & (x,y,z) \in \Omega, \\
+			\frac{\partial u}{\partial n}\bigg|_{\Gamma} = 0, & (x,y,z) \in \Gamma.
+		\end{cases}
+		\]
+		\begin{enumerate}[(1)]
+			\item 问上述边值问题的解是否唯一？
+			\item 由散度定理证明上述边值问题有解的必要条件是 \(\iiint_\Omega f(x,y,z) \diff x \diff y \diff z = 0\)。
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{solution}
+		\begin{enumerate}[(1)]
+			\item \textbf{解不唯一}。如果 \(u(x,y,z)\) 是一个解，那么 \(u(x,y,z) + C\)（其中 \(C\) 是任意常数）也是一个解。因为 \(\Delta(u+C) = \Delta u + \Delta C = \Delta u = f\)，并且 \(\frac{\partial (u+C)}{\partial n} = \frac{\partial u}{\partial n} + \frac{\partial C}{\partial n} = \frac{\partial u}{\partial n} = 0\)。因此，解在相差一个常数的意义下是不唯一的。
+			\item 根据散度定理（高斯公式），对于定义在区域 \(\Omega\) 上的任意光滑向量场 \(\mathbf{F}\)，有
+			\[
+			\iiint_\Omega (\nabla \cdot \mathbf{F}) \diff V = \iint_\Gamma (\mathbf{F} \cdot \mathbf{n}) \diff S.
+			\]
+			我们令 \(\mathbf{F} = \nabla u\)。则 \(\nabla \cdot \mathbf{F} = \nabla \cdot (\nabla u) = \Delta u\)，而 \(\mathbf{F} \cdot \mathbf{n} = \nabla u \cdot \mathbf{n} = \frac{\partial u}{\partial n}\)。
+			将这些代入散度定理，得到：
+			\[
+			\iiint_\Omega \Delta u \diff V = \iint_\Gamma \frac{\partial u}{\partial n} \diff S.
+			\]
+			根据题目给出的方程和边界条件，我们有 \(\Delta u = f\) 和 \(\frac{\partial u}{\partial n}|_\Gamma = 0\)。代入上式，即得：
+			\[
+			\iiint_\Omega f(x,y,z) \diff x \diff y \diff z = \iint_\Gamma 0 \diff S = 0.
+			\]
+			此即为Neumann问题有解的必要条件（也称相容性条件）。
+		\end{enumerate}
+	\end{solution}
+	
+	\begin{problem}
+		写出下列方程的特征方程或特征方向。
+		\begin{enumerate}[(1)]
+			\item \( u_{x_1x_1} + u_{x_2x_2} = u_{x_3x_3} + u_{x_4x_4} \);
+			\item \( u_{tt} = u_{xx} + u_{yy} + u_{zz} \);
+			\item \( u_t = u_{xx} - u_{yy} \);
+			\item \( u_{xy} + u_{yz} + u_{xz} = 0 \).
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{solution}
+		特征方程的形式为 \(\sum a_{ij} \alpha_i \alpha_j = 0\)，其中 \(\alpha_i\) 是特征方向的余弦。
+		\begin{enumerate}[(1)]
+			\item 方程为 \(u_{x_1x_1} + u_{x_2x_2} - u_{x_3x_3} - u_{x_4x_4} = 0\)。
+			主部系数为 \(a_{11}=1, a_{22}=1, a_{33}=-1, a_{44}=-1\)，其余为0。
+			特征方程为：\(\alpha_1^2 + \alpha_2^2 - \alpha_3^2 - \alpha_4^2 = 0\)。
+			\item 方程为 \(u_{tt} - u_{xx} - u_{yy} - u_{zz} = 0\)。令 \(x_0=t, x_1=x, x_2=y, x_3=z\)。
+			主部系数为 \(a_{00}=1, a_{11}=-1, a_{22}=-1, a_{33}=-1\)。
+			特征方程为：\(\alpha_0^2 - \alpha_1^2 - \alpha_2^2 - \alpha_3^2 = 0\)。
+			\item 方程为 \(u_t - u_{xx} + u_{yy} = 0\)。这是一个一阶时间，二阶空间的方程，主部只看二阶项。
+			令 \(x_0=t, x_1=x, x_2=y\)。主部系数为 \(a_{11}=-1, a_{22}=1\)，其余二阶项系数为0。
+			特征方程为：\(-\alpha_1^2 + \alpha_2^2 = 0\)，即 \(\alpha_2 = \pm \alpha_1\)。
+			\item 方程为 \(u_{xy} + u_{yz} + u_{xz} = 0\)。
+			主部系数为 \(a_{12}=a_{21}=1/2, a_{23}=a_{32}=1/2, a_{13}=a_{31}=1/2\)。
+			特征方程为：\(\alpha_1\alpha_2 + \alpha_2\alpha_3 + \alpha_1\alpha_3 = 0\)。
+		\end{enumerate}
+	\end{solution}
+	
+	\newpage
+	
+	\begin{problem}
+		将下列方程分类，并化成标准型：
+		\begin{enumerate}[(1)]
+			\item \( u_{xx} + y u_{yy} + \frac{1}{2} u_y = 0 \);
+			\item \( y^2 u_{xx} + x^2 u_{yy} = 0 \quad (x>0, y>0) \).
+		\end{enumerate}
+	\end{problem}
+	
+	\begin{solution}
+		\begin{enumerate}[(1)]
+			\item \textbf{方程：\( u_{xx} + y u_{yy} + \frac{1}{2} u_y = 0 \)}
+			
+			\textbf{1. 分类}
+			
+			主部系数为 \(a=1, b=0, c=y\)。判别式为：
+			\[ \Delta(y) = b^2 - 4ac = 0^2 - 4(1)(y) = -4y. \]
+			这是一个混合型方程，其类型依赖于 \(y\) 的值：
+			\begin{itemize}
+				\item 当 \(y > 0\) 时，\(\Delta < 0\)，方程为 \textbf{椭圆型}。
+				\item 当 \(y < 0\) 时，\(\Delta > 0\)，方程为 \textbf{双曲型}。
+				\item 当 \(y = 0\) 时，\(\Delta = 0\)，方程为 \textbf{抛物型}。
+			\end{itemize}
+			
+			\textbf{2. 化为标准型}
+			
+			\textbf{情形 (i)：当 \(y < 0\) 时 (双曲型)}
+			
+			特征方程为 \(a(\frac{dy}{dx})^2 - b\frac{dy}{dx} + c = 0 \implies (\frac{dy}{dx})^2 + y = 0\)。
+			解得 \(\frac{dy}{dx} = \pm \sqrt{-y}\)。
+			积分 \(\int (-y)^{-1/2} dy = \pm \int dx\)，得到 \(-2\sqrt{-y} = \pm x + \text{const}\)。
+			两族特征线为：\(x + 2\sqrt{-y} = c_1\) 和 \(x - 2\sqrt{-y} = c_2\)。
+			取新坐标：
+			\[ \xi = x + 2\sqrt{-y}, \quad \eta = x - 2\sqrt{-y}. \]
+			计算变换关系：
+			\begin{align*}
+				\xi_x = 1, \quad \xi_y = -(-y)^{-1/2}, \quad \eta_x = 1, \quad \eta_y = (-y)^{-1/2}.
+			\end{align*}
+			一阶导数：
+			\begin{align*}
+				u_x &= u_\xi \xi_x + u_\eta \eta_x = u_\xi + u_\eta, \\
+				u_y &= u_\xi \xi_y + u_\eta \eta_y = -(-y)^{-1/2} u_\xi + (-y)^{-1/2} u_\eta = (-y)^{-1/2} (u_\eta - u_\xi).
+			\end{align*}
+			二阶导数：
+			\begin{align*}
+				u_{xx} &= \frac{\partial}{\partial x}(u_\xi+u_\eta) = u_{\xi\xi} + 2u_{\xi\eta} + u_{\eta\eta}, \\
+				u_{yy} &= \frac{\partial}{\partial y}\left((-y)^{-1/2} (u_\eta - u_\xi)\right) \\
+				&= -\frac{1}{2}(-y)^{-3/2}(u_\eta-u_\xi) + (-y)^{-1/2} \frac{\partial}{\partial y}(u_\eta-u_\xi) \\
+				&= -\frac{1}{2}(-y)^{-3/2}(u_\eta-u_\xi) + (-y)^{-1/2} \left( (u_{\eta\eta}-u_{\xi\eta})\eta_y + (u_{\eta\xi}-u_{\xi\xi})\xi_y \right) \\
+				&= -\frac{1}{2}(-y)^{-3/2}(u_\eta-u_\xi) + (-y)^{-1} \left( (u_{\eta\eta}-u_{\xi\eta}) - (u_{\eta\xi}-u_{\xi\xi}) \right) \\
+				&= -\frac{1}{2}(-y)^{-3/2}(u_\eta-u_\xi) - \frac{1}{y} (u_{\xi\xi} - 2u_{\xi\eta} + u_{\eta\eta}).
+			\end{align*}
+			代入原方程 \(u_{xx} + y u_{yy} + \frac{1}{2} u_y = 0\)：
+			\[
+			(u_{\xi\xi} + 2u_{\xi\eta} + u_{\eta\eta}) + y \left(-\frac{1}{2}(-y)^{-3/2}(u_\eta-u_\xi) - \frac{1}{y} (u_{\xi\xi} - 2u_{\xi\eta} + u_{\eta\eta})\right) + \frac{1}{2}(-y)^{-1/2} (u_\eta - u_\xi) = 0
+			\]
+			\[
+			(u_{\xi\xi} + 2u_{\xi\eta} + u_{\eta\eta}) + \frac{1}{2}(-y)^{-1/2}(u_\eta-u_\xi) - (u_{\xi\xi} - 2u_{\xi\eta} + u_{\eta\eta}) + \frac{1}{2}(-y)^{-1/2} (u_\eta - u_\xi) = 0
+			\]
+			化简得：
+			\[
+			4u_{\xi\eta} + (-y)^{-1/2}(u_\eta - u_\xi) = 0.
+			\]
+			从 \(\xi - \eta = 4\sqrt{-y}\) 可得 \(\sqrt{-y} = (\xi-\eta)/4\)，代入上式得到第一标准型：
+			\[ u_{\xi\eta} + \frac{1}{\xi-\eta}(u_\eta - u_\xi) = 0. \]
+			
+		\textbf{情形 (ii)：当 \(y > 0\) 时 (椭圆型)}
+		
+		特征方程为 \(a(\frac{dy}{dx})^2 - b\frac{dy}{dx} + c = 0 \implies (\frac{dy}{dx})^2 + y = 0\)。
+		解得 \(\frac{dy}{dx} = \pm i\sqrt{y}\)。
+		积分 \(\int y^{-1/2} dy = \pm i \int dx\)，得到 \(2\sqrt{y} = \pm ix + \text{const}\)。
+		一族复特征线为 \(x - i(2\sqrt{y}) = c\)。
+		
+		我们取该复特征线的实部和虚部作为新的坐标变量：
+		\[ \xi = x, \quad \eta = 2\sqrt{y}. \]
+		接下来，我们计算原方程在 \((\xi, \eta)\) 坐标系下的形式。
+		
+		\textbf{步骤1：计算坐标变换的偏导数}
+		\[
+		\xi_x = 1, \quad \xi_y = 0, \quad \eta_x = 0, \quad \eta_y = 2 \cdot \frac{1}{2}y^{-1/2} = \frac{1}{\sqrt{y}}.
+		\]
+		
+		\textbf{步骤2：计算 u 的一阶偏导数变换}
+		运用链式法则：
+		\begin{align*}
+			u_x &= u_\xi \xi_x + u_\eta \eta_x = u_\xi \cdot 1 + u_\eta \cdot 0 = u_\xi, \\
+			u_y &= u_\xi \xi_y + u_\eta \eta_y = u_\xi \cdot 0 + u_\eta \cdot \frac{1}{\sqrt{y}} = \frac{1}{\sqrt{y}} u_\eta.
+		\end{align*}
+		
+		\textbf{步骤3：计算 u 的二阶偏导数变换}
+		\begin{align*}
+			u_{xx} &= \frac{\partial}{\partial x}(u_x) = \frac{\partial}{\partial x}(u_\xi) = u_{\xi\xi}\xi_x + u_{\xi\eta}\eta_x = u_{\xi\xi} \cdot 1 + u_{\xi\eta} \cdot 0 = u_{\xi\xi}. \\
+			u_{yy} &= \frac{\partial}{\partial y}(u_y) = \frac{\partial}{\partial y}\left(\frac{1}{\sqrt{y}} u_\eta\right) \\
+			&= \left(\frac{\partial}{\partial y}\frac{1}{\sqrt{y}}\right) u_\eta + \frac{1}{\sqrt{y}} \left(\frac{\partial u_\eta}{\partial y}\right) \\
+			&= \left(-\frac{1}{2}y^{-3/2}\right) u_\eta + \frac{1}{\sqrt{y}} \left(u_{\eta\xi}\xi_y + u_{\eta\eta}\eta_y\right) \\
+			&= -\frac{1}{2y\sqrt{y}}u_\eta + \frac{1}{\sqrt{y}} \left(u_{\eta\xi} \cdot 0 + u_{\eta\eta} \cdot \frac{1}{\sqrt{y}}\right) \\
+			&= \frac{1}{y}u_{\eta\eta} - \frac{1}{2y\sqrt{y}}u_\eta.
+		\end{align*}
+		
+		\textbf{步骤4：代入原方程并化简}
+		将 \(u_{xx}\), \(u_{yy}\) 和 \(u_y\) 的表达式代入原方程 \(u_{xx} + y u_{yy} + \frac{1}{2} u_y = 0\)：
+		\[
+		(u_{\xi\xi}) + y \left(\frac{1}{y}u_{\eta\eta} - \frac{1}{2y\sqrt{y}}u_\eta\right) + \frac{1}{2}\left(\frac{1}{\sqrt{y}} u_\eta\right) = 0.
+		\]
+		展开括号：
+		\[
+		u_{\xi\xi} + u_{\eta\eta} - \frac{y}{2y\sqrt{y}}u_\eta + \frac{1}{2\sqrt{y}}u_\eta = 0.
+		\]
+		化简分数：
+		\[
+		u_{\xi\xi} + u_{\eta\eta} - \frac{1}{2\sqrt{y}}u_\eta + \frac{1}{2\sqrt{y}}u_\eta = 0.
+		\]
+		可以看到，含有 \(u_\eta\) 的低阶项恰好相互抵消。最终得到标准型：
+		\[ u_{\xi\xi} + u_{\eta\eta} = 0. \]
+			
+			\textbf{情形 (iii)：当 \(y = 0\) 时 (抛物型)}
+			
+			此时原方程退化为 \(u_{xx} + \frac{1}{2}u_y = 0\)。
+			令 \(\xi = x, \eta = -2y\)，则 \(u_y = -2u_\eta\), \(u_{xx} = u_{\xi\xi}\)。
+			代入得 \(u_{\xi\xi} - u_\eta = 0\)，即标准型 \(u_\eta = u_{\xi\xi}\)。
+			
+			\newpage
+		\item \textbf{方程：\( y^2 u_{xx} + x^2 u_{yy} = 0 \quad (x>0, y>0) \)}
+		
+		\textbf{1. 分类}
+		
+		主部系数为 \(a=y^2, b=0, c=x^2\)。判别式为：
+		\[ \Delta = b^2 - 4ac = 0^2 - 4(y^2)(x^2) = -4x^2y^2. \]
+		在区域 \(x>0, y>0\) 内，\(x^2y^2 > 0\)，因此 \(\Delta < 0\)。方程为椭圆型。
+		
+		\textbf{2. 化为标准型}
+		
+		特征方程为 \(a(\frac{dy}{dx})^2 - b\frac{dy}{dx} + c = 0 \implies y^2(\frac{dy}{dx})^2 + x^2 = 0\)。
+		解得 \(\frac{dy}{dx} = \pm \sqrt{-\frac{x^2}{y^2}} = \pm i \frac{x}{y}\)。
+		这是一个变量可分离的方程，积分得：
+		\[ \int y \,dy = \pm i \int x \,dx \implies \frac{1}{2}y^2 = \pm i \frac{1}{2}x^2 + \text{const}. \]
+		一族复特征线为 \(y^2 - ix^2 = c\)。
+		
+		我们取该复特征线的实部和虚部作为新的坐标变量：
+		\[ \xi = y^2, \quad \eta = x^2. \]
+		接下来，我们计算原方程在 \((\xi, \eta)\) 坐标系下的形式。
+		
+		\textbf{步骤1：计算坐标变换的偏导数}
+		\[
+		\xi_x = 0, \quad \xi_y = 2y, \quad \eta_x = 2x, \quad \eta_y = 0.
+		\]
+		
+		\textbf{步骤2：计算 u 的一阶偏导数变换}
+		运用链式法则：
+		\begin{align*}
+			u_x &= u_\xi \xi_x + u_\eta \eta_x = u_\xi \cdot 0 + u_\eta \cdot 2x = 2x u_\eta, \\
+			u_y &= u_\xi \xi_y + u_\eta \eta_y = u_\xi \cdot 2y + u_\eta \cdot 0 = 2y u_\xi.
+		\end{align*}
+		
+		\textbf{步骤3：计算 u 的二阶偏导数变换}
+		\begin{align*}
+			u_{xx} &= \frac{\partial}{\partial x}(u_x) = \frac{\partial}{\partial x}(2x u_\eta) \\
+			&= \left(\frac{\partial (2x)}{\partial x}\right) u_\eta + 2x \left(\frac{\partial u_\eta}{\partial x}\right) \\
+			&= 2u_\eta + 2x (u_{\eta\xi}\xi_x + u_{\eta\eta}\eta_x) \\
+			&= 2u_\eta + 2x (u_{\eta\xi} \cdot 0 + u_{\eta\eta} \cdot 2x) \\
+			&= 2u_\eta + 4x^2 u_{\eta\eta}. \\
+			\\
+			u_{yy} &= \frac{\partial}{\partial y}(u_y) = \frac{\partial}{\partial y}(2y u_\xi) \\
+			&= \left(\frac{\partial (2y)}{\partial y}\right) u_\xi + 2y \left(\frac{\partial u_\xi}{\partial y}\right) \\
+			&= 2u_\xi + 2y (u_{\xi\xi}\xi_y + u_{\xi\eta}\eta_y) \\
+			&= 2u_\xi + 2y (u_{\xi\xi} \cdot 2y + u_{\xi\eta} \cdot 0) \\
+			&= 2u_\xi + 4y^2 u_{\xi\xi}.
+		\end{align*}
+		
+		\textbf{步骤4：代入原方程并化简}
+		将 \(u_{xx}\) 和 \(u_{yy}\) 的表达式代入原方程 \(y^2 u_{xx} + x^2 u_{yy} = 0\)：
+		\[
+		y^2(2u_\eta + 4x^2 u_{\eta\eta}) + x^2(2u_\xi + 4y^2 u_{\xi\xi}) = 0.
+		\]
+		展开括号：
+		\[
+		2y^2 u_\eta + 4x^2y^2 u_{\eta\eta} + 2x^2 u_\xi + 4x^2y^2 u_{\xi\xi} = 0.
+		\]
+		用新坐标 \(\xi=y^2, \eta=x^2\) 替换表达式中的 \(x^2, y^2\)：
+		\[
+		2\xi u_\eta + 4\eta\xi u_{\eta\eta} + 2\eta u_\xi + 4\eta\xi u_{\xi\xi} = 0.
+		\]
+		因为在所讨论的区域内 \(x>0, y>0\)，所以 \(\xi>0, \eta>0\)。两边同除以 \(4\xi\eta\)：
+		\[
+		\frac{2\xi}{4\xi\eta}u_\eta + \frac{4\eta\xi}{4\xi\eta}u_{\eta\eta} + \frac{2\eta}{4\xi\eta}u_\xi + \frac{4\eta\xi}{4\xi\eta}u_{\xi\xi} = 0.
+		\]
+		化简得到：
+		\[
+		\frac{1}{2\eta}u_\eta + u_{\eta\eta} + \frac{1}{2\xi}u_\xi + u_{\xi\xi} = 0.
+		\]
+		整理成标准形式：
+		\[
+		u_{\xi\xi} + u_{\eta\eta} + \frac{1}{2\xi}u_\xi + \frac{1}{2\eta}u_\eta = 0.
+		\]
+		\end{enumerate}
+	\end{solution}
+	
+\end{document}

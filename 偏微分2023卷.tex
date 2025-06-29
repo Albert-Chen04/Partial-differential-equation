@@ -1,0 +1,660 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}                    % 中文支持
+\usepackage{geometry}                      % 页面布局
+\usepackage{amsmath,amssymb,amsthm}        % 数学符号与定理
+\usepackage{mathtools,bm}                  % 高级数学工具
+\usepackage{graphicx}                      % 图片插入
+\usepackage{hyperref}                      % 超链接
+\hypersetup{
+	pdfborder = {0 0 0}  % 关闭链接边框
+}
+\usepackage{cleveref}
+\usepackage{booktabs}                      % 三线表
+\usepackage[numbers,sort&compress]{natbib} % 参考文献
+\usepackage{caption}                       % 图表标题
+\usepackage[shortlabels]{enumitem}         % 列表环境
+
+% ========== 页面布局 ==========
+\geometry{left=2cm, right=2cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parskip}{0.5em}                % 段落间距
+\renewcommand{\baselinestretch}{1.3}       % 行距
+
+% ========== 数学命令 ==========
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}  % 微分符号
+\newcommand{\R}{\mathbb{R}}                % 实数集
+\newcommand{\C}{\mathbb{C}}                % 复数集
+\newcommand{\Z}{\mathbb{Z}}                % 整数集
+\newcommand{\Lspace}{L^2(-l,l)}            % L²空间
+
+% ========== 定理环境 ==========
+% 定义题目环境
+\newtheorem{problem}{题}
+% 定义解题环境
+\newtheorem*{solution}{解}
+
+\newtheorem{example}{例题}
+\newtheorem{corollary}{推论}
+\newtheorem{proposition}{命题}
+\newtheorem{lemma}{引理}
+
+% ========== 文档信息 ==========
+\begin{document}
+	
+	\begin{center}
+		\LARGE 偏微分方程2023卷 \\
+		\vspace{0.5cm}
+		\large 班级:22数学1 \quad 姓名:陈柏均 \quad 学号:202225110102
+	\end{center}
+
+	
+	% ========================= 基础题 =========================
+	\section*{一、基础题 (本大题共5小题, 每小题4分, 共20分)}
+	
+	\begin{problem}
+		指出方程 $x^6 u_{xx} + \dfrac{1}{1+x^2+y^2} u_{xxxxy} = 0$ 的阶，并判定它是线性的还是非线性的。
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		\textbf{阶数：} 方程中最高阶导数是 $u_{xxxxy}$，其阶数为 $4+1=5$。所以这是一个五阶偏微分方程。
+		
+		\noindent
+		\textbf{线性性：} 该方程是线性的。因为未知函数 $u$ 及其各阶偏导数都是一次的，并且系数 $x^6$ 和 $\dfrac{1}{1+x^2+y^2}$ 仅与自变量 $x, y$ 有关。
+	\end{solution}
+	
+		\hrulefill
+	\begin{problem}
+		写出方程 $u_t = u_{xx} + u_{xy} + u_{yy}$ 的特征方程。
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		该方程可以写成 $u_{xx} + u_{xy} + u_{yy} - u_t = 0$。
+		设特征曲面为 $\phi(x, y, t) = C$。特征方程由主部系数决定，其形式为：
+		\[
+		A \phi_x^2 + B \phi_x \phi_y + C \phi_y^2 + \dots = 0
+		\]
+		对于本题，方程的主部是 $u_{xx} + u_{xy} + u_{yy}$。特征方程为：
+		\[
+		\phi_x^2 + \phi_x \phi_y + \phi_y^2 = 0
+		\]
+		而且$	\phi_x^2 +  + \phi_y^2 = 1$,
+		这是一个退化的方程。如果只考虑空间变量 $(x, y)$ 的类型，判别式 $\Delta = 1^2 - 4(1)(1) = -3 < 0$，在空间上是椭圆型的。
+	\end{solution}
+		\hrulefill
+	\begin{problem}
+		验证 $u(x, y) = \log(x^2 + y^2)$ 是调和的。
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		一个函数是调和的，如果它满足拉普拉斯方程 $\Delta u = u_{xx} + u_{yy} = 0$。
+		\begin{align*}
+			u_x &= \frac{\partial}{\partial x} \log(x^2+y^2) = \frac{2x}{x^2+y^2} \\
+			u_{xx} &= \frac{\partial}{\partial x} \left( \frac{2x}{x^2+y^2} \right) = \frac{2(x^2+y^2) - 2x(2x)}{(x^2+y^2)^2} = \frac{2x^2+2y^2-4x^2}{(x^2+y^2)^2} = \frac{2y^2-2x^2}{(x^2+y^2)^2} \\
+			u_y &= \frac{\partial}{\partial y} \log(x^2+y^2) = \frac{2y}{x^2+y^2} \\
+			u_{yy} &= \frac{\partial}{\partial y} \left( \frac{2y}{x^2+y^2} \right) = \frac{2(x^2+y^2) - 2y(2y)}{(x^2+y^2)^2} = \frac{2x^2+2y^2-4y^2}{(x^2+y^2)^2} = \frac{2x^2-2y^2}{(x^2+y^2)^2}
+		\end{align*}
+		因此，
+		\[
+		u_{xx} + u_{yy} = \frac{2y^2-2x^2}{(x^2+y^2)^2} + \frac{2x^2-2y^2}{(x^2+y^2)^2} = 0
+		\]
+		所以，$u(x,y) = \log(x^2+y^2)$ 是调和函数（在 $(0,0)$ 点外）。
+	\end{solution}
+		\hrulefill
+	\begin{problem}
+		对于Cauchy问题 
+		$
+		\begin{cases}
+			u_{tt} - 4u_{xx} = 0, & -\infty < x < \infty, \ t > 0, \\
+			u(x, 0) = \phi(x), \quad u_t(x, 0) = \psi(x), & -\infty < x < \infty,
+		\end{cases}
+		$
+		求点 $(2,3)$ 的依赖区域，以及区间 $[0, 2]$ 的决定区域。
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		这是一个一维波动方程，波速 $c = \sqrt{4} = 2$。
+		\begin{itemize}
+			\item \textbf{点 $(2,3)$ 的依赖区域：}
+			点 $(x_0, t_0) = (2, 3)$ 的依赖区域是初始直线 $t=0$ 上的一个区间 $[x_0 - ct_0, x_0 + ct_0]$。
+			\[
+			[2 - 2 \cdot 3, \quad 2 + 2 \cdot 3] = [-4, 8]
+			\]
+			所以依赖区域是区间 $[-4, 8]$。
+			
+			\item \textbf{区间 $[0,2]$ 的决定区域：}
+			初始区间 $[a,b] = [0,2]$ 的决定区域是 $xt$ 平面中由该区间和从其端点发出的两条特征线 $x-ct=2$ 和 $x+ct=0$ 所围成的区域。
+			这是一个由四个顶点 $(0,0)$, $(2,0)$, $(1, 1/2)$, 构成的三角区域（$t \ge 0$ ）。
+		\end{itemize}
+	\end{solution}
+		\hrulefill
+	\begin{problem}
+		找出函数将下面的边界条件齐次化：
+		\[ u_x(0,t) = \mu_1(t), \quad u(1,t) = \mu_2(t) \]
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		设 $u(x,t) = v(x,t) + w(x,t)$，其中 $w(x,t)$ 是一个辅助函数，目标是使 $v(x,t)$ 满足齐次边界条件。
+		我们构造一个简单的函数 $w(x,t)$，比如线性函数 $w(x,t) = A(t)x + B(t)$，使其满足给定的非齐次边界条件。
+		\begin{align*}
+			w_x(x,t) &= A(t) \\
+			w(x,t) &= A(t)x + B(t)
+		\end{align*}
+		将边界条件代入 $w(x,t)$:
+		\begin{align*}
+			w_x(0,t) = A(t) &= \mu_1(t) \\
+			w(1,t) = A(t) \cdot 1 + B(t) &= \mu_2(t)
+		\end{align*}
+		从第一个式子得到 $A(t) = \mu_1(t)$。
+		代入第二个式子：
+		\[ \mu_1(t) + B(t) = \mu_2(t) \implies B(t) = \mu_2(t) - \mu_1(t) \]
+		所以，所求的函数为：
+		\[ w(x,t) = \mu_1(t)x + \mu_2(t) - \mu_1(t) \]
+		令 $v(x,t) = u(x,t) - w(x,t)$，则 $v(x,t)$ 满足齐次边界条件 $v_x(0,t)=0$ 和 $v(1,t)=0$。
+	\end{solution}
+	
+	\newpage
+	% ========================= 计算题 =========================
+	\section*{二、计算题 (本大题共3小题, 每小题15分, 共45分)}
+	
+	\begin{problem}
+		判断下列方程的类型，并化成标准型：
+		\[
+		u_{xx} + 6u_{xy} + 5u_{yy} + u_x + 2u_y = 0.
+		\]
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		\textbf{步骤1. 判断方程类型}
+		
+		\noindent
+		方程的系数为 $A=1, B=6, C=5$。计算判别式：
+		\[
+		\Delta = B^2 - 4AC = 6^2 - 4(1)(5) = 36 - 20 = 16 > 0
+		\]
+		因为 $\Delta > 0$，所以该方程为双曲型方程。
+		
+		\hrulefill
+		
+		\textbf{步骤2. 求解特征方程}
+		
+		\noindent
+		特征方程为 $A \left(\frac{dy}{dx}\right)^2 - B \frac{dy}{dx} + C = 0$，即：
+		\[
+		\left(\frac{dy}{dx}\right)^2 - 6\frac{dy}{dx} + 5 = 0
+		\]
+		令 $\lambda = \frac{dy}{dx}$，则有 $\lambda^2 - 6\lambda + 5 = 0$，分解因式得 $(\lambda - 1)(\lambda - 5) = 0$。
+		解得两个特征方向：
+		\[
+		\lambda_1 = 1, \quad \lambda_2 = 5
+		\]
+		对应的特征线方程为：
+		\begin{align*}
+			\frac{dy}{dx} = 1 &\implies dy - dx = 0 \implies y - x = C_1 \\
+			\frac{dy}{dx} = 5 &\implies dy - 5dx = 0 \implies y - 5x = C_2
+		\end{align*}
+		
+		\hrulefill
+		
+		\textbf{步骤3. 进行坐标变换}
+		
+		\noindent
+		取新的坐标系：
+		\[
+		\begin{cases}
+			\xi = y - x \\
+			\eta = y - 5x
+		\end{cases}
+		\]
+		计算各阶偏导数：
+		\begin{align*}
+			u_x &= u_\xi \xi_x + u_\eta \eta_x = -u_\xi - 5u_\eta \\
+			u_y &= u_\xi \xi_y + u_\eta \eta_y = u_\xi + u_\eta \\
+			u_{xx} &= \frac{\partial}{\partial x}(-u_\xi - 5u_\eta) = -(u_{\xi\xi}(-1) + u_{\xi\eta}(-5)) - 5(u_{\eta\xi}(-1) + u_{\eta\eta}(-5)) \\
+			&= u_{\xi\xi} + 10u_{\xi\eta} + 25u_{\eta\eta} \\
+			u_{xy} &= \frac{\partial}{\partial y}(-u_\xi - 5u_\eta) = -(u_{\xi\xi}(1) + u_{\xi\eta}(1)) - 5(u_{\eta\xi}(1) + u_{\eta\eta}(1)) \\
+			&= -u_{\xi\xi} - 6u_{\xi\eta} - 5u_{\eta\eta} \\
+			u_{yy} &= \frac{\partial}{\partial y}(u_\xi + u_\eta) = (u_{\xi\xi}(1) + u_{\xi\eta}(1)) + (u_{\eta\xi}(1) + u_{\eta\eta}(1)) \\
+			&= u_{\xi\xi} + 2u_{\xi\eta} + u_{\eta\eta}
+		\end{align*}
+		
+		\hrulefill
+		
+		\textbf{步骤4. 代入原方程化简}
+		
+		\noindent
+		将上述偏导数代入原方程：
+		\begin{itemize}
+			\item \textbf{二阶项}:
+			\begin{align*}
+				& u_{xx} + 6u_{xy} + 5u_{yy} \\
+				&= (u_{\xi\xi} + 10u_{\xi\eta} + 25u_{\eta\eta}) + 6(-u_{\xi\xi} - 6u_{\xi\eta} - 5u_{\eta\eta}) + 5(u_{\xi\xi} + 2u_{\xi\eta} + u_{\eta\eta}) \\
+				&= (1 - 6 + 5)u_{\xi\xi} + (10 - 36 + 10)u_{\xi\eta} + (25 - 30 + 5)u_{\eta\eta} \\
+				&= -16u_{\xi\eta}
+			\end{align*}
+			\item \textbf{一阶项}:
+			\begin{align*}
+				& u_x + 2u_y = (-u_\xi - 5u_\eta) + 2(u_\xi + u_\eta) = u_\xi - 3u_\eta
+			\end{align*}
+		\end{itemize}
+		合并所有项，得到变换后的方程：
+		\[
+		-16u_{\xi\eta} + u_\xi - 3u_\eta = 0
+		\]
+		两边同乘以 $-1$，得到标准型：
+		\[
+		16u_{\xi\eta} - u_\xi + 3u_\eta = 0
+		\]
+	\end{solution}
+		\hrulefill
+	\begin{problem}
+		求解 Cauchy 问题：
+		\[
+		\begin{cases}
+			u_t - 4u_{xx} = 0, & -\infty < x < \infty, \ t > 0, \\
+			u|_{t=0} = xe^{-x}, & -\infty < x < \infty.
+		\end{cases}
+		\]
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		\textbf{步骤1. 使用泊松公式}
+		
+		\noindent
+		这是一个标准的热传导方程 Cauchy 问题，其解由泊松公式给出。方程形式为 $u_t - a^2 u_{xx}=0$，这里 $a^2=4$。
+		一维热传导方程的解为：
+		\[
+		u(x,t) = \frac{1}{\sqrt{4\pi a^2 t}} \int_{-\infty}^{\infty} \phi(y) e^{-\frac{(x-y)^2}{4a^2t}} \diff y
+		\]
+		其中 $\phi(y) = ye^{-y}$ 是初始条件。代入 $a^2=4$：
+		\[
+		u(x,t) = \frac{1}{\sqrt{16\pi t}} \int_{-\infty}^{\infty} y e^{-y} e^{-\frac{(x-y)^2}{16t}} \diff y
+		\]
+		
+		\hrulefill
+		
+		\textbf{步骤2. 计算积分}
+		
+		\noindent
+		我们处理指数部分的项，进行配方：
+		\begin{align*}
+			-y - \frac{(x-y)^2}{16t} &= -\frac{1}{16t} [16ty + (x-y)^2] \\
+			&= -\frac{1}{16t} [16ty + x^2 - 2xy + y^2] \\
+			&= -\frac{1}{16t} [y^2 - (2x-16t)y + x^2] \\
+			&= -\frac{1}{16t} \left[ \left(y - (x-8t)\right)^2 - (x-8t)^2 + x^2 \right] \\
+			&= -\frac{(y - (x-8t))^2}{16t} + \frac{(x-8t)^2 - x^2}{16t} \\
+			&= -\frac{(y - (x-8t))^2}{16t} + \frac{x^2 - 16xt + 64t^2 - x^2}{16t} \\
+			&= -\frac{(y - (x-8t))^2}{16t} - x + 4t
+		\end{align*}
+		将此结果代入积分表达式：
+		\[
+		u(x,t) = \frac{1}{\sqrt{16\pi t}} \int_{-\infty}^{\infty} y e^{-\frac{(y - (x-8t))^2}{16t}} e^{-x+4t} \diff y = \frac{e^{-x+4t}}{\sqrt{16\pi t}} \int_{-\infty}^{\infty} y e^{-\frac{(y - (x-8t))^2}{16t}} \diff y
+		\]
+		作变量代换，令 $z = y - (x-8t)$，则 $y = z + x - 8t$，$\diff y = \diff z$。
+		\begin{align*}
+			\int_{-\infty}^{\infty} y e^{-\frac{(y - (x-8t))^2}{16t}} \diff y &= \int_{-\infty}^{\infty} (z + x - 8t) e^{-\frac{z^2}{16t}} \diff z \\
+			&= \int_{-\infty}^{\infty} z e^{-\frac{z^2}{16t}} \diff z + (x-8t) \int_{-\infty}^{\infty} e^{-\frac{z^2}{16t}} \diff z
+		\end{align*}
+		第一项的被积函数是奇函数，积分为 $0$。第二项是高斯积分，$\int_{-\infty}^{\infty} e^{-\alpha z^2}\diff z = \sqrt{\frac{\pi}{\alpha}}$。这里 $\alpha = \frac{1}{16t}$。
+		\[
+		(x-8t) \int_{-\infty}^{\infty} e^{-\frac{z^2}{16t}} \diff z = (x-8t)\sqrt{16\pi t}
+		\]
+		
+		\hrulefill
+		
+		\textbf{步骤3. 得到最终解}
+		
+		\noindent
+		将积分结果代回：
+		\[
+		u(x,t) = \frac{e^{-x+4t}}{\sqrt{16\pi t}} \left[ 0 + (x-8t)\sqrt{16\pi t} \right] = (x-8t)e^{-x+4t}
+		\]
+		最终解为：
+		\[
+		u(x,t) = (x-8t)e^{-x+4t}
+		\]
+	\end{solution}
+		\hrulefill
+\begin{problem}
+	求解波动方程的 Cauchy 问题：
+	\[
+	\begin{cases}
+		u_{tt} - u_{xx} = t \cos x, & -\infty < x < \infty, \ t > 0, \\
+		u|_{t=0} = 0, \quad u_t|_{t=0} = xe^{-x}, & -\infty < x < \infty.
+	\end{cases}
+	\]
+\end{problem}
+\hrulefill
+\begin{solution}
+	\textbf{步骤1. 应用叠加原理}
+	
+	\noindent
+	根据叠加原理，我们将解 $u(x,t)$ 分解为两部分之和 $u = u^1 + u^2$，其中：
+	\begin{itemize}
+		\item $u^1$ 是非齐次波动方程满足零初始条件的解：
+		$
+		\begin{cases}
+			u^1_{tt} - u^1_{xx} = t\cos x \\
+			u^1(x,0)=0, \quad u^1_{t}(x,0)=0
+		\end{cases}
+		$
+		\item $u^2$ 是齐次波动方程满足给定初始条件的解：
+		$
+		\begin{cases}
+			u^2_{tt} - u^2_{xx} = 0 \\
+			u^2(x,0)=0, \quad u^2_{t}(x,0)=xe^{-x}
+		\end{cases}
+		$
+	\end{itemize}
+	
+	\hrulefill
+	
+	\textbf{步骤2. 求解 $u^1(x,t)$ (使用杜哈梅尔原理)}
+	
+	\noindent
+	我们首先定义一个辅助的齐次波动方程初值问题，其初始条件在时刻 $t=\tau$ 给出。设非齐次项为 $f(x,\tau) = \tau \cos x$。辅助问题是关于函数 $w(x, t; \tau)$ 的：
+	\[
+	\begin{cases}
+		w_{tt} - w_{xx} = 0, & t > \tau, \\
+		w|_{t=\tau} = 0, \\
+		w_t|_{t=\tau} = f(x,\tau) = \tau \cos x.
+	\end{cases}
+	\]
+	引入新时间变量 $s = t-\tau$。则 $w$ 的问题可以转化为关于 $s$ 的标准初值问题：
+	\[
+	\begin{cases}
+		w_{ss} - w_{xx} = 0, & s > 0, \\
+		w|_{s=0} = 0, \\
+		w_s|_{s=0} = \tau \cos x.
+	\end{cases}
+	\]
+	使用达朗贝尔公式求解此问题（波速 $c=1$）：
+	\[
+	w(x,s;\tau) = \frac{1}{2} \int_{x-s}^{x+s} \tau \cos y \diff y = \frac{\tau}{2}[\sin y]_{x-s}^{x+s} = \frac{\tau}{2}(\sin(x+s) - \sin(x-s))
+	\]
+	利用和差化积公式，上式变为 $w(x,s;\tau) = \tau \cos x \sin s$。
+	
+	\noindent
+	根据杜哈梅尔原理，$u^1(x,t)$ 是 $w(x,t;\tau)$ 从 $0$ 到 $t$ 的积分。在积分时，我们将 $s$ 替换为 $t-\tau$：
+	\[
+	u^1(x,t) = \int_0^t w(x,t;\tau) \diff \tau = \int_0^t \cos x \sin(t-\tau) \cdot \tau \diff \tau = \cos x \int_0^t \tau \sin(t-\tau) \diff \tau
+	\]
+	计算该积分，令 $s = t-\tau$, 则 $\tau = t-s$, $\diff \tau = -\diff s$。
+	\begin{align*}
+		\int_0^t \tau \sin(t-\tau) \diff \tau &= \int_t^0 (t-s)\sin s (-\diff s) = \int_0^t (t-s)\sin s \diff s \\
+		&= t \int_0^t \sin s \diff s - \int_0^t s\sin s \diff s \\
+		&= t [-\cos s]_0^t - \left( [-s\cos s]_0^t - \int_0^t (-\cos s) \diff s \right) \\
+		&= t(-\cos t + 1) - \left( -t\cos t + [\sin s]_0^t \right) \\
+		&= -t\cos t + t - (-t\cos t + \sin t) = t - \sin t
+	\end{align*}
+	因此，$u^1(x,t) = (t-\sin t)\cos x$。
+	
+	\hrulefill
+	
+	\textbf{步骤3. 求解 $u^2(x,t)$ (使用达朗贝尔公式)}
+	
+	\noindent
+	对于 $u^2$，我们使用达朗贝尔公式，其中 $\phi(x)=0, \psi(x)=xe^{-x}$：
+	\[
+	u^2(x,t) = \frac{1}{2} \int_{x-t}^{x+t} y e^{-y} \diff y
+	\]
+	使用分部积分法 $\int u \diff v = uv - \int v \diff u$。令 $u=y, \diff v = e^{-y}\diff y$，则 $\diff u = \diff y, v = -e^{-y}$。
+	\[
+	\int y e^{-y} \diff y = y(-e^{-y}) - \int (-e^{-y}) \diff y = -y e^{-y} + \int e^{-y} \diff y = -y e^{-y} - e^{-y} = -(y+1)e^{-y}
+	\]
+	代入积分限：
+	\begin{align*}
+		u^2(x,t) &= \frac{1}{2} \left[ -(y+1)e^{-y} \right]_{x-t}^{x+t} \\
+		&= \frac{1}{2} \left[ -(x+t+1)e^{-(x+t)} - (-(x-t+1)e^{-(x-t)}) \right] \\
+		&= \frac{1}{2} \left[ (x-t+1)e^{-(x-t)} - (x+t+1)e^{-(x+t)} \right]
+	\end{align*}
+	
+	\hrulefill
+	
+	\textbf{步骤4. 合并解}
+	
+	\noindent
+	最终解为 $u(x,t) = u^1(x,t) + u^2(x,t)$：
+	\[
+	u(x,t) = (t-\sin t)\cos x + \frac{1}{2} \left[ (x-t+1)e^{-(x-t)} - (x+t+1)e^{-(x+t)} \right]
+	\]
+\end{solution}
+	
+	\newpage
+	% ========================= 解答题 =========================
+	\section*{三、解答题 (本大题共1题, 共20分)}
+	\begin{problem}
+		用分离变量法求解初边值问题：
+		\[
+		\begin{cases}
+			u_{tt} - 4u_{xx} = 0, & 0 < x < 1, \ t > 0, \\
+			u(x, 0) = \frac{1}{2}\sin(\pi x), \quad u_t(x, 0) = 0, & 0 \leq x \leq 1, \\
+			u(0, t) = 0, \quad u(1, t) = 0, & t \geq 0.
+		\end{cases}
+		\]
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		\textbf{步骤1. 分离变量}
+		
+		\noindent
+		设解的形式为 $u(x,t) = X(x)T(t)$。代入方程 $u_{tt} - 4u_{xx} = 0$：
+		\[
+		X(x)T''(t) - 4X''(x)T(t) = 0 \implies \frac{T''(t)}{4T(t)} = \frac{X''(x)}{X(x)} = -\lambda
+		\]
+		其中 $-\lambda$ 是分离常数。由此得到两个常微分方程：
+		\begin{align*}
+			X''(x) + \lambda X(x) &= 0, \quad 0 < x < 1 \\
+			T''(t) + 4\lambda T(t) &= 0, \quad t > 0
+		\end{align*}
+		
+		\hrulefill
+		
+		\textbf{步骤2. 求解空间本征值问题}
+		
+		\noindent
+		空间方程的边界条件由原问题给出：
+		\[
+		u(0,t) = X(0)T(t) = 0 \implies X(0)=0 \\
+		u(1,t) = X(1)T(t) = 0 \implies X(1)=0
+		\]
+		我们求解 Sturm-Liouville 问题: $X'' + \lambda X = 0, \ X(0)=0, \ X(1)=0$。
+		这是一个经典的本征值问题，其非平凡解只在 $\lambda > 0$ 时存在。
+		设 $\lambda = \mu^2$ ($\mu>0$)，方程通解为 $X(x) = C_1 \cos(\mu x) + C_2 \sin(\mu x)$。
+		\begin{itemize}
+			\item 由 $X(0)=0$ 得 $C_1 = 0$。
+			\item 由 $X(1)=0$ 得 $C_2 \sin(\mu) = 0$。为得到非平凡解，须 $C_2 \neq 0$，故 $\sin(\mu)=0$。
+		\end{itemize}
+		因此 $\mu = n\pi$ ($n=1, 2, 3, \dots$)。
+		本征值为 $\lambda_n = (n\pi)^2$。
+		对应的本征函数为 $X_n(x) = \sin(n\pi x)$。
+		
+		\hrulefill
+		
+		\textbf{步骤3. 求解时间方程}
+		
+		\noindent
+		对于每个本征值 $\lambda_n$，求解时间方程：
+		\[
+		T_n''(t) + 4(n\pi)^2 T_n(t) = 0
+		\]
+		其通解为：
+		\[
+		T_n(t) = a_n \cos(2n\pi t) + b_n \sin(2n\pi t)
+		\]
+		
+		\hrulefill
+		
+		\textbf{步骤4. 叠加并利用初始条件}
+		
+		\noindent
+		根据叠加原理，解可以写成级数形式：
+		\[
+		u(x,t) = \sum_{n=1}^\infty X_n(x)T_n(t) = \sum_{n=1}^\infty [a_n \cos(2n\pi t) + b_n \sin(2n\pi t)] \sin(n\pi x)
+		\]
+		利用初始条件 $u(x,0) = \frac{1}{2}\sin(\pi x)$:
+		\[
+		u(x,0) = \sum_{n=1}^\infty a_n \sin(n\pi x) = \frac{1}{2}\sin(\pi x)
+		\]
+		通过比较傅里叶级数的系数可知，只有当 $n=1$ 时系数不为零：
+		\[
+		a_1 = \frac{1}{2}, \quad a_n = 0 \quad \text{for } n \neq 1
+		\]
+		对时间求导：
+		\[
+		u_t(x,t) = \sum_{n=1}^\infty [-2n\pi a_n \sin(2n\pi t) + 2n\pi b_n \cos(2n\pi t)] \sin(n\pi x)
+		\]
+		利用初始条件 $u_t(x,0) = 0$:
+		\[
+		u_t(x,0) = \sum_{n=1}^\infty 2n\pi b_n \sin(n\pi x) = 0
+		\]
+		因此，所有系数 $b_n=0$。
+		
+		\hrulefill
+		
+		\textbf{步骤5. 写出最终解}
+		
+		\noindent
+		将求得的系数 $a_1=1/2$, $a_n=0 (n>1)$, $b_n=0$ 代回级数，只有 $n=1$ 的项被保留：
+		\[
+		u(x,t) = a_1 \cos(2\pi t) \sin(\pi x)
+		\]
+		最终解为：
+		\[
+		u(x,t) = \frac{1}{2}\cos(2\pi t)\sin(\pi x)
+		\]
+	\end{solution}
+	
+	\newpage
+	% ========================= 证明题 =========================
+	\section*{四、证明题 (本大题共1题, 共15分)}
+	\begin{problem}
+		证明球波动方程
+		\[
+		\begin{cases}
+			u_{tt} - a^2 (u_{xx} + u_{yy} + u_{zz}) = 0, & (x, y, z) \in \R^3, \ t > 0, \\
+			u|_{t=0} = \phi(r), \quad u_t|_{t=0} = \psi(r) &
+		\end{cases}
+		\]
+		的解为
+		\[
+		u(r, t) = \frac{(r - at)\phi(r - at) + (r + at)\phi(r + at)}{2r} + \frac{1}{2ar}\int_{r-at}^{r+at} \rho \psi(\rho) \diff \rho.
+		\]
+		其中 $r = \sqrt{x^2+y^2+z^2}$。
+	\end{problem}
+	\hrulefill
+	\begin{solution}
+		\textbf{步骤1. 球坐标系下的波动方程}
+		
+		\noindent
+	首先，计算 $r$ 对各变量的一阶和二阶偏导数。
+	由 $r = (x^2+y^2+z^2)^{\frac{1}{2}}$ 可得：
+	\[
+	\frac{\partial r}{\partial x} = \frac{1}{2}(x^2+y^2+z^2)^{-\frac{1}{2}} \cdot 2x = \frac{x}{r}
+	\]
+	同理，$\frac{\partial r}{\partial y} = \frac{y}{r}$，$\frac{\partial r}{\partial z} = \frac{z}{r}$。
+	\[
+	\frac{\partial^2 r}{\partial x^2} = - \frac{x^2}{r^3} + \frac{1}{r}
+	\]
+	利用链式法则，计算 $u(r)$ 的一阶和二阶偏导数：
+	\begin{align*}
+		u_x &= u_r \frac{\partial r}{\partial x} \\[6pt]
+		u_{xx} &= \frac{\partial}{\partial x}\left(u_r \frac{\partial r}{\partial x}\right) = \left(\frac{\partial u_r}{\partial r}\frac{\partial r}{\partial x}\right)\frac{\partial r}{\partial x} + u_r \frac{\partial^2 r}{\partial x^2} = u_{rr}\left(\frac{\partial r}{\partial x}\right)^2 + u_r \frac{\partial^2 r}{\partial x^2}
+	\end{align*}
+	同理可得 $u_{yy}$ 和 $u_{zz}$ 的表达式。
+	
+	将三者相加，得到拉普拉斯算子 $\Delta u = u_{xx} + u_{yy} + u_{zz}$：
+	\begin{align*}
+		\Delta u &= u_{rr} \left[ \left(\frac{\partial r}{\partial x}\right)^2 + \left(\frac{\partial r}{\partial y}\right)^2 + \left(\frac{\partial r}{\partial z}\right)^2 \right] + u_r \left( \frac{\partial^2 r}{\partial x^2} + \frac{\partial^2 r}{\partial y^2} + \frac{\partial^2 r}{\partial z^2} \right) \\[6pt]
+		% 计算两个求和项
+		% 第一个求和项
+		&= u_{rr} \left[ \frac{x^2}{r^2} + \frac{y^2}{r^2} + \frac{z^2}{r^2} \right] + u_r \left( \frac{r^2-x^2}{r^3} + \frac{r^2-y^2}{r^3} + \frac{r^2-z^2}{r^3} \right) \\[6pt]
+		% 化简
+		&= u_{rr} \left( \frac{x^2+y^2+z^2}{r^2} \right) + u_r \left( \frac{3r^2 - (x^2+y^2+z^2)}{r^3} \right) \\[6pt]
+		&= u_{rr} \left( \frac{r^2}{r^2} \right) + u_r \left( \frac{3r^2 - r^2}{r^3} \right) \\
+		&= u_{rr} + u_r \left( \frac{2r^2}{r^3} \right) \\[6pt]
+		&= u_{rr} + \frac{2}{r} u_r
+	\end{align*}
+	
+	
+	
+	球对称解意味着解 $u$ 只与到原点的距离 $r = \sqrt{x^2+y^2+z^2}$ 有关，即 $u=u(r)$。
+	在球坐标系下，拉普拉斯算子 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}$ 作用于球对称函数 $u(r)$ 的形式为：
+	\[
+	\Delta u = u_{rr} + \frac{2}{r} u_r
+	\]
+	
+	\[
+	u_{tt} = a^2 \left(u_{rr} + \frac{2}{r} u_r \right)
+	\]
+	
+		
+		\hrulefill
+		
+		\textbf{步骤2. 变量代换}
+		
+		\noindent
+		为了求解这个方程，作变量代换，令 $v(r) = r u(r)$。则 $u(r) = \frac{v(r)}{r}$。
+		计算 $u$ 对 $r$ 的导数：
+		\begin{align*}
+			u_r &= \frac{v_r r - v}{r^2} = \frac{v_r}{r} - \frac{v}{r^2} \\[6pt]
+			u_{rr} &= \frac{v_{rr} r - v_r}{r^2} - \frac{v_r r^2 - v (2r)}{r^4} = \frac{v_{rr}}{r} - \frac{v_r}{r^2} - \frac{v_r}{r^2} + \frac{2v}{r^3} \\[6pt]
+			&= \frac{v_{rr}}{r} - \frac{2v_r}{r^2} + \frac{2v}{r^3}
+		\end{align*}
+		将 $u, u_r, u_{rr}$ 代入原方程：
+		\[
+		\left( \frac{v_{rr}}{r} - \frac{2v_r}{r^2} + \frac{2v}{r^3} \right) + \frac{2}{r} \left( \frac{v_r}{r} - \frac{v}{r^2} \right) - \frac{v}{r} = 0
+		\]
+		化简得：
+		\[
+		\frac{v_{rr}}{r} - \frac{2v_r}{r^2} + \frac{2v}{r^3} + \frac{2v_r}{r^2} - \frac{2v}{r^3} - \frac{v}{r} = 0
+		\]
+		\[
+		\frac{v_{rr}}{r} - \frac{v}{r} = 0
+		\]
+		在 $r \neq 0$ 的情况下，方程简化为：
+		\[
+		v_{rr} - v = 0
+		\]
+		也可用
+		\begin{equation*}
+			\frac{\partial^2}{\partial r^2}(ru) = \frac{\partial}{\partial r}(u + ru_r) = u_r + u_r + r u_{rr} = r u_{rr} + 2u_r
+		\end{equation*}
+		
+		
+		\hrulefill
+		
+		\textbf{步骤3. 转换初始条件}
+		
+		\noindent
+		新的函数 $v(r,t)$ 的初始条件为：
+		\begin{align*}
+			v(r,0) &= r u(r,0) = r\phi(r) \\
+			v_t(r,0) &= r u_t(r,0) = r\psi(r)
+		\end{align*}
+		
+		\hrulefill
+		
+		\textbf{步骤4. 求解一维波动方程}
+		
+		\noindent
+		我们现在有了关于 $v(r,t)$ 的一维波动方程初值问题。使用达朗贝尔公式求解：
+		\[
+		v(r,t) = \frac{1}{2} [v(r+at, 0) + v(r-at, 0)] + \frac{1}{2a} \int_{r-at}^{r+at} v_t(s,0) \diff s
+		\]
+		将 $v$ 的初始条件代入：
+		\[
+		v(r,t) = \frac{1}{2} [(r+at)\phi(r+at) + (r-at)\phi(r-at)] + \frac{1}{2a} \int_{r-at}^{r+at} s\psi(s) \diff s
+		\]
+		
+		\hrulefill
+		
+		\textbf{步骤5. 回代得到最终解}
+		
+		\noindent
+		最后，将解 $v(r,t)$ 代换回 $u(r,t) = v(r,t)/r$ (对于 $r \neq 0$):
+		\[
+		u(r,t) = \frac{(r+at)\phi(r+at) + (r-at)\phi(r-at)}{2r} + \frac{1}{2ar} \int_{r-at}^{r+at} s\psi(s) \diff s
+		\]
+	证明完毕。
+	\end{solution}
+	
+\end{document}
