@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: 偏微分波动方程.aux
+The style file: gbt7714-numerical.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 150 items from 100.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: references.bib
+You've used 2 entries,
+            5383 wiz_defined-function locations,
+            1055 strings with 7815 characters,
+and the built_in function-call counts, 3660 in all, are:
+= -- 178
+> -- 252
+< -- 363
++ -- 169
+- -- 76
+* -- 51
+:= -- 634
+add.period$ -- 8
+call.type$ -- 2
+change.case$ -- 2
+chr.to.int$ -- 141
+cite$ -- 2
+duplicate$ -- 41
+empty$ -- 111
+format.name$ -- 28
+if$ -- 931
+int.to.chr$ -- 1
+int.to.str$ -- 3
+missing$ -- 0
+newline$ -- 26
+num.names$ -- 6
+pop$ -- 42
+preamble$ -- 1
+purify$ -- 2
+quote$ -- 0
+skip$ -- 274
+stack$ -- 0
+substring$ -- 202
+swap$ -- 2
+text.length$ -- 28
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 14
+warning$ -- 0
+while$ -- 29
+width$ -- 0
+write$ -- 41

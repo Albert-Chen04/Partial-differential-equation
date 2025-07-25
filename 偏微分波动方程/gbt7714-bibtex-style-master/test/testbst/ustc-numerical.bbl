@@ -1,0 +1,148 @@
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax\else
+  \urlstyle{same}\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \DeclareUrlCommand\doi{\urlstyle{rm}}
+  \def\eprint#1#2{#2}
+\else
+  \def\doi#1{\href{https://doi.org/#1}{\nolinkurl{#1}}}
+  \let\eprint\href
+\fi
+
+\bibitem[孙立广(2016)]{2.14.1.2.1:1}
+孙立广.
+\newblock
+  极地科学前沿与热点：顶级期刊论文摘要汇编（1999—2010）\allowbreak[M].
+\newblock 合肥: 中国科学技术大学出版社, 2016: 222.
+
+\bibitem[李永池(2016)]{2.14.1.2.1:2}
+李永池.
+\newblock 张量初步和近代连续介质力学概论\allowbreak[M].
+\newblock 2 版.
+\newblock 合肥: 中国科学技术大学出版社, 2016: 61.
+
+\bibitem[刘景双(2014)]{2.14.1.2.1:3}
+刘景双.
+\newblock
+  湿地生态系统碳、氮、硫、磷生物地球化学过程\allowbreak[M].
+\newblock 合肥: 中国科学技术大学出版社, 2014.
+
+\bibitem[Crawford et~al.(1995)Crawford and Gorman]{2.14.1.2.1:4}
+CRAWFORD W, GORMAN M.
+\newblock Future libraries: Dreams, madness, \& reality\allowbreak[M].
+\newblock Chicago: American Library Association, 1995.
+
+\bibitem[{International Federation of Library Association and
+  Institutions}(1977)]{2.14.1.2.1:5}
+{International Federation of Library Association and Institutions}.
+\newblock Names of persons: National usage for entry in
+  catalogues\allowbreak[M].
+\newblock 3rd ed.
+\newblock London: IFLA Internation Office for UBC, 1977.
+
+\bibitem[程根伟(1999)]{2.14.1.2.2:1}
+程根伟.
+\newblock
+  1998年长江洪水的成因与减灾对策\allowbreak[M]//\allowbreak
+许厚泽, 赵其国.
+\newblock 长江流域洪涝灾害与科技对策.
+\newblock 北京: 科学出版社, 1999: 26-32.
+
+\bibitem[陈晋镳\ 等(1980)陈晋镳, 张惠民, 朱士兴, 赵震, and
+  王振刚]{2.14.1.2.2:2}
+陈晋镳, 张惠民, 朱士兴, 等.
+\newblock 蓟县震旦亚界研究\allowbreak[M]//\allowbreak
+中国地质科学院天津地质矿产研究所.
+\newblock 中国震旦亚界.
+\newblock 天津: 天津科学技术出版社, 1980: 56-114.
+
+\bibitem[Buseck et~al.(1980)Buseck, Nord, and Veblen]{2.14.1.2.2:3}
+BUSECK P~R, NORD G~L, Jr., VEBLEN D~R.
+\newblock Subsolidus phenomena in pyroxenes\allowbreak[M]//\allowbreak
+PREWITT C~T.
+\newblock Pyroxenes.
+\newblock Washington, D.C.: Mineralogical Society of America, 1980: 117-211.
+
+\bibitem[Fourney(1971)]{2.14.1.2.2:4}
+FOURNEY M~E.
+\newblock Advances in holographic photoelasticity\allowbreak[C]//\allowbreak
+American Society of Mechanical Engineers．Applied Mechanics
+  Division．Symposium on Applications of Holography in Mechanics, August
+  23-25,1971,University of Southern California, Los Angeles, California.
+\newblock New York: ASME, 1971: 17-38.
+
+\bibitem[孔庆勇\ 等(2015)孔庆勇, 郭红健, and 孔庆和]{2.14.1.2.3:1}
+孔庆勇, 郭红健, 孔庆和.
+\newblock
+  我国科技期刊的金字塔分层模型及发展路径初探\allowbreak[J].
+\newblock 中国科技期刊研究, 2015, 26\allowbreak (10): 1100-1103.
+
+\bibitem[杨洪升(2013)]{2.14.1.2.3:2}
+杨洪升.
+\newblock 四库馆私家抄校书考略\allowbreak[J].
+\newblock 文献, 2013\allowbreak (1): 56-75.
+
+\bibitem[于潇\ 等(2012)于潇, 刘义, 柴跃廷, et~al.]{2.14.1.2.3:3}
+于潇, 刘义, 柴跃廷, 等.
+\newblock
+  互联网药品可信交易环境中主体资质审核备案模式\allowbreak[J].
+\newblock 清华大学学报(自然科学版), 2012, 52\allowbreak (11):
+  1518-1521.
+
+\bibitem[Des~Marais et~al.(1992)Des~Marais, Strauss, Summons,
+  et~al.]{2.14.1.2.3:4}
+DES~MARAIS D~J, STRAUSS H, SUMMONS R~E, et~al.
+\newblock Carbon isotope evidence for the stepwise oxidation of the proterozoic
+  environment\allowbreak[J].
+\newblock Nature, 1992, 359: 605-609.
+
+\bibitem[HEWITT(1984)]{2.14.1.2.3:5}
+HEWITT J~A.
+\newblock Technical services in 1983\allowbreak[J].
+\newblock Library Resource Services, 1984.
+
+\bibitem[丁文详(2000)]{2.14.1.2.4:1}
+丁文详.
+\newblock 数字革命与竞争国际化\allowbreak[N].
+\newblock 中国青年报, 2000-11-20\allowbreak (15).
+
+\bibitem[姜锡洲(1989)]{2.14.1.2.5:1}
+姜锡洲.
+\newblock 一种温热外敷药制备方案: 中国, 88105607.3\allowbreak[P].
+\newblock 1989-07-26.
+
+\bibitem[万锦坤(1996)]{2.14.1.2.6:1}
+万锦坤.
+\newblock
+  中国大学学报论文文摘（1983--1993）（英文版）\allowbreak[DB/CD].
+\newblock 北京: 中国大百科全书出版社, 1996.
+
+\bibitem[Mlot(1998)]{2.14.1.2.6:2}
+MLOT C.
+\newblock Plant physiology: Plant biology in the {Genome Era}\allowbreak[J].
+\newblock Science, 1998, 281: 331-332.
+
+\bibitem[孙玉文(2000)]{2.14.1.2.7:1}
+孙玉文.
+\newblock 汉语变调构词研究\allowbreak[D].
+\newblock 北京: 北京大学, 2000.
+
+\bibitem[Cairns(1965)]{2.14.1.2.7:2}
+CAIRNS B~R.
+\newblock Infrared spectroscopic studies of solid oxygen\allowbreak[D].
+\newblock Berkeley: Univ. of California, 1965.
+
+\bibitem[中国力学学会(1990)]{2.14.1.2.8:1}
+中国力学学会.
+\newblock 第 3 届全国实验流体力学学术会议论文集\allowbreak[C].
+\newblock 天津, 1990.
+
+\bibitem[Rosenthall(1963)]{2.14.1.2.8:2}
+ROSENTHALL E~M.
+\newblock Proceedings of the fifth canadian mathematical congress, university
+  of montreal, 1961\allowbreak[C].
+\newblock Toronto: University of Toronto Press, 1963.
+
+\end{thebibliography}

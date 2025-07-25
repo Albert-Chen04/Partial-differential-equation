@@ -1,0 +1,91 @@
+\contentsline {section}{\numberline {1}二阶线性偏微分方程按特征分类与标准化}{6}{section.1}%
+\contentsline {subsection}{\numberline {1.1}二阶方程的特征理论}{6}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}方程的分类与标准型}{7}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}双曲型方程 ($\Delta > 0$)}{8}{subsubsection.1.2.1}%
+\contentsline {section}{\numberline {2}按边界条件分类偏微分方程}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}有界}{11}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}第一类边界}{11}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}第二类边界}{11}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}两种混合}{11}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}半直线}{12}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}第一边界}{12}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}第二边界}{12}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}无界}{12}{subsection.2.3}%
+\contentsline {section}{\numberline {3}叠加原理}{12}{section.3}%
+\contentsline {subsection}{\numberline {3.1}方程非齐次}{12}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}初始条件非齐次}{13}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}边界条件非齐次}{13}{subsection.3.3}%
+\contentsline {section}{\numberline {4}边界条件齐次化}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}第一边界条件齐次化}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}第二边界条件齐次化}{15}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}第一混合边界条件齐次化}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}第二混合边界条件齐次化}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}总结}{17}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Duhamamel原理之方程齐次化}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}有界非齐次方程}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}无界非齐次方程}{18}{subsection.5.2}%
+\contentsline {section}{\numberline {6}一阶拟线性方程之传输方程}{20}{section.6}%
+\contentsline {subsection}{\numberline {6.1}波的传播求解常系数齐次传输方程}{20}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}问题描述}{20}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}通解}{20}{subsubsection.6.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.3}初值问题之特解}{21}{subsubsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.2}波的传播求解常系数非齐次传输方程}{21}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}问题描述}{21}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}求解}{21}{subsubsection.6.2.2}%
+\contentsline {section}{\numberline {7}一维无界齐次波动方程}{22}{section.7}%
+\contentsline {subsection}{\numberline {7.1}d’Alembert 公式}{22}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}问题描述}{22}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}求解}{22}{subsubsection.7.1.2}%
+\contentsline {section}{\numberline {8}反射法解决各种边界条件的齐次波动方程}{23}{section.8}%
+\contentsline {subsection}{\numberline {8.1}第一边值条件半直线问题}{23}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}问题描述}{23}{subsubsection.8.1.1}%
+\contentsline {subsubsection}{\numberline {8.1.2}做奇延拓}{23}{subsubsection.8.1.2}%
+\contentsline {subsubsection}{\numberline {8.1.3}边界条件与方程验证}{24}{subsubsection.8.1.3}%
+\contentsline {paragraph}{达朗贝尔解表达式}{24}{paragraph*.1}%
+\contentsline {paragraph}{边界点验证}{24}{paragraph*.2}%
+\contentsline {paragraph}{方程验证}{25}{paragraph*.3}%
+\contentsline {paragraph}{区域分析}{25}{paragraph*.4}%
+\contentsline {subsection}{\numberline {8.2}第二边值条件半直线问题}{26}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}问题描述}{26}{subsubsection.8.2.1}%
+\contentsline {subsubsection}{\numberline {8.2.2}做偶延拓}{26}{subsubsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.3}有界第一边值条件之反射法}{27}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}问题描述}{27}{subsubsection.8.3.1}%
+\contentsline {subsubsection}{\numberline {8.3.2}核心思想}{27}{subsubsection.8.3.2}%
+\contentsline {subsubsection}{\numberline {8.3.3}达朗贝尔公式的应用}{27}{subsubsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.4}有界第二边值条件之反射法}{28}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}第一种有界混合边界问题之反射法}{29}{subsection.8.5}%
+\contentsline {subsection}{\numberline {8.6}第二种有界混合边界问题之反射法}{29}{subsection.8.6}%
+\contentsline {section}{\numberline {9}有界波动方程之分离变量法}{29}{section.9}%
+\contentsline {subsection}{\numberline {9.1}第一边值条件之分离变量法}{29}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}问题描述}{29}{subsubsection.9.1.1}%
+\contentsline {subsubsection}{\numberline {9.1.2}核心思想}{30}{subsubsection.9.1.2}%
+\contentsline {subsubsection}{\numberline {9.1.3}空间常微分方程的求解}{30}{subsubsection.9.1.3}%
+\contentsline {subsubsection}{\numberline {9.1.4}时间常微分方程的求解}{31}{subsubsection.9.1.4}%
+\contentsline {subsubsection}{\numberline {9.1.5}得偏微分方程通解}{32}{subsubsection.9.1.5}%
+\contentsline {subsubsection}{\numberline {9.1.6}初始条件求系数}{32}{subsubsection.9.1.6}%
+\contentsline {subsubsection}{\numberline {9.1.7}用数分知识求系数}{33}{subsubsection.9.1.7}%
+\contentsline {subsubsection}{\numberline {9.1.8}例题}{34}{subsubsection.9.1.8}%
+\contentsline {subsection}{\numberline {9.2}第二边值条件}{35}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}问题描述}{35}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2}核心思想}{36}{subsubsection.9.2.2}%
+\contentsline {subsubsection}{\numberline {9.2.3}空间常微分方程的求解}{36}{subsubsection.9.2.3}%
+\contentsline {subsubsection}{\numberline {9.2.4}时间常微分方程的求解}{37}{subsubsection.9.2.4}%
+\contentsline {subsubsection}{\numberline {9.2.5}得偏微分方程通解}{38}{subsubsection.9.2.5}%
+\contentsline {subsubsection}{\numberline {9.2.6}初始条件求系数}{38}{subsubsection.9.2.6}%
+\contentsline {subsection}{\numberline {9.3}第一混合边界条件}{39}{subsection.9.3}%
+\contentsline {subsubsection}{\numberline {9.3.1}问题描述}{39}{subsubsection.9.3.1}%
+\contentsline {subsubsection}{\numberline {9.3.2}核心思想}{39}{subsubsection.9.3.2}%
+\contentsline {subsubsection}{\numberline {9.3.3}空间常微分方程的求解}{39}{subsubsection.9.3.3}%
+\contentsline {subsubsection}{\numberline {9.3.4}时间常微分方程的求解}{40}{subsubsection.9.3.4}%
+\contentsline {subsubsection}{\numberline {9.3.5}得偏微分方程通解}{40}{subsubsection.9.3.5}%
+\contentsline {subsubsection}{\numberline {9.3.6}初始条件求系数}{41}{subsubsection.9.3.6}%
+\contentsline {subsection}{\numberline {9.4}第二混合边界条件}{41}{subsection.9.4}%
+\contentsline {subsubsection}{\numberline {9.4.1}问题描述}{41}{subsubsection.9.4.1}%
+\contentsline {subsubsection}{\numberline {9.4.2}核心思想}{42}{subsubsection.9.4.2}%
+\contentsline {subsubsection}{\numberline {9.4.3}空间常微分方程的求解}{42}{subsubsection.9.4.3}%
+\contentsline {subsubsection}{\numberline {9.4.4}时间常微分方程的求解}{43}{subsubsection.9.4.4}%
+\contentsline {subsubsection}{\numberline {9.4.5}得偏微分方程通解}{43}{subsubsection.9.4.5}%
+\contentsline {subsubsection}{\numberline {9.4.6}初始条件求系数}{43}{subsubsection.9.4.6}%
+\contentsline {subsubsection}{\numberline {9.4.7}例题}{44}{subsubsection.9.4.7}%
+\contentsline {section}{参考文献}{47}{solution.9.4.1}%
+\contentsfinish 

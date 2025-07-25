@@ -1,0 +1,643 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}                    % 中文支持
+\usepackage{geometry}                      % 页面布局
+\usepackage{amsmath,amssymb,amsthm}        % 数学符号与定理
+\usepackage{mathtools,bm}                  % 高级数学工具
+\usepackage{graphicx}                      % 图片插入
+\usepackage{hyperref}                      % 超链接
+\usepackage{tikz}                          % 画图
+\hypersetup{
+	pdfborder = {0 0 0},  % 关闭链接边框
+	colorlinks = true,   % 启用颜色链接
+	linkcolor = blue,    % 内部链接的颜色（例如：章节、页码等）
+	citecolor = red,     % 引用文献链接的颜色
+	urlcolor = purple,   % URL 链接的颜色
+}
+
+\usepackage{booktabs}                      % 三线表
+\usepackage[numbers,sort&compress]{natbib} % 参考文献
+\usepackage{caption}                       % 图表标题
+\usepackage[shortlabels]{enumitem}         % 列表环境
+
+% ========== 页面布局 ==========
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parskip}{0.5em}                % 段落间距
+\renewcommand{\baselinestretch}{1.2}       % 行距
+
+% ========== 数学命令 ==========
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}  % 微分符号
+\newcommand{\R}{\mathbb{R}}                % 实数集
+\newcommand{\C}{\mathbb{C}}                % 复数集
+\newcommand{\Z}{\mathbb{Z}}                % 整数集
+\newcommand{\Lspace}{L^2(-l,l)}            % L²空间
+
+% ========== 定理环境 ==========
+% 定义题目环境
+\newtheorem{problem}{题}
+% 定义解题环境
+\newtheorem*{solution}{解}
+
+% ========== 文档信息 ==========
+
+
+\vspace{1cm}
+
+
+
+%\title{偏微分方程第二次作业}
+%\author{22数学1陈柏均202225110102}
+%\date{\today}
+
+
+
+\begin{document}
+
+	\begin{center}
+		\LARGE 偏微分方程第二次作业 \\
+		\vspace{0.5cm}
+		\large 班级:22数学1 \quad 姓名:陈柏均 \quad 学号:202225110102
+	\end{center}
+	
+	%\maketitle
+	
+	\begin{problem}
+	
+如果已知下述常微分方程的特定初值问题
+	\begin{equation}\label{eq:1}
+	\begin{cases}
+		-y'' + y = 0,\quad  x > 0, \\
+		y(0) = 0,\quad  y'(0) = 1
+	\end{cases}
+\end{equation}
+	的解为 \( y = Y(x) \)，试通过它写出一般初值问题
+	\begin{equation}\label{eq:2}
+	\begin{cases}
+		-y'' + y = f(x), \\
+		y(0) = a,\quad  y'(0) = b
+	\end{cases}
+\end{equation}
+	的解的表达式。
+	
+	\end{problem}
+	
+\begin{solution}
+	
+步骤1. 齐次化原理
+
+\noindent 
+齐次化原理指出，非齐次方程的解可以分解为齐次方程的解与非齐次项的特解之和。具体来说，解的结构为：
+	\[
+	y(x) = y_h(x) + y_p(x)
+	\]
+	其中：
+	\begin{equation}\label{eq:3}
+		\begin{cases}
+			-y'' + y = 0 \\
+			y(0) = a, \quad y'(0) = b
+		\end{cases}
+	\end{equation}
+ \( y_h(x) \) 是齐次方程\eqref{eq:3}的解，
+\( y_p(x) \) 是非齐次方程\eqref{eq:2}的特解。
+	
+	步骤2. 齐次解 \( y_h(x) \)
+	
+\noindent	
+已知齐次方程\eqref{eq:3}的通解为：
+	\[
+	y_h(x) = C_1 Y(x) + C_2 Y'(x)
+	\]
+	其中 \( Y(x) \) 是齐次方程\eqref{eq:3}的一个特解，
+	满足 \( Y(0) = 0 \) 和 \( Y'(0) = 1 \)。通过初始条件 \( y(0) = a \) 和 \( y'(0) = b \)，可以确定系数 \( C_1 \) 和 \( C_2 \)：
+	\[
+	\begin{aligned}
+		y_h(0) &= a \implies C_1 Y(0) + C_2 Y'(0) = a \implies C_2 = a, \\
+		y_h'(0) &= b \implies C_1 Y'(0) + C_2 Y''(0) = b \implies C_1 = b.
+	\end{aligned}
+	\]
+	因此，齐次解$y_h(x)$为：
+	\[
+	y_h(x) = a Y'(x) + b Y(x)
+	\]
+	
+	
+	步骤3.构造特解 $y_p(x)$
+	
+\noindent 
+利用Duhamel原理，特解可表示为：
+	\[
+	y_p(x) = -\int_0^x Y(x-t)f(t)\diff t
+	\]
+	
+步骤4.最终解的表达式
+	
+	\noindent
+	综上所述，一般初值问题\eqref{eq:2}的解为：
+	\[
+	y(x) = a Y'(x) + b Y(x) - \int_{0}^{x} Y(x-t) f(t) \diff t
+	\]
+
+\end{solution}
+	
+	\newpage
+	
+\begin{problem}
+
+ 找出函数变换将下面的边界条件齐次化:
+	\begin{enumerate}
+		\item $u_x(0,t) = \mu_1(t), \quad u(l,t) = \mu_2(t)$;
+	\begin{solution}
+	由边界条件
+	\begin{equation}
+		u_x(0,t) = \mu_1(t), \quad u(l,t) = \mu_2(t), \quad t \geq 0.
+	\end{equation}
+	
+	设$u(x, t)=U(x, t)=ax^2+bx+c$
+	\[
+	\begin{cases}
+		u_x(0, t) = \mu_1(t) = U_x(0, t) = b, \\
+		u(l, t) = \mu_2(t) = U(l, t) = al^2 + bl+c,
+	\end{cases}
+	\]
+	\[
+	\begin{cases}
+		a = 0 (\text{令最高次待定系数为0})\\
+		b =\mu_1(t) \\
+		c = \mu_2(t)-\mu_1(t)l
+	\end{cases}
+	\]
+	
+构造关于变量 \(x\) 的线性辅助函数（直线方程）：
+	\begin{equation}
+		U(x, t) = \mu_1(t)(x-l) + \mu_2(t) ,
+	\end{equation}
+	
+	作变换：
+	\begin{equation}
+		v(x, t) = u(x, t) - U(x, t),
+	\end{equation}
+	得：
+	\begin{equation}
+		\begin{cases}
+			v_{tt} - a^2 v_{xx} = f_4(x, t), & 0 < x < l, \ t > 0, \\
+			v(x, 0) = \varphi_4(x), \quad v_t(x, 0) = \psi_4(x), & 0 \leq x \leq l, \\
+			v_x(0, t) = 0, \quad v_x(l, t) = 0. &
+		\end{cases}
+	\end{equation}
+	其中：
+	\begin{equation}
+		\begin{cases}
+			f_4(x, t) = f(x, t) - \mu_1''(t) (x-l)- \mu_2''(t) , \\
+			\varphi_4(x) = \varphi(x) - \mu_1(0)(x-l)- \mu_2(0), \\
+			\psi_4(x) = \psi(x) - \mu_1'(0)(x-l) - \mu_2'(0).
+		\end{cases}
+	\end{equation}
+	\end{solution}
+	
+		\item $u(0,t) = \mu_1(t), \quad u_x(l,t) = \mu_2(t)$.
+	\end{enumerate}
+	
+\end{problem}
+	
+\begin{solution}
+由边界条件
+\begin{equation}
+	u(0,t) = \mu_1(t), \quad u_x(l,t) = \mu_2(t), \quad t \geq 0.
+\end{equation}
+
+设$u(x, t)=U(x, t)=ax^2+bx+c$
+\[
+\begin{cases}
+	u(0, t) = \mu_1(t) = U(0, t) = c, \\
+	u_x(l, t) = \mu_2(t) = U_x(l, t) = 2al + b,
+\end{cases}
+\]
+\[
+\begin{cases}
+	a = 0 (\text{令最高次待定系数为0})\\
+	b =\mu_2(t) \\
+	c = \mu_1(t)
+\end{cases}
+\]
+
+构造关于变量 \(x\) 的线性辅助函数（直线方程）：
+\begin{equation}
+	U(x, t) =  \mu_2(t) x+\mu_1(t) ,
+\end{equation}
+
+作变换：
+\begin{equation}
+	v(x, t) = u(x, t) - U(x, t),
+\end{equation}
+得：
+\begin{equation}
+	\begin{cases}
+		v_{tt} - a^2 v_{xx} = f_3(x, t), & 0 < x < l, \ t > 0, \\
+		v(x, 0) = \varphi_3(x), \quad v_t(x, 0) = \psi_3(x), & 0 \leq x \leq l, \\
+		v(0, t) = 0, \quad v_x(l, t) = 0. &
+	\end{cases}
+\end{equation}
+	
+\end{solution}
+	我的偏微分笔记有详细解答.\href{https://github.com/Albert-Chen04/Partial-differential-equation}{偏微分笔记}
+	
+	
+\newpage
+\begin{problem}
+
+ 求方程
+	\[
+	u_{tt} = a^2(u_{xx} + u_{yy} + u_{zz})
+	\]
+	形如 $u = f(r, t)$ 的解（球面波），其中 $r = \sqrt{x^2 + y^2 + z^2}$.
+	
+\end{problem}
+	
+	\begin{solution}
+	
+步骤1. 链式法则转换导数
+	
+	\noindent
+三维波动方程：
+\[
+u_{tt} = a^2(u_{xx} + u_{yy} + u_{zz})
+\]
+	首先，计算 $r$ 对各变量的一阶和二阶偏导数。
+由 $r = (x^2+y^2+z^2)^{\frac{1}{2}}$ 可得：
+\[
+\frac{\partial r}{\partial x} = \frac{1}{2}(x^2+y^2+z^2)^{-\frac{1}{2}} \cdot 2x = \frac{x}{r}
+\]
+同理，$\frac{\partial r}{\partial y} = \frac{y}{r}$，$\frac{\partial r}{\partial z} = \frac{z}{r}$。
+\[
+\frac{\partial^2 r}{\partial x^2} = - \frac{x^2}{r^3} + \frac{1}{r}
+\]
+利用链式法则，计算 $u(r)$ 的一阶和二阶偏导数：
+\begin{align*}
+	u_x &= u_r \frac{\partial r}{\partial x} \\[6pt]
+	u_{xx} &= \frac{\partial}{\partial x}\left(u_r \frac{\partial r}{\partial x}\right) = \left(\frac{\partial u_r}{\partial r}\frac{\partial r}{\partial x}\right)\frac{\partial r}{\partial x} + u_r \frac{\partial^2 r}{\partial x^2} = u_{rr}\left(\frac{\partial r}{\partial x}\right)^2 + u_r \frac{\partial^2 r}{\partial x^2}
+\end{align*}
+同理可得 $u_{yy}$ 和 $u_{zz}$ 的表达式。
+
+将三者相加，得到拉普拉斯算子 $\Delta u = u_{xx} + u_{yy} + u_{zz}$：
+\begin{align*}
+	\Delta u &= u_{rr} \left[ \left(\frac{\partial r}{\partial x}\right)^2 + \left(\frac{\partial r}{\partial y}\right)^2 + \left(\frac{\partial r}{\partial z}\right)^2 \right] + u_r \left( \frac{\partial^2 r}{\partial x^2} + \frac{\partial^2 r}{\partial y^2} + \frac{\partial^2 r}{\partial z^2} \right) \\[6pt]
+	% 计算两个求和项
+	% 第一个求和项
+	&= u_{rr} \left[ \frac{x^2}{r^2} + \frac{y^2}{r^2} + \frac{z^2}{r^2} \right] + u_r \left( \frac{r^2-x^2}{r^3} + \frac{r^2-y^2}{r^3} + \frac{r^2-z^2}{r^3} \right) \\[6pt]
+	% 化简
+	&= u_{rr} \left( \frac{x^2+y^2+z^2}{r^2} \right) + u_r \left( \frac{3r^2 - (x^2+y^2+z^2)}{r^3} \right) \\[6pt]
+	&= u_{rr} \left( \frac{r^2}{r^2} \right) + u_r \left( \frac{3r^2 - r^2}{r^3} \right) \\
+	&= u_{rr} + u_r \left( \frac{2r^2}{r^3} \right) \\[6pt]
+	&= u_{rr} + \frac{2}{r} u_r
+\end{align*}
+
+
+
+球对称解意味着解 $u$ 只与到原点的距离 $r = \sqrt{x^2+y^2+z^2}$ 有关，即 $u=u(r)$。
+在球坐标系下，拉普拉斯算子 $\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2}$ 作用于球对称函数 $u(r)$ 的形式为：
+\[
+\Delta u = u_{rr} + \frac{2}{r} u_r
+\]
+
+\[
+u_{tt} = a^2 \left(u_{rr} + \frac{2}{r} u_r \right)
+\]
+
+	步骤2. 变量代换
+
+\noindent
+为了求解这个方程，作变量代换，令 $v(r) = r u(r)$。则 $u(r) = \frac{v(r)}{r}$。
+
+\begin{equation*}
+	\frac{\partial^2}{\partial r^2}(ru) = \frac{\partial}{\partial r}(u + ru_r) = u_r + u_r + r u_{rr} = r u_{rr} + 2u_r
+\end{equation*}
+\[
+v_{tt} - a^2 v_{rr} = 0
+\]
+
+新的函数 $v(r,t)$ 的初始条件为：
+\begin{align*}
+	v(r,0) &= r u(r,0) = r\phi(r) \\
+	v_t(r,0) &= r u_t(r,0) = r\psi(r)
+\end{align*}
+
+
+我们现在有了关于 $v(r,t)$ 的一维波动方程初值问题。使用达朗贝尔公式求解：
+\[
+v(r,t) = \frac{1}{2} [v(r+at, 0) + v(r-at, 0)] + \frac{1}{2a} \int_{r-at}^{r+at} v_t(s,0) \diff s
+\]
+将 $v$ 的初始条件代入：
+\[
+v(r,t) = \frac{1}{2} [(r+at)\phi(r+at) + (r-at)\phi(r-at)] + \frac{1}{2a} \int_{r-at}^{r+at} s\psi(s) \diff s
+\]
+
+
+步骤3. 回代得到最终解
+
+最后，将解 $v(r,t)$ 代换回 $u(r,t) = v(r,t)/r$ (对于 $r \neq 0$):
+\[
+u(r,t) = \frac{(r+at)\phi(r+at) + (r-at)\phi(r-at)}{2r} + \frac{1}{2ar} \int_{r-at}^{r+at} s\psi(s) \diff s
+\]
+	
+\end{solution}
+	
+	\newpage
+\begin{problem}
+
+求如下定解方程，并给出该问题的依赖区域、决定区域和影响区域。
+	\[
+	\begin{cases}
+		u_{xx} + 2u_{xy} - 3u_{yy} = 0, & -\infty < x < +\infty, \quad y > y_0 \\
+		u|_{y=y_0} = 3x^2, \quad u_y|_{y=y_0} = 0, & -\infty < x < +\infty.
+	\end{cases}
+	\]
+	
+\end{problem}
+
+\begin{solution}
+	步骤1. 特征方程推导
+	
+		\noindent
+	齐次化原理指出，偏微分方程的解可以通过特征线法分解为齐次方程的解与初始条件的组合。具体来说，解的结构为：
+	\[
+	u(x, y) = F(y - 3x) + G(y + x)
+	\]
+	其中：
+	\begin{equation}\label{eq:4}
+		\begin{cases}
+			u_{xx} + 2u_{xy} - 3u_{yy} = 0 \\
+			u|_{y=y_0} = 3x^2, \quad u_y|_{y=y_0} = 0
+		\end{cases}
+	\end{equation}
+	\( F(y - 3x) \) 和 \( G(y + x) \) 是特征线上的解。
+	
+	步骤2. 特征线方程
+	
+		\noindent
+	已知双曲型方程的特征方程为：
+	\[
+	\frac{dy}{dx} = \frac{1 \pm \sqrt{1 + 3}}{1}
+	\]
+	解得特征线为：
+	\[
+	y = 3x + C_1 \quad \text{和} \quad y = -x + C_2
+	\]
+	其中 \( C_1 \) 和 \( C_2 \) 是任意常数。
+	
+	引入新变量：
+	\[
+	\xi = y - 3x \quad \text{和} \quad \eta = y + x
+	\]
+	
+	步骤3. 通解求解
+	
+		\noindent
+	将方程化简为标准形式：
+	\[
+	u_{\xi\eta} = 0
+	\]
+	通解为：
+	\[
+	u(\xi, \eta) = F(\xi) + G(\eta)
+	\]
+	转换回原始变量：
+	\[
+	u(x, y) = F(y - 3x) + G(y + x)
+	\]
+	
+步骤4. 初始条件应用
+	
+		\noindent
+	代入初始条件：
+ \( u|_{y=y_0} = 3x^2 \)，
+ \( u_y|_{y=y_0} = 0 \)
+代入 \( y = y_0 \)：
+	\[
+	F(y_0 - 3x) + G(y_0 + x) = 3x^2
+	\]
+	计算 \( u_y \)：
+	\[
+	u_y = F'(y - 3x) + G'(y + x)=0
+	\]
+	代入 \( y = y_0 \)：
+	\[
+F'(y_0 - 3x) + G(y_0 + x)=0
+	\]
+	对x积分
+	\[
+	-\frac{1}{3}F(y_0 - 3x) + G(y_0 + x)=C
+	\]
+	得方程组
+\begin{align}
+	G(y_0+x) &= \frac{1}{3} F(y_0-3x) + C \label{eq:1} \\[6pt]
+	G(y_0+x) &= 3x^2 - F(y_0-3x) \label{eq:2}
+\end{align}
+联立式 \eqref{eq:1} 和式 \eqref{eq:2} 的右边，可得：
+\begin{align*}
+	\frac{1}{3} F(y_0-3x) + C &= 3x^2 - F(y_0-3x) \\[6pt]
+	\left(\frac{1}{3} + 1\right) F(y_0-3x) &= 3x^2 - C \\[6pt]
+	\frac{4}{3} F(y_0-3x) &= 3x^2 - C \\[6pt]
+	F(y_0-3x) &= \frac{3}{4}(3x^2 - C) \\[6pt]
+	F(y_0-3x) &= \frac{9}{4}x^2 - \frac{3}{4}C
+\end{align*}
+将上式代回式 \eqref{eq:1} 以求 $G(y_0+x)$:
+\begin{align*}
+	G(y_0+x) &= \frac{1}{3} \left( \frac{9}{4}x^2 - \frac{3}{4}C \right) + C \\[6pt]
+	&= \frac{3}{4}x^2 - \frac{1}{4}C + C \\[6pt]
+	&= \frac{3}{4}x^2 + \frac{3}{4}C
+\end{align*}
+现在，我们将 $F$ 和 $G$ 表示为其各自变量的函数。 \\[6pt]
+令 $t = y_0+x$，则 $x = t-y_0$。
+\[
+G(t) = \frac{3}{4}(t-y_0)^2 + \frac{3}{4}C
+\]
+令 $s = y_0-3x$，则 $x = \frac{y_0-s}{3}$。
+\begin{align*}
+	F(s) &= \frac{9}{4}\left(\frac{y_0-s}{3}\right)^2 - \frac{3}{4}C \\[6pt]
+	&= \frac{9}{4} \frac{(y_0-s)^2}{9} - \frac{3}{4}C \\[6pt]
+	&= \frac{1}{4}(y_0-s)^2 - \frac{3}{4}C
+\end{align*}
+方程的解 $u(x,y)$ (注意题目使用 $y$ 作为类时间变量) 为 $u(x,y) = G(y+x) + F(y-3x)$。
+\begin{align*}
+	u(x,y) &= \left[ \frac{3}{4}((y+x)-y_0)^2 + \frac{3}{4}C \right] + \left[ \frac{1}{4}(y_0-(y-3x))^2 - \frac{3}{4}C \right] \\[6pt]
+	&= \frac{3}{4}(x + (y-y_0))^2 + \frac{1}{4}((y_0-y) + 3x)^2 \\[6pt]
+	&= \frac{3}{4}[x^2 + 2x(y-y_0) + (y-y_0)^2] + \frac{1}{4}[(y_0-y)^2 + 6x(y_0-y) + 9x^2] \\[6pt]
+	&= \frac{3}{4}[x^2 + 2x(y-y_0) + (y-y_0)^2] + \frac{1}{4}[(y-y_0)^2 - 6x(y-y_0) + 9x^2] \\[6pt]
+	&= \left(\frac{3}{4}x^2 + \frac{9}{4}x^2\right) + \left(\frac{3}{4}(y-y_0)^2 + \frac{1}{4}(y-y_0)^2\right) + \left(\frac{6}{4}x(y-y_0) - \frac{6}{4}x(y-y_0)\right) \\[6pt]
+	&= \frac{12}{4}x^2 + \frac{4}{4}(y-y_0)^2 + 0 \\[6pt]
+	&= 3x^2 + (y-y_0)^2
+\end{align*}
+	因此，解为：
+	\[
+	u(x, y) = 3x^2 + (y - y_0)^2
+	\]
+	
+	步骤5. 依赖区域、决定区域和影响区域
+	\paragraph{依赖区域}
+	对于任意一个时空点 \((x_p, y_p)\)（其中 \(y_p > y_0\)），其解 \(u(x_p, y_p)\) 的值是由初始线 \(y=y_0\) 上的哪些数据决定的呢？
+	通解 \(u(x,y) = F(y-3x) + G(y+x)\) 表明，解的值由两条通过 \((x_p, y_p)\) 的特征线决定。这两条特征线是：
+	\begin{itemize}
+		\item \(\xi = y-3x = y_p - 3x_p\)
+		\item \(\eta = y+x = y_p + x_p\)
+	\end{itemize}
+	这两条线与初始线 \(y=y_0\) 的交点分别为：
+	\begin{itemize}
+		\item \(y_0 - 3x = y_p - 3x_p \implies x = x_p + \frac{y_p-y_0}{3}\)
+		\item \(y_0 + x = y_p + x_p \implies x = x_p - (y_p-y_0)\)
+	\end{itemize}
+	因此，点 \((x_p, y_p)\) 的解完全由初始线 \(y=y_0\) 上，区间 \(\left[ x_p - (y_p-y_0), x_p + \frac{y_p-y_0}{3} \right]\) 内的初始数据所决定。这个区间就是点 \((x_p, y_p)\) 的依赖区域。
+	
+	\paragraph{影响区域与决定区域}
+	反过来，考虑初始线 \(y=y_0\) 上的一个区间 \([x_1, x_2]\)。
+	\begin{itemize}
+		\item \textbf{影响区域}：该区间上的初始数据会影响到的所有未来点 \((x,y)\) 的集合。这个区域由从 \(x_1\) 出发的右行特征线 \(y-3x = y_0-3x_1\) 和从 \(x_2\) 出发的左行特征线 \(y+x = y_0+x_2\) 在上半平面 \(y>y_0\) 所围成的无限区域构成。
+		\item \textbf{决定区域}：该区域内任意一点的解完全由且仅由区间 \([x_1, x_2]\) 上的数据决定。这个区域是由从 \(x_1\) 出发的左行特征线 \(y+x = y_0+x_1\) 和从 \(x_2\) 出发的右行特征线 \(y-3x = y_0-3x_2\) 在上半平面 \(y>y_0\) 所围成的有限三角形区域构成。
+	\end{itemize}
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1, font=\small]
+			% Axes and initial line
+			\draw[->, thick] (-5,0) -- (5,0) node[below left] {$x$};
+			\draw[->, thick] (0,0) -- (0,5) node[above right] {$y$};
+			\draw[dashed] (-5,1) -- (5,1) node[right] {$y=y_0$};
+			
+			% --- Domain of Dependence ---
+			\node at (-3, 4.5) {\textbf{依赖区域}};
+			% Point (xp, yp)
+			\coordinate (P) at (-2, 3.5);
+			\fill (P) circle (1.5pt) node[above right] {$(x_p, y_p)$};
+			% Characteristic lines for P (slope -1 and 1/3)
+			\draw[dashed, blue] (P) -- ({-2 - (3.5-1)}, 1); % y+x = const
+			\draw[dashed, blue] (P) -- ({-2 + (3.5-1)/3}, 1); % y-3x = const
+			% Highlight the domain of dependence on the initial line
+			\coordinate (dep_start) at ({-2 - (3.5-1)}, 1);
+			\coordinate (dep_end) at ({-2 + (3.5-1)/3}, 1);
+			\draw[line width=2pt, red] (dep_start) -- (dep_end);
+			\node[below=4pt, red] at (-2.8, 1) {依赖区域};
+			% Fill the characteristic triangle
+			\fill[blue!20, opacity=0.5] (P) -- (dep_start) -- (dep_end) -- cycle;
+			
+			% --- Domain of Influence / Determination ---
+			\node at (3, 4.5) {\textbf{影响/决定区域}};
+			% Interval [x1, x2] on the initial line
+			\coordinate (x1) at (1,1);
+			\coordinate (x2) at (3,1);
+			\draw[line width=2pt, red] (x1) -- (x2) node[midway, below=4pt] {$[x_1, x_2]$};
+			\fill (x1) circle (1.5pt) node[below] {$x_1$};
+			\fill (x2) circle (1.5pt) node[below] {$x_2$};
+			
+			% Domain of Determination (inner cone)
+			% Intersection point: y+x=y0+x1 and y-3x=y0-3x2
+			% y = y0+x1-x => y0+x1-x - 3x = y0-3x2 => x1-4x = -3x2 => x = (x1+3x2)/4 = (1+9)/4 = 2.5
+			% y = y0+x1-x = 1+1-2.5 = -0.5 (Error in logic, let's use slopes)
+			% y-1 = -(x-1) and y-1 = 3(x-3) => 2-x = 3x-9 => 4x=11 => x=2.75, y=1-(2.75-1)=-0.75
+			% The slopes are dy/dx = -1 and dy/dx = 3.
+			% Lines are y-1 = -(x-1) and y-1 = 3(x-3)
+			% Let's draw with slopes from points
+			\coordinate (Top) at (1.5, 2.5); % y-1=3(x-1) => y=3x-2; y-1=-(x-3) => y=4-x. 3x-2=4-x => 4x=6 => x=1.5, y=2.5
+			\draw[dashed, green!50!black] (x1) -- (1.5, 2.5); % y+x = y0+x1
+			\draw[dashed, green!50!black] (x2) -- (1.5, 2.5); % y-3x = y0-3x2
+			\fill[green!30, opacity=0.5] (x1) -- (x2) -- (Top) -- cycle;
+			\node[green!50!black] at (2, 1.5) {决定区域};
+			
+			% Domain of Influence (outer cone)
+			\draw[dashed, orange!80!black] (x1) -- (1+4/3, 5); % y-3x = y0-3x1
+			\draw[dashed, orange!80!black] (x2) -- (3-4, 5); % y+x = y0+x2
+			\fill[orange!30, opacity=0.3] (x1) -- (1+4/3, 5) -- (3-4, 5) -- (x2) -- cycle;
+			\node[orange!80!black] at (2, 3.5) {影响区域};
+			
+		\end{tikzpicture}
+		\captionof{figure}{依赖、决定与影响区域示意图。特征线斜率为 \(-1\) 和 \(3\)。}
+	\end{center}
+	
+\end{solution}
+
+\newpage
+\begin{problem}
+ 求解方程
+	\[
+	\begin{cases}
+		u_{tt} - u_{xx} = t\sin x, & -\infty < x < +\infty, \quad t > 0 \\
+		u|_{t=0} = 0, \quad u_t|_{t=0} = \sin x, & -\infty < x < +\infty.
+	\end{cases}
+	\]
+	(提示：齐次化原理+达朗贝尔公式)
+	
+\end{problem}
+	
+\begin{solution}
+	步骤1. 齐次方程求解
+	
+	\noindent
+	齐次波动方程\eqref{eq:5}的初值问题为：
+	\begin{equation}\label{eq:5}
+	\begin{cases}
+		u_{tt} - u_{xx} = 0, & -\infty < x < +\infty, \quad t > 0 \\
+		u|_{t=0} = 0, \quad u_t|_{t=0} = \sin x, & -\infty < x < +\infty.
+	\end{cases}
+		\end{equation}
+	应用达朗贝尔公式，解为：
+	\[
+	u_h(x, t) = \frac{1}{2} \int_{x - t}^{x + t} \sin s \, ds
+	\]
+	计算积分：
+	\[
+	\int_{x - t}^{x + t} \sin s \, ds = -\cos s \Big|_{x - t}^{x + t} = -\cos(x + t) + \cos(x - t)
+	\]
+	利用三角恒等式展开：
+	\[
+	\cos(x + t) = \cos x \cos t - \sin x \sin t \\
+	\cos(x - t) = \cos x \cos t + \sin x \sin t
+	\]
+	代入后得到：
+	\[
+	u_h(x, t) = \frac{1}{2} \left[ (\cos x \cos t + \sin x \sin t) - (\cos x \cos t - \sin x \sin t) \right] = \sin x \sin t
+	\]
+	
+	步骤2. 非齐次方程求解
+	
+	\noindent
+	非齐次方程\eqref{eq:6}的初值问题为：
+		\begin{equation}\label{eq:6}
+	\begin{cases}
+		u_{tt} - u_{xx} = t \sin x, & -\infty < x < +\infty, \quad t > 0 \\
+		u|_{t=0} = 0, \quad u_t|_{t=0} = 0, & -\infty < x < +\infty.
+	\end{cases}
+		\end{equation}
+	应用齐次化原理，非齐次解为：
+	\[
+	u_p(x, t) = \int_0^t \frac{1}{2} \int_{x - (t - \tau)}^{x + (t - \tau)} \tau \sin s \, ds \, d\tau
+	\]
+	计算内部积分：
+	\[
+	\int_{x - (t - \tau)}^{x + (t - \tau)} \tau \sin s \, ds = \tau \left[ -\cos(x + t - \tau) + \cos(x - t + \tau) \right]
+	\]
+	利用三角恒等式：
+	\[
+	\cos(x - t + \tau) - \cos(x + t - \tau) = 2 \sin x \sin(t - \tau)
+	\]
+	代入后得到：
+	\[
+	u_p(x, t) = \sin x \int_0^t \tau \sin(t - \tau) \, d\tau
+	\]
+	变量替换 \(u = t - \tau\)，计算积分：
+	\[
+	\int_0^t \tau \sin(t - \tau) \, d\tau = t - \sin t
+	\]
+	因此，非齐次解为：
+	\[
+	u_p(x, t) = \sin x (t - \sin t)
+	\]
+	
+	步骤3. 总解求解
+	
+	\noindent
+	将齐次解和非齐次解相加，得到总解：
+	\[
+	u(x, t) = u_h(x, t) + u_p(x, t) = \sin x \sin t + \sin x (t - \sin t) = t \sin x
+	\]
+	
+	
+\end{solution}
+	详细知识点在我的偏微分笔记里有,有原理和例题\href{https://github.com/Albert-Chen04/Partial-differential-equation}{偏微分笔记}
+	
+\end{document}
